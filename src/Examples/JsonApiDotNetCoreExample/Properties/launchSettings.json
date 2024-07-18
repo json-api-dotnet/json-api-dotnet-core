@@ -12,7 +12,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/todoItems?include=owner,assignee,tags&filter=equals(priority,'High')",
+      "launchUrl": "api/todoItems?include=owner,assignee,tags&filter=equals(decrypt(description),'_secret_')",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -20,7 +20,7 @@
     "Kestrel": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/todoItems?include=owner,assignee,tags&filter=equals(priority,'High')",
+      "launchUrl": "api/todoItems?include=owner,assignee,tags&filter=equals(decrypt(description),'_secret_')",
       "applicationUrl": "https://localhost:44340;http://localhost:14140",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

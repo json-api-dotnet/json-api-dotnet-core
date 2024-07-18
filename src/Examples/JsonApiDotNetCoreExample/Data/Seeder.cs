@@ -1,5 +1,6 @@
 using JetBrains.Annotations;
 using JsonApiDotNetCoreExample.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace JsonApiDotNetCoreExample.Data;
 
@@ -51,6 +52,23 @@ internal sealed class Seeder
         });
 
         dbContext.TodoItems.AddRange(todoItems.Elements);
+        await dbContext.SaveChangesAsync();
+
+        // Just for demo purposes, decryption is defined as: prefix and suffix the incoming value with an underscore.
+        await dbContext.Database.ExecuteSqlRawAsync("""
+            CREATE OR REPLACE FUNCTION decrypt_data(value text)
+              RETURNS text
+            RETURN '_' || value || '_';
+            """);
+
+        dbContext.TodoItems.Add(new TodoItem
+        {
+            Description = "secret",
+            Priority = priorities.GetNext(),
+            CreatedAt = DateTimeOffset.UtcNow,
+            Owner = people.GetNext()
+        });
+
         await dbContext.SaveChangesAsync();
     }
 }

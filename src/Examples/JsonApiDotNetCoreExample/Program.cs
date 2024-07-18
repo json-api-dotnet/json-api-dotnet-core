@@ -4,6 +4,9 @@ using System.Text.Json.Serialization;
 using JsonApiDotNetCore.Configuration;
 using JsonApiDotNetCore.Diagnostics;
 using JsonApiDotNetCoreExample;
+using JsonApiDotNetCore.Queries.Parsing;
+using JsonApiDotNetCore.Queries.QueryableBuilding;
+using JsonApiDotNetCoreExample.CustomFunctions.Decrypt;
 using JsonApiDotNetCoreExample.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -26,6 +29,9 @@ static WebApplication CreateWebApplication(string[] args)
     CodeTimingSessionManager.Capture(codeTimerSession);
 
     WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+    builder.Services.AddTransient<IFilterParser, DecryptFilterParser>();
+    builder.Services.AddTransient<IWhereClauseBuilder, DecryptWhereClauseBuilder>();
 
     // Add services to the container.
     ConfigureServices(builder);

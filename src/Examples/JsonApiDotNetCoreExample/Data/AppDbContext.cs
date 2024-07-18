@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using JsonApiDotNetCoreExample.CustomFunctions.Decrypt;
 using JsonApiDotNetCoreExample.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -26,6 +27,9 @@ public sealed class AppDbContext(DbContextOptions<AppDbContext> options)
             .WithOne(todoItem => todoItem.Owner);
 
         AdjustDeleteBehaviorForJsonApi(builder);
+
+        builder.HasDbFunction(FunctionStub.DecryptMethod)
+            .HasName("decrypt_data");
     }
 
     private static void AdjustDeleteBehaviorForJsonApi(ModelBuilder builder)
