@@ -1,5 +1,7 @@
+using System.Net;
 using System.Text.Json;
 using JsonApiDotNetCore.Configuration;
+using JsonApiDotNetCore.Errors;
 using JsonApiDotNetCore.Serialization.JsonConverters;
 using JsonApiDotNetCore.Serialization.Objects;
 
@@ -31,19 +33,31 @@ internal sealed class OpenApiResourceObjectConverter : ResourceObjectConverter
         _requestAccessor = requestAccessor;
     }
 
-    private protected override void ValidateExtensionInAttributes(string extensionNamespace, string extensionName, Utf8JsonReader reader)
+    private protected override void ValidateExtensionInAttributes(string extensionNamespace, string extensionName, ResourceType resourceType,
+        Utf8JsonReader reader)
     {
-        if (!IsOpenApiDiscriminator(extensionNamespace, extensionName))
+        if (IsOpenApiDiscriminator(extensionNamespace, extensionName))
         {
-            base.ValidateExtensionInAttributes(extensionNamespace, extensionName, reader);
+            const string jsonPointer = $"attributes/{OpenApiMediaTypeExtension.ExtensionNamespace}:{OpenApiMediaTypeExtension.DiscriminatorPropertyName}";
+            ValidateOpenApiDiscriminatorValue(resourceType, jsonPointer, reader);
+        }
+        else
+        {
+            base.ValidateExtensionInAttributes(extensionNamespace, extensionName, resourceType, reader);
         }
     }
 
-    private protected override void ValidateExtensionInRelationships(string extensionNamespace, string extensionName, Utf8JsonReader reader)
+    private protected override void ValidateExtensionInRelationships(string extensionNamespace, string extensionName, ResourceType resourceType,
+        Utf8JsonReader reader)
     {
-        if (!IsOpenApiDiscriminator(extensionNamespace, extensionName))
+        if (IsOpenApiDiscriminator(extensionNamespace, extensionName))
         {
-            base.ValidateExtensionInRelationships(extensionNamespace, extensionName, reader);
+            const string jsonPointer = $"relationships/{OpenApiMediaTypeExtension.ExtensionNamespace}:{OpenApiMediaTypeExtension.DiscriminatorPropertyName}";
+            ValidateOpenApiDiscriminatorValue(resourceType, jsonPointer, reader);
+        }
+        else
+        {
+            base.ValidateExtensionInRelationships(extensionNamespace, extensionName, resourceType, reader);
         }
     }
 
@@ -67,5 +81,26 @@ internal sealed class OpenApiResourceObjectConverter : ResourceObjectConverter
     {
         return HasOpenApiExtension && extensionNamespace == OpenApiMediaTypeExtension.ExtensionNamespace &&
             extensionName == OpenApiMediaTypeExtension.DiscriminatorPropertyName;
+    }
+
+    private static void ValidateOpenApiDiscriminatorValue(ResourceType resourceType, string relativeJsonPointer, Utf8JsonReader reader)
+    {
+        string? discriminatorValue = reader.GetString();
+
+        if (discriminatorValue != resourceType.PublicName)
+        {
+            var jsonApiException = new JsonApiException(new ErrorObject(HttpStatusCode.Conflict)
+            {
+                Title = "Incompatible resource type found.",
+                Detail =
+                    $"Expected {OpenApiMediaTypeExtension.FullyQualifiedOpenApiDiscriminatorPropertyName} with value '{resourceType.PublicName}' instead of '{discriminatorValue}'.",
+                Source = new ErrorSource
+                {
+                    Pointer = relativeJsonPointer
+                }
+            });
+
+            CapturedThrow(jsonApiException);
+        }
     }
 }

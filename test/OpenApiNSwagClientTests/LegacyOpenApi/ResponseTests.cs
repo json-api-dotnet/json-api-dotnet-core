@@ -230,7 +230,7 @@ public sealed class ResponseTests
         exception.Result.Links.Describedby.Should().Be("/swagger/v1/swagger.json");
         exception.Result.Errors.Should().HaveCount(1);
 
-        ErrorObject? error = exception.Result.Errors.ElementAt(0);
+        ErrorObject error = exception.Result.Errors.ElementAt(0);
         error.Id.Should().Be("f1a520ac-02a0-466b-94ea-86cbaa86f02f");
         error.Status.Should().Be("404");
         error.Title.Should().Be("The requested resource does not exist.");

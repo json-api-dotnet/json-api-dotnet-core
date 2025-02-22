@@ -1,3 +1,4 @@
+using System.Net;
 using FluentAssertions;
 using JsonApiDotNetCore.AtomicOperations;
 using JsonApiDotNetCore.Middleware;
@@ -199,7 +200,7 @@ public sealed class SubsetOfOperationsInheritanceTests
                     {
                         Type = ResourceType.FamilyHomes,
                         Lid = familyHomeLid,
-                        Attributes = new AttributesInUpdateResidenceRequest
+                        Attributes = new AttributesInUpdateFamilyHomeRequest
                         {
                             SurfaceInSquareMeters = newFamilyHomeSurfaceInSquareMeters
                         }
@@ -291,6 +292,57 @@ public sealed class SubsetOfOperationsInheritanceTests
             familyHomeInDatabase.Rooms.OfType<Kitchen>().Should().ContainSingle(kitchen => kitchen.Id == newKitchenId);
             familyHomeInDatabase.Rooms.OfType<Bedroom>().Should().ContainSingle(bedroom => bedroom.Id == newBedroomId);
         });
+    }
+
+    [Fact]
+    public async Task Cannot_use_base_attributes_type_in_derived_data()
+    {
+        // Arrange
+        int newFamilyHomeSurfaceInSquareMeters = _fakers.FamilyHome.GenerateOne().SurfaceInSquareMeters!.Value;
+
+        await _testContext.RunOnDatabaseAsync(async dbContext =>
+        {
+            await dbContext.SaveChangesAsync();
+        });
+
+        using HttpClientRequestAdapter requestAdapter = _requestAdapterFactory.CreateAdapter(_testContext.Factory);
+        var apiClient = new SubsetOfOperationsInheritanceClient(requestAdapter);
+
+        OperationsRequestDocument requestBody = new()
+        {
+            AtomicOperations =
+            [
+                new CreateResidenceOperation
+                {
+                    Op = AddOperationCode.Add,
+                    Data = new DataInCreateFamilyHomeRequest
+                    {
+                        Type = ResourceType.FamilyHomes,
+                        Attributes = new AttributesInCreateResidenceRequest
+                        {
+                            OpenapiDiscriminator = ResourceType.Residences,
+                            SurfaceInSquareMeters = newFamilyHomeSurfaceInSquareMeters
+                        }
+                    }
+                }
+            ]
+        };
+
+        // Act
+        Func<Task> action = async () => await apiClient.Operations.PostAsync(requestBody);
+
+        // Assert
+        ErrorResponseDocument exception = (await action.Should().ThrowExactlyAsync<ErrorResponseDocument>()).Which;
+        exception.ResponseStatusCode.Should().Be((int)HttpStatusCode.Conflict);
+        exception.Message.Should().Be($"Exception of type '{typeof(ErrorResponseDocument).FullName}' was thrown.");
+        exception.Errors.ShouldHaveCount(1);
+
+        ErrorObject error = exception.Errors.ElementAt(0);
+        error.Status.Should().Be("409");
+        error.Title.Should().Be("Incompatible resource type found.");
+        error.Detail.Should().Be("Expected openapi:discriminator with value 'familyHomes' instead of 'residences'.");
+        error.Source.ShouldNotBeNull();
+        error.Source.Pointer.Should().Be("/atomic:operations[0]/data/attributes/openapi:discriminator");
     }
 
     public void Dispose()

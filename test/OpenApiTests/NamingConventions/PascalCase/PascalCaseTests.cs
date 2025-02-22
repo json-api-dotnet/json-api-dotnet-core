@@ -407,7 +407,7 @@ public sealed class PascalCaseTests : IClassFixture<OpenApiTestContext<PascalCas
                     .ShouldBeSchemaReferenceId("RelationshipsInCreateSupermarketRequest").SchemaReferenceId;
             });
 
-            schemasElement.Should().ContainPath($"{resourceRelationshipInPostRequestSchemaRefId}.properties").With(propertiesElement =>
+            schemasElement.Should().ContainPath($"{resourceRelationshipInPostRequestSchemaRefId}.allOf[1].properties").With(propertiesElement =>
             {
                 propertiesElement.Should().ContainProperty("StoreManager");
                 propertiesElement.Should().ContainPath("StoreManager.allOf[0].$ref").ShouldBeSchemaReferenceId("ToOneStaffMemberInRequest");

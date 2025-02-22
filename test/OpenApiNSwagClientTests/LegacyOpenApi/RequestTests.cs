@@ -101,6 +101,7 @@ public sealed class RequestTests
               "data": {
                 "type": "flights",
                 "relationships": {
+                  "openapi:discriminator": "flights",
                   "purser": {
                     "data": {
                       "type": "flight-attendants",
@@ -172,6 +173,7 @@ public sealed class RequestTests
               "data": {
                 "type": "airplanes",
                 "attributes": {
+                  "openapi:discriminator": "airplanes",
                   "name": "{{name}}",
                   "serial-number": null,
                   "airtime-in-hours": 800
@@ -227,6 +229,7 @@ public sealed class RequestTests
                 "type": "airplanes",
                 "id": "XUuiP",
                 "attributes": {
+                  "openapi:discriminator": "airplanes",
                   "serial-number": null,
                   "airtime-in-hours": null,
                   "last-serviced-at": "2021-01-01T15:23:05.033+04:00",
