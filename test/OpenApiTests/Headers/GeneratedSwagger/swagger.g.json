@@ -204,7 +204,7 @@
             "content": {
               "application/vnd.api+json; ext=openapi": {
                 "schema": {
-                  "$ref": "#/components/schemas/countryPrimaryResponseDocument"
+                  "$ref": "#/components/schemas/primaryCountryResponseDocument"
                 }
               }
             }
@@ -321,7 +321,7 @@
             "content": {
               "application/vnd.api+json; ext=openapi": {
                 "schema": {
-                  "$ref": "#/components/schemas/countryPrimaryResponseDocument"
+                  "$ref": "#/components/schemas/primaryCountryResponseDocument"
                 }
               }
             }
@@ -495,7 +495,7 @@
             "content": {
               "application/vnd.api+json; ext=openapi": {
                 "schema": {
-                  "$ref": "#/components/schemas/countryPrimaryResponseDocument"
+                  "$ref": "#/components/schemas/primaryCountryResponseDocument"
                 }
               }
             }
@@ -1150,6 +1150,19 @@
   },
   "components": {
     "schemas": {
+      "attributesInCountryResponse": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "population": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
       "attributesInCreateCountryRequest": {
         "allOf": [
           {
@@ -1197,6 +1210,18 @@
         },
         "x-abstract": true
       },
+      "attributesInLanguageResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
       "attributesInUpdateCountryRequest": {
         "allOf": [
           {
@@ -1241,19 +1266,6 @@
         },
         "x-abstract": true
       },
-      "countryAttributesInResponse": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "population": {
-            "type": "integer",
-            "format": "int64"
-          }
-        },
-        "additionalProperties": false
-      },
       "countryCollectionResponseDocument": {
         "required": [
           "data",
@@ -1271,7 +1283,7 @@
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/countryDataInResponse"
+              "$ref": "#/components/schemas/dataInCountryResponse"
             }
           },
           "included": {
@@ -1284,99 +1296,6 @@
             "allOf": [
               {
                 "$ref": "#/components/schemas/meta"
-              }
-            ]
-          }
-        },
-        "additionalProperties": false
-      },
-      "countryDataInResponse": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/dataInResponse"
-          },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "minLength": 1,
-                "type": "string",
-                "format": "uuid"
-              },
-              "attributes": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/countryAttributesInResponse"
-                  }
-                ]
-              },
-              "relationships": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/countryRelationshipsInResponse"
-                  }
-                ]
-              },
-              "links": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/resourceLinks"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
-          }
-        ],
-        "additionalProperties": false
-      },
-      "countryPrimaryResponseDocument": {
-        "required": [
-          "data",
-          "links"
-        ],
-        "type": "object",
-        "properties": {
-          "links": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/resourceTopLevelLinks"
-              }
-            ]
-          },
-          "data": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/countryDataInResponse"
-              }
-            ]
-          },
-          "included": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/dataInResponse"
-            }
-          },
-          "meta": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/meta"
-              }
-            ]
-          }
-        },
-        "additionalProperties": false
-      },
-      "countryRelationshipsInResponse": {
-        "type": "object",
-        "properties": {
-          "languages": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/toManyLanguageInResponse"
               }
             ]
           }
@@ -1404,6 +1323,49 @@
             ]
           }
         },
+        "additionalProperties": false
+      },
+      "dataInCountryResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/dataInResponse"
+          },
+          {
+            "required": [
+              "id"
+            ],
+            "type": "object",
+            "properties": {
+              "id": {
+                "minLength": 1,
+                "type": "string",
+                "format": "uuid"
+              },
+              "attributes": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/attributesInCountryResponse"
+                  }
+                ]
+              },
+              "relationships": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/relationshipsInCountryResponse"
+                  }
+                ]
+              },
+              "links": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/resourceLinks"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        ],
         "additionalProperties": false
       },
       "dataInCreateCountryRequest": {
@@ -1465,6 +1427,42 @@
         },
         "x-abstract": true
       },
+      "dataInLanguageResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/dataInResponse"
+          },
+          {
+            "required": [
+              "id"
+            ],
+            "type": "object",
+            "properties": {
+              "id": {
+                "minLength": 1,
+                "type": "string",
+                "format": "uuid"
+              },
+              "attributes": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/attributesInLanguageResponse"
+                  }
+                ]
+              },
+              "links": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/resourceLinks"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        ],
+        "additionalProperties": false
+      },
       "dataInResponse": {
         "required": [
           "type"
@@ -1490,8 +1488,8 @@
         "discriminator": {
           "propertyName": "type",
           "mapping": {
-            "countries": "#/components/schemas/countryDataInResponse",
-            "languages": "#/components/schemas/languageDataInResponse"
+            "countries": "#/components/schemas/dataInCountryResponse",
+            "languages": "#/components/schemas/dataInLanguageResponse"
           }
         },
         "x-abstract": true
@@ -1715,18 +1713,6 @@
         },
         "x-abstract": true
       },
-      "languageAttributesInResponse": {
-        "type": "object",
-        "properties": {
-          "code": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          }
-        },
-        "additionalProperties": false
-      },
       "languageCollectionResponseDocument": {
         "required": [
           "data",
@@ -1744,7 +1730,7 @@
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/languageDataInResponse"
+              "$ref": "#/components/schemas/dataInLanguageResponse"
             }
           },
           "included": {
@@ -1761,42 +1747,6 @@
             ]
           }
         },
-        "additionalProperties": false
-      },
-      "languageDataInResponse": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/dataInResponse"
-          },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "minLength": 1,
-                "type": "string",
-                "format": "uuid"
-              },
-              "attributes": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/languageAttributesInResponse"
-                  }
-                ]
-              },
-              "links": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/resourceLinks"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
-          }
-        ],
         "additionalProperties": false
       },
       "languageIdentifierCollectionResponseDocument": {
@@ -1893,6 +1843,43 @@
           "nullable": true
         }
       },
+      "primaryCountryResponseDocument": {
+        "required": [
+          "data",
+          "links"
+        ],
+        "type": "object",
+        "properties": {
+          "links": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/resourceTopLevelLinks"
+              }
+            ]
+          },
+          "data": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/dataInCountryResponse"
+              }
+            ]
+          },
+          "included": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/dataInResponse"
+            }
+          },
+          "meta": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/meta"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
       "relationshipLinks": {
         "type": "object",
         "properties": {
@@ -1901,6 +1888,19 @@
           },
           "related": {
             "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "relationshipsInCountryResponse": {
+        "type": "object",
+        "properties": {
+          "languages": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/toManyLanguageInResponse"
+              }
+            ]
           }
         },
         "additionalProperties": false

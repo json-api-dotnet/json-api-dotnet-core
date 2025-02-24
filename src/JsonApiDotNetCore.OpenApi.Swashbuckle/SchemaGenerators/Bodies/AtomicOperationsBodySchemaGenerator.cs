@@ -135,9 +135,9 @@ internal sealed class AtomicOperationsBodySchemaGenerator : BodySchemaGenerator
 
     private void GenerateSchemaForOperation(ResourceType resourceType, SchemaRepository schemaRepository)
     {
-        GenerateSchemaForResourceOperation(typeof(CreateResourceOperation<>), resourceType, AtomicOperationCode.Add, schemaRepository);
-        GenerateSchemaForResourceOperation(typeof(UpdateResourceOperation<>), resourceType, AtomicOperationCode.Update, schemaRepository);
-        GenerateSchemaForResourceOperation(typeof(DeleteResourceOperation<>), resourceType, AtomicOperationCode.Remove, schemaRepository);
+        GenerateSchemaForResourceOperation(typeof(CreateOperation<>), resourceType, AtomicOperationCode.Add, schemaRepository);
+        GenerateSchemaForResourceOperation(typeof(UpdateOperation<>), resourceType, AtomicOperationCode.Update, schemaRepository);
+        GenerateSchemaForResourceOperation(typeof(DeleteOperation<>), resourceType, AtomicOperationCode.Remove, schemaRepository);
 
         foreach (RelationshipAttribute relationship in GetRelationshipsInTypeHierarchy(resourceType))
         {
@@ -172,10 +172,10 @@ internal sealed class AtomicOperationsBodySchemaGenerator : BodySchemaGenerator
 
             if (!needsEmptyDerivedSchema)
             {
-                Type identifierSchemaType = typeof(ResourceIdentifierInRequest<>).MakeGenericType(resourceType.ClrType);
+                Type identifierSchemaType = typeof(IdentifierInRequest<>).MakeGenericType(resourceType.ClrType);
                 _ = _dataSchemaGenerator.GenerateSchema(identifierSchemaType, true, schemaRepository);
 
-                bool hasDataProperty = operationOpenType != typeof(DeleteResourceOperation<>);
+                bool hasDataProperty = operationOpenType != typeof(DeleteOperation<>);
 
                 if (hasDataProperty)
                 {
@@ -295,7 +295,7 @@ internal sealed class AtomicOperationsBodySchemaGenerator : BodySchemaGenerator
 
         if (relationshipInAnyBaseResourceType == null)
         {
-            Type rightSchemaType = typeof(ResourceIdentifierInRequest<>).MakeGenericType(relationship.RightType.ClrType);
+            Type rightSchemaType = typeof(IdentifierInRequest<>).MakeGenericType(relationship.RightType.ClrType);
             _ = _dataSchemaGenerator.GenerateSchema(rightSchemaType, true, schemaRepository);
 
             referenceSchemaForRelationshipIdentifier = _relationshipIdentifierSchemaGenerator.GenerateSchema(relationship, schemaRepository);

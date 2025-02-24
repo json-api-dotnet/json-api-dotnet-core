@@ -51,10 +51,10 @@ namespace OpenApiKiotaEndToEndTests.AtomicOperations.GeneratedCode.Models
             var mappingValue = parseNode.GetChildNode("type")?.GetStringValue();
             return mappingValue switch
             {
-                "courses" => new global::OpenApiKiotaEndToEndTests.AtomicOperations.GeneratedCode.Models.CourseDataInResponse(),
-                "enrollments" => new global::OpenApiKiotaEndToEndTests.AtomicOperations.GeneratedCode.Models.EnrollmentDataInResponse(),
-                "students" => new global::OpenApiKiotaEndToEndTests.AtomicOperations.GeneratedCode.Models.StudentDataInResponse(),
-                "teachers" => new global::OpenApiKiotaEndToEndTests.AtomicOperations.GeneratedCode.Models.TeacherDataInResponse(),
+                "courses" => new global::OpenApiKiotaEndToEndTests.AtomicOperations.GeneratedCode.Models.DataInCourseResponse(),
+                "enrollments" => new global::OpenApiKiotaEndToEndTests.AtomicOperations.GeneratedCode.Models.DataInEnrollmentResponse(),
+                "students" => new global::OpenApiKiotaEndToEndTests.AtomicOperations.GeneratedCode.Models.DataInStudentResponse(),
+                "teachers" => new global::OpenApiKiotaEndToEndTests.AtomicOperations.GeneratedCode.Models.DataInTeacherResponse(),
                 _ => new global::OpenApiKiotaEndToEndTests.AtomicOperations.GeneratedCode.Models.DataInResponse(),
             };
         }

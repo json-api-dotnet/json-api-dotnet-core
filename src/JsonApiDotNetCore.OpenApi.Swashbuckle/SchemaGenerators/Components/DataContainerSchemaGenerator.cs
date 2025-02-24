@@ -29,7 +29,7 @@ internal sealed class DataContainerSchemaGenerator
     {
         ArgumentNullException.ThrowIfNull(schemaRepository);
 
-        return _dataSchemaGenerator.GenerateSchemaForCommonData(typeof(ResourceDataInResponse), schemaRepository);
+        return _dataSchemaGenerator.GenerateSchemaForCommonData(typeof(DataInResponse), schemaRepository);
     }
 
     public OpenApiSchema GenerateSchema(Type dataContainerConstructedType, ResourceType resourceType, bool forRequestSchema, bool canIncludeRelated,
@@ -50,7 +50,7 @@ internal sealed class DataContainerSchemaGenerator
         {
             var resourceSchemaType = ResourceSchemaType.Create(dataConstructedType, _resourceGraph);
 
-            if (resourceSchemaType.SchemaOpenType == typeof(ResourceDataInResponse<>))
+            if (resourceSchemaType.SchemaOpenType == typeof(DataInResponse<>))
             {
                 // Ensure all reachable related resource types in response schemas are generated upfront.
                 // This is needed to make includes work when not all endpoints are exposed.
@@ -74,9 +74,9 @@ internal sealed class DataContainerSchemaGenerator
             ? dataProperty.PropertyType.GenericTypeArguments[0]
             : dataProperty.PropertyType;
 
-        if (innerPropertyType == typeof(ResourceDataInResponse))
+        if (innerPropertyType == typeof(DataInResponse))
         {
-            return typeof(ResourceDataInResponse<>).MakeGenericType(resourceType.ClrType);
+            return typeof(DataInResponse<>).MakeGenericType(resourceType.ClrType);
         }
 
         if (!innerPropertyType.IsGenericType)
@@ -91,13 +91,13 @@ internal sealed class DataContainerSchemaGenerator
     {
         Type dataOpenType = dataConstructedType.GetGenericTypeDefinition();
 
-        if (dataOpenType == typeof(ResourceDataInResponse<>))
+        if (dataOpenType == typeof(DataInResponse<>))
         {
             var resourceSchemaType = ResourceSchemaType.Create(dataConstructedType, _resourceGraph);
 
             foreach (ResourceType relatedType in IncludeDependencyScanner.Instance.GetReachableRelatedTypes(resourceSchemaType.ResourceType))
             {
-                Type resourceDataConstructedType = typeof(ResourceDataInResponse<>).MakeGenericType(relatedType.ClrType);
+                Type resourceDataConstructedType = typeof(DataInResponse<>).MakeGenericType(relatedType.ClrType);
                 _ = _dataSchemaGenerator.GenerateSchema(resourceDataConstructedType, false, schemaRepository);
             }
         }

@@ -54,7 +54,7 @@ public sealed class PascalCaseTests : IClassFixture<OpenApiTestContext<PascalCas
                 topLevelLinksSchemaRefId = propertiesElement.Should().ContainPath("links.allOf[0].$ref")
                     .ShouldBeSchemaReferenceId("ResourceCollectionTopLevelLinks").SchemaReferenceId;
 
-                resourceDataSchemaRefId = propertiesElement.Should().ContainPath("data.items.$ref").ShouldBeSchemaReferenceId("SupermarketDataInResponse")
+                resourceDataSchemaRefId = propertiesElement.Should().ContainPath("data.items.$ref").ShouldBeSchemaReferenceId("DataInSupermarketResponse")
                     .SchemaReferenceId;
             });
 
@@ -77,8 +77,8 @@ public sealed class PascalCaseTests : IClassFixture<OpenApiTestContext<PascalCas
 
             schemasElement.Should().ContainPath($"{abstractResourceDataSchemaRefId}.discriminator.mapping").With(mappingElement =>
             {
-                mappingElement.Should().ContainPath("Supermarkets").ShouldBeSchemaReferenceId("SupermarketDataInResponse");
-                mappingElement.Should().ContainPath("StaffMembers").ShouldBeSchemaReferenceId("StaffMemberDataInResponse");
+                mappingElement.Should().ContainPath("Supermarkets").ShouldBeSchemaReferenceId("DataInSupermarketResponse");
+                mappingElement.Should().ContainPath("StaffMembers").ShouldBeSchemaReferenceId("DataInStaffMemberResponse");
             });
 
             schemasElement.Should().ContainPath($"{resourceDataSchemaRefId}.allOf[1].properties").With(propertiesElement =>
@@ -87,10 +87,10 @@ public sealed class PascalCaseTests : IClassFixture<OpenApiTestContext<PascalCas
                     .SchemaReferenceId;
 
                 resourceAttributesInResponseSchemaRefId = propertiesElement.Should().ContainPath("attributes.allOf[0].$ref")
-                    .ShouldBeSchemaReferenceId("SupermarketAttributesInResponse").SchemaReferenceId;
+                    .ShouldBeSchemaReferenceId("AttributesInSupermarketResponse").SchemaReferenceId;
 
                 resourceRelationshipInResponseSchemaRefId = propertiesElement.Should().ContainPath("relationships.allOf[0].$ref")
-                    .ShouldBeSchemaReferenceId("SupermarketRelationshipsInResponse").SchemaReferenceId;
+                    .ShouldBeSchemaReferenceId("RelationshipsInSupermarketResponse").SchemaReferenceId;
             });
 
             schemasElement.Should().ContainPath($"{resourceLinksSchemaRefId}.properties").With(propertiesElement =>
@@ -170,7 +170,7 @@ public sealed class PascalCaseTests : IClassFixture<OpenApiTestContext<PascalCas
             });
 
             documentSchemaRefId = getElement.Should().ContainPath($"responses.200.content{EscapedJsonApiMediaType}.schema.$ref")
-                .ShouldBeSchemaReferenceId("SupermarketPrimaryResponseDocument").SchemaReferenceId;
+                .ShouldBeSchemaReferenceId("PrimarySupermarketResponseDocument").SchemaReferenceId;
         });
 
         document.Should().ContainPath("components.schemas").With(schemasElement =>
@@ -208,7 +208,7 @@ public sealed class PascalCaseTests : IClassFixture<OpenApiTestContext<PascalCas
             });
 
             documentSchemaRefId = getElement.Should().ContainPath($"responses.200.content{EscapedJsonApiMediaType}.schema.$ref")
-                .ShouldBeSchemaReferenceId("StaffMemberSecondaryResponseDocument").SchemaReferenceId;
+                .ShouldBeSchemaReferenceId("SecondaryStaffMemberResponseDocument").SchemaReferenceId;
         });
 
         document.Should().ContainPath("components.schemas").With(schemasElement =>
@@ -217,13 +217,13 @@ public sealed class PascalCaseTests : IClassFixture<OpenApiTestContext<PascalCas
 
             schemasElement.Should().ContainPath($"{documentSchemaRefId}.properties").With(propertiesElement =>
             {
-                resourceDataSchemaRefId = propertiesElement.Should().ContainPath("data.allOf[0].$ref").ShouldBeSchemaReferenceId("StaffMemberDataInResponse")
+                resourceDataSchemaRefId = propertiesElement.Should().ContainPath("data.allOf[0].$ref").ShouldBeSchemaReferenceId("DataInStaffMemberResponse")
                     .SchemaReferenceId;
             });
 
             schemasElement.Should().ContainPath($"{resourceDataSchemaRefId}.allOf[1].properties").With(propertiesElement =>
             {
-                propertiesElement.Should().ContainPath("attributes.allOf[0].$ref").ShouldBeSchemaReferenceId("StaffMemberAttributesInResponse");
+                propertiesElement.Should().ContainPath("attributes.allOf[0].$ref").ShouldBeSchemaReferenceId("AttributesInStaffMemberResponse");
             });
         });
     }
@@ -243,7 +243,7 @@ public sealed class PascalCaseTests : IClassFixture<OpenApiTestContext<PascalCas
             });
 
             getElement.Should().ContainPath($"responses.200.content{EscapedJsonApiMediaType}.schema.$ref")
-                .ShouldBeSchemaReferenceId("NullableStaffMemberSecondaryResponseDocument");
+                .ShouldBeSchemaReferenceId("NullableSecondaryStaffMemberResponseDocument");
         });
     }
 

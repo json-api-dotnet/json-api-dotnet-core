@@ -51,9 +51,9 @@ namespace OpenApiKiotaClientExample.GeneratedCode.Models
             var mappingValue = parseNode.GetChildNode("type")?.GetStringValue();
             return mappingValue switch
             {
-                "people" => new global::OpenApiKiotaClientExample.GeneratedCode.Models.PersonDataInResponse(),
-                "tags" => new global::OpenApiKiotaClientExample.GeneratedCode.Models.TagDataInResponse(),
-                "todoItems" => new global::OpenApiKiotaClientExample.GeneratedCode.Models.TodoItemDataInResponse(),
+                "people" => new global::OpenApiKiotaClientExample.GeneratedCode.Models.DataInPersonResponse(),
+                "tags" => new global::OpenApiKiotaClientExample.GeneratedCode.Models.DataInTagResponse(),
+                "todoItems" => new global::OpenApiKiotaClientExample.GeneratedCode.Models.DataInTodoItemResponse(),
                 _ => new global::OpenApiKiotaClientExample.GeneratedCode.Models.DataInResponse(),
             };
         }

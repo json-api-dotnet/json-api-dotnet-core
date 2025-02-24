@@ -51,8 +51,8 @@ namespace OpenApiKiotaEndToEndTests.Headers.GeneratedCode.Models
             var mappingValue = parseNode.GetChildNode("type")?.GetStringValue();
             return mappingValue switch
             {
-                "countries" => new global::OpenApiKiotaEndToEndTests.Headers.GeneratedCode.Models.CountryDataInResponse(),
-                "languages" => new global::OpenApiKiotaEndToEndTests.Headers.GeneratedCode.Models.LanguageDataInResponse(),
+                "countries" => new global::OpenApiKiotaEndToEndTests.Headers.GeneratedCode.Models.DataInCountryResponse(),
+                "languages" => new global::OpenApiKiotaEndToEndTests.Headers.GeneratedCode.Models.DataInLanguageResponse(),
                 _ => new global::OpenApiKiotaEndToEndTests.Headers.GeneratedCode.Models.DataInResponse(),
             };
         }

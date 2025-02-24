@@ -51,7 +51,7 @@ namespace OpenApiKiotaEndToEndTests.ModelStateValidation.GeneratedCode.Models
             var mappingValue = parseNode.GetChildNode("type")?.GetStringValue();
             return mappingValue switch
             {
-                "socialMediaAccounts" => new global::OpenApiKiotaEndToEndTests.ModelStateValidation.GeneratedCode.Models.SocialMediaAccountDataInResponse(),
+                "socialMediaAccounts" => new global::OpenApiKiotaEndToEndTests.ModelStateValidation.GeneratedCode.Models.DataInSocialMediaAccountResponse(),
                 _ => new global::OpenApiKiotaEndToEndTests.ModelStateValidation.GeneratedCode.Models.DataInResponse(),
             };
         }

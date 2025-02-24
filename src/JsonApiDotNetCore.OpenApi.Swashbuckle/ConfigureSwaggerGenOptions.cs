@@ -16,17 +16,17 @@ internal sealed class ConfigureSwaggerGenOptions : IConfigureOptions<SwaggerGenO
 {
     private static readonly Dictionary<Type, Type> BaseToDerivedSchemaTypes = new()
     {
-        [typeof(ResourceIdentifierInRequest)] = typeof(ResourceIdentifierInRequest<>),
-        [typeof(DataInCreateResourceRequest)] = typeof(DataInCreateResourceRequest<>),
-        [typeof(DataInUpdateResourceRequest)] = typeof(DataInUpdateResourceRequest<>),
-        [typeof(ResourceDataInResponse)] = typeof(ResourceDataInResponse<>)
+        [typeof(IdentifierInRequest)] = typeof(IdentifierInRequest<>),
+        [typeof(DataInCreateRequest)] = typeof(DataInCreateRequest<>),
+        [typeof(DataInUpdateRequest)] = typeof(DataInUpdateRequest<>),
+        [typeof(DataInResponse)] = typeof(DataInResponse<>)
     };
 
     private static readonly Type[] AtomicOperationDerivedSchemaTypes =
     [
-        typeof(CreateResourceOperation<>),
-        typeof(UpdateResourceOperation<>),
-        typeof(DeleteResourceOperation<>),
+        typeof(CreateOperation<>),
+        typeof(UpdateOperation<>),
+        typeof(DeleteOperation<>),
         typeof(UpdateToOneRelationshipOperation<>),
         typeof(UpdateToManyRelationshipOperation<>),
         typeof(AddToRelationshipOperation<>),

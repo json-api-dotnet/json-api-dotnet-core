@@ -54,7 +54,7 @@ public sealed class CamelCaseTests : IClassFixture<OpenApiTestContext<CamelCaseN
                 topLevelLinksSchemaRefId = propertiesElement.Should().ContainPath("links.allOf[0].$ref")
                     .ShouldBeSchemaReferenceId("resourceCollectionTopLevelLinks").SchemaReferenceId;
 
-                resourceDataSchemaRefId = propertiesElement.Should().ContainPath("data.items.$ref").ShouldBeSchemaReferenceId("supermarketDataInResponse")
+                resourceDataSchemaRefId = propertiesElement.Should().ContainPath("data.items.$ref").ShouldBeSchemaReferenceId("dataInSupermarketResponse")
                     .SchemaReferenceId;
             });
 
@@ -77,8 +77,8 @@ public sealed class CamelCaseTests : IClassFixture<OpenApiTestContext<CamelCaseN
 
             schemasElement.Should().ContainPath($"{abstractResourceDataSchemaRefId}.discriminator.mapping").With(mappingElement =>
             {
-                mappingElement.Should().ContainPath("supermarkets").ShouldBeSchemaReferenceId("supermarketDataInResponse");
-                mappingElement.Should().ContainPath("staffMembers").ShouldBeSchemaReferenceId("staffMemberDataInResponse");
+                mappingElement.Should().ContainPath("supermarkets").ShouldBeSchemaReferenceId("dataInSupermarketResponse");
+                mappingElement.Should().ContainPath("staffMembers").ShouldBeSchemaReferenceId("dataInStaffMemberResponse");
             });
 
             schemasElement.Should().ContainPath($"{resourceDataSchemaRefId}.allOf[1].properties").With(propertiesElement =>
@@ -87,10 +87,10 @@ public sealed class CamelCaseTests : IClassFixture<OpenApiTestContext<CamelCaseN
                     .SchemaReferenceId;
 
                 resourceAttributesInResponseSchemaRefId = propertiesElement.Should().ContainPath("attributes.allOf[0].$ref")
-                    .ShouldBeSchemaReferenceId("supermarketAttributesInResponse").SchemaReferenceId;
+                    .ShouldBeSchemaReferenceId("attributesInSupermarketResponse").SchemaReferenceId;
 
                 resourceRelationshipInResponseSchemaRefId = propertiesElement.Should().ContainPath("relationships.allOf[0].$ref")
-                    .ShouldBeSchemaReferenceId("supermarketRelationshipsInResponse").SchemaReferenceId;
+                    .ShouldBeSchemaReferenceId("relationshipsInSupermarketResponse").SchemaReferenceId;
             });
 
             schemasElement.Should().ContainPath($"{resourceLinksSchemaRefId}.properties").With(propertiesElement =>
@@ -170,7 +170,7 @@ public sealed class CamelCaseTests : IClassFixture<OpenApiTestContext<CamelCaseN
             });
 
             documentSchemaRefId = getElement.Should().ContainPath($"responses.200.content{EscapedJsonApiMediaType}.schema.$ref")
-                .ShouldBeSchemaReferenceId("supermarketPrimaryResponseDocument").SchemaReferenceId;
+                .ShouldBeSchemaReferenceId("primarySupermarketResponseDocument").SchemaReferenceId;
         });
 
         document.Should().ContainPath("components.schemas").With(schemasElement =>
@@ -208,7 +208,7 @@ public sealed class CamelCaseTests : IClassFixture<OpenApiTestContext<CamelCaseN
             });
 
             documentSchemaRefId = getElement.Should().ContainPath($"responses.200.content{EscapedJsonApiMediaType}.schema.$ref")
-                .ShouldBeSchemaReferenceId("staffMemberSecondaryResponseDocument").SchemaReferenceId;
+                .ShouldBeSchemaReferenceId("secondaryStaffMemberResponseDocument").SchemaReferenceId;
         });
 
         document.Should().ContainPath("components.schemas").With(schemasElement =>
@@ -217,13 +217,13 @@ public sealed class CamelCaseTests : IClassFixture<OpenApiTestContext<CamelCaseN
 
             schemasElement.Should().ContainPath($"{documentSchemaRefId}.properties").With(propertiesElement =>
             {
-                resourceDataSchemaRefId = propertiesElement.Should().ContainPath("data.allOf[0].$ref").ShouldBeSchemaReferenceId("staffMemberDataInResponse")
+                resourceDataSchemaRefId = propertiesElement.Should().ContainPath("data.allOf[0].$ref").ShouldBeSchemaReferenceId("dataInStaffMemberResponse")
                     .SchemaReferenceId;
             });
 
             schemasElement.Should().ContainPath($"{resourceDataSchemaRefId}.allOf[1].properties").With(propertiesElement =>
             {
-                propertiesElement.Should().ContainPath("attributes.allOf[0].$ref").ShouldBeSchemaReferenceId("staffMemberAttributesInResponse");
+                propertiesElement.Should().ContainPath("attributes.allOf[0].$ref").ShouldBeSchemaReferenceId("attributesInStaffMemberResponse");
             });
         });
     }
@@ -243,7 +243,7 @@ public sealed class CamelCaseTests : IClassFixture<OpenApiTestContext<CamelCaseN
             });
 
             getElement.Should().ContainPath($"responses.200.content{EscapedJsonApiMediaType}.schema.$ref")
-                .ShouldBeSchemaReferenceId("nullableStaffMemberSecondaryResponseDocument");
+                .ShouldBeSchemaReferenceId("nullableSecondaryStaffMemberResponseDocument");
         });
     }
 

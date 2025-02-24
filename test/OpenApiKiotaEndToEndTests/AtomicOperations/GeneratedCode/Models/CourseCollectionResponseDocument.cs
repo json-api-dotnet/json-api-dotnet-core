@@ -19,9 +19,9 @@ namespace OpenApiKiotaEndToEndTests.AtomicOperations.GeneratedCode.Models
         public IBackingStore BackingStore { get; private set; }
 
         /// <summary>The data property</summary>
-        public List<global::OpenApiKiotaEndToEndTests.AtomicOperations.GeneratedCode.Models.CourseDataInResponse>? Data
+        public List<global::OpenApiKiotaEndToEndTests.AtomicOperations.GeneratedCode.Models.DataInCourseResponse>? Data
         {
-            get { return BackingStore?.Get<List<global::OpenApiKiotaEndToEndTests.AtomicOperations.GeneratedCode.Models.CourseDataInResponse>?>("data"); }
+            get { return BackingStore?.Get<List<global::OpenApiKiotaEndToEndTests.AtomicOperations.GeneratedCode.Models.DataInCourseResponse>?>("data"); }
             set { BackingStore?.Set("data", value); }
         }
 
@@ -80,7 +80,7 @@ namespace OpenApiKiotaEndToEndTests.AtomicOperations.GeneratedCode.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "data", n => { Data = n.GetCollectionOfObjectValues<global::OpenApiKiotaEndToEndTests.AtomicOperations.GeneratedCode.Models.CourseDataInResponse>(global::OpenApiKiotaEndToEndTests.AtomicOperations.GeneratedCode.Models.CourseDataInResponse.CreateFromDiscriminatorValue)?.AsList(); } },
+                { "data", n => { Data = n.GetCollectionOfObjectValues<global::OpenApiKiotaEndToEndTests.AtomicOperations.GeneratedCode.Models.DataInCourseResponse>(global::OpenApiKiotaEndToEndTests.AtomicOperations.GeneratedCode.Models.DataInCourseResponse.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "included", n => { Included = n.GetCollectionOfObjectValues<global::OpenApiKiotaEndToEndTests.AtomicOperations.GeneratedCode.Models.DataInResponse>(global::OpenApiKiotaEndToEndTests.AtomicOperations.GeneratedCode.Models.DataInResponse.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "jsonapi", n => { Jsonapi = n.GetObjectValue<global::OpenApiKiotaEndToEndTests.AtomicOperations.GeneratedCode.Models.Jsonapi>(global::OpenApiKiotaEndToEndTests.AtomicOperations.GeneratedCode.Models.Jsonapi.CreateFromDiscriminatorValue); } },
                 { "links", n => { Links = n.GetObjectValue<global::OpenApiKiotaEndToEndTests.AtomicOperations.GeneratedCode.Models.ResourceCollectionTopLevelLinks>(global::OpenApiKiotaEndToEndTests.AtomicOperations.GeneratedCode.Models.ResourceCollectionTopLevelLinks.CreateFromDiscriminatorValue); } },
@@ -95,7 +95,7 @@ namespace OpenApiKiotaEndToEndTests.AtomicOperations.GeneratedCode.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
-            writer.WriteCollectionOfObjectValues<global::OpenApiKiotaEndToEndTests.AtomicOperations.GeneratedCode.Models.CourseDataInResponse>("data", Data);
+            writer.WriteCollectionOfObjectValues<global::OpenApiKiotaEndToEndTests.AtomicOperations.GeneratedCode.Models.DataInCourseResponse>("data", Data);
             writer.WriteCollectionOfObjectValues<global::OpenApiKiotaEndToEndTests.AtomicOperations.GeneratedCode.Models.DataInResponse>("included", Included);
             writer.WriteObjectValue<global::OpenApiKiotaEndToEndTests.AtomicOperations.GeneratedCode.Models.Jsonapi>("jsonapi", Jsonapi);
             writer.WriteObjectValue<global::OpenApiKiotaEndToEndTests.AtomicOperations.GeneratedCode.Models.ResourceCollectionTopLevelLinks>("links", Links);

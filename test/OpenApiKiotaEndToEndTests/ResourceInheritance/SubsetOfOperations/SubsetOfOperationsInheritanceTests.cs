@@ -227,36 +227,36 @@ public sealed class SubsetOfOperationsInheritanceTests
         response.ShouldNotBeNull();
         response.AtomicResults.ShouldHaveCount(7);
 
-        MansionDataInResponse? mansionData = response.AtomicResults.ElementAt(0).Data.Should().BeOfType<MansionDataInResponse>().Subject;
-        MansionAttributesInResponse? mansionAttributes = mansionData.Attributes.Should().BeOfType<MansionAttributesInResponse>().Subject;
+        DataInMansionResponse mansionData = response.AtomicResults.ElementAt(0).Data.Should().BeOfType<DataInMansionResponse>().Subject;
+        AttributesInMansionResponse mansionAttributes = mansionData.Attributes.Should().BeOfType<AttributesInMansionResponse>().Subject;
         mansionAttributes.SurfaceInSquareMeters.Should().Be(newMansion.SurfaceInSquareMeters);
         mansionAttributes.NumberOfResidents.Should().Be(newMansion.NumberOfResidents);
         mansionAttributes.OwnerName.Should().Be(newMansion.OwnerName);
         mansionData.Relationships.Should().BeNull();
 
-        KitchenDataInResponse? kitchenData = response.AtomicResults.ElementAt(1).Data.Should().BeOfType<KitchenDataInResponse>().Subject;
-        KitchenAttributesInResponse? kitchenAttributes = kitchenData.Attributes.Should().BeOfType<KitchenAttributesInResponse>().Subject;
+        DataInKitchenResponse kitchenData = response.AtomicResults.ElementAt(1).Data.Should().BeOfType<DataInKitchenResponse>().Subject;
+        AttributesInKitchenResponse kitchenAttributes = kitchenData.Attributes.Should().BeOfType<AttributesInKitchenResponse>().Subject;
         kitchenAttributes.SurfaceInSquareMeters.Should().Be(newKitchen.SurfaceInSquareMeters);
         kitchenAttributes.HasPantry.Should().Be(newKitchen.HasPantry);
         kitchenData.Relationships.Should().BeNull();
 
-        FamilyHomeDataInResponse? familyHomeData2 = response.AtomicResults.ElementAt(2).Data.Should().BeOfType<FamilyHomeDataInResponse>().Subject;
-        FamilyHomeAttributesInResponse? familyHomeAttributes2 = familyHomeData2.Attributes.Should().BeOfType<FamilyHomeAttributesInResponse>().Subject;
+        DataInFamilyHomeResponse familyHomeData2 = response.AtomicResults.ElementAt(2).Data.Should().BeOfType<DataInFamilyHomeResponse>().Subject;
+        AttributesInFamilyHomeResponse familyHomeAttributes2 = familyHomeData2.Attributes.Should().BeOfType<AttributesInFamilyHomeResponse>().Subject;
         familyHomeAttributes2.SurfaceInSquareMeters.Should().Be(newFamilyHome.SurfaceInSquareMeters);
         familyHomeAttributes2.NumberOfResidents.Should().Be(newFamilyHome.NumberOfResidents);
         familyHomeAttributes2.FloorCount.Should().Be(newFamilyHome.FloorCount);
         familyHomeData2.Relationships.Should().BeNull();
 
-        BedroomDataInResponse? bedroomData = response.AtomicResults.ElementAt(3).Data.Should().BeOfType<BedroomDataInResponse>().Subject;
-        BedroomAttributesInResponse? bedroomAttributes = bedroomData.Attributes.Should().BeOfType<BedroomAttributesInResponse>().Subject;
+        DataInBedroomResponse bedroomData = response.AtomicResults.ElementAt(3).Data.Should().BeOfType<DataInBedroomResponse>().Subject;
+        AttributesInBedroomResponse bedroomAttributes = bedroomData.Attributes.Should().BeOfType<AttributesInBedroomResponse>().Subject;
         bedroomAttributes.SurfaceInSquareMeters.Should().Be(newBedroom.SurfaceInSquareMeters);
         bedroomAttributes.BedCount.Should().Be(newBedroom.BedCount);
         bedroomData.Relationships.Should().BeNull();
 
         response.AtomicResults.ElementAt(4).Data.Should().BeNull();
 
-        FamilyHomeDataInResponse? familyHomeData5 = response.AtomicResults.ElementAt(5).Data.Should().BeOfType<FamilyHomeDataInResponse>().Subject;
-        FamilyHomeAttributesInResponse? familyHomeAttributes5 = familyHomeData5.Attributes.Should().BeOfType<FamilyHomeAttributesInResponse>().Subject;
+        DataInFamilyHomeResponse familyHomeData5 = response.AtomicResults.ElementAt(5).Data.Should().BeOfType<DataInFamilyHomeResponse>().Subject;
+        AttributesInFamilyHomeResponse familyHomeAttributes5 = familyHomeData5.Attributes.Should().BeOfType<AttributesInFamilyHomeResponse>().Subject;
         familyHomeAttributes5.SurfaceInSquareMeters.Should().Be(newFamilyHomeSurfaceInSquareMeters);
         familyHomeAttributes5.NumberOfResidents.Should().Be(newFamilyHome.NumberOfResidents);
         familyHomeAttributes5.FloorCount.Should().Be(newFamilyHome.FloorCount);

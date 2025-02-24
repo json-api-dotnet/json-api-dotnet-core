@@ -19,9 +19,9 @@ namespace OpenApiKiotaEndToEndTests.QueryStrings.GeneratedCode.Models
         public IBackingStore BackingStore { get; private set; }
 
         /// <summary>The data property</summary>
-        public List<global::OpenApiKiotaEndToEndTests.QueryStrings.GeneratedCode.Models.NameValuePairDataInResponse>? Data
+        public List<global::OpenApiKiotaEndToEndTests.QueryStrings.GeneratedCode.Models.DataInNameValuePairResponse>? Data
         {
-            get { return BackingStore?.Get<List<global::OpenApiKiotaEndToEndTests.QueryStrings.GeneratedCode.Models.NameValuePairDataInResponse>?>("data"); }
+            get { return BackingStore?.Get<List<global::OpenApiKiotaEndToEndTests.QueryStrings.GeneratedCode.Models.DataInNameValuePairResponse>?>("data"); }
             set { BackingStore?.Set("data", value); }
         }
 
@@ -73,7 +73,7 @@ namespace OpenApiKiotaEndToEndTests.QueryStrings.GeneratedCode.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "data", n => { Data = n.GetCollectionOfObjectValues<global::OpenApiKiotaEndToEndTests.QueryStrings.GeneratedCode.Models.NameValuePairDataInResponse>(global::OpenApiKiotaEndToEndTests.QueryStrings.GeneratedCode.Models.NameValuePairDataInResponse.CreateFromDiscriminatorValue)?.AsList(); } },
+                { "data", n => { Data = n.GetCollectionOfObjectValues<global::OpenApiKiotaEndToEndTests.QueryStrings.GeneratedCode.Models.DataInNameValuePairResponse>(global::OpenApiKiotaEndToEndTests.QueryStrings.GeneratedCode.Models.DataInNameValuePairResponse.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "included", n => { Included = n.GetCollectionOfObjectValues<global::OpenApiKiotaEndToEndTests.QueryStrings.GeneratedCode.Models.DataInResponse>(global::OpenApiKiotaEndToEndTests.QueryStrings.GeneratedCode.Models.DataInResponse.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "links", n => { Links = n.GetObjectValue<global::OpenApiKiotaEndToEndTests.QueryStrings.GeneratedCode.Models.ResourceCollectionTopLevelLinks>(global::OpenApiKiotaEndToEndTests.QueryStrings.GeneratedCode.Models.ResourceCollectionTopLevelLinks.CreateFromDiscriminatorValue); } },
                 { "meta", n => { Meta = n.GetObjectValue<global::OpenApiKiotaEndToEndTests.QueryStrings.GeneratedCode.Models.Meta>(global::OpenApiKiotaEndToEndTests.QueryStrings.GeneratedCode.Models.Meta.CreateFromDiscriminatorValue); } },
@@ -87,7 +87,7 @@ namespace OpenApiKiotaEndToEndTests.QueryStrings.GeneratedCode.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
-            writer.WriteCollectionOfObjectValues<global::OpenApiKiotaEndToEndTests.QueryStrings.GeneratedCode.Models.NameValuePairDataInResponse>("data", Data);
+            writer.WriteCollectionOfObjectValues<global::OpenApiKiotaEndToEndTests.QueryStrings.GeneratedCode.Models.DataInNameValuePairResponse>("data", Data);
             writer.WriteCollectionOfObjectValues<global::OpenApiKiotaEndToEndTests.QueryStrings.GeneratedCode.Models.DataInResponse>("included", Included);
             writer.WriteObjectValue<global::OpenApiKiotaEndToEndTests.QueryStrings.GeneratedCode.Models.ResourceCollectionTopLevelLinks>("links", Links);
             writer.WriteObjectValue<global::OpenApiKiotaEndToEndTests.QueryStrings.GeneratedCode.Models.Meta>("meta", Meta);

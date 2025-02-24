@@ -147,24 +147,24 @@ internal sealed class DataSchemaGenerator
 
     private static Type? GetCommonDataSchemaType(Type schemaOpenType)
     {
-        if (schemaOpenType == typeof(ResourceIdentifierInRequest<>))
+        if (schemaOpenType == typeof(IdentifierInRequest<>))
         {
-            return typeof(ResourceIdentifierInRequest);
+            return typeof(IdentifierInRequest);
         }
 
-        if (schemaOpenType == typeof(DataInCreateResourceRequest<>))
+        if (schemaOpenType == typeof(DataInCreateRequest<>))
         {
-            return typeof(DataInCreateResourceRequest);
+            return typeof(DataInCreateRequest);
         }
 
-        if (schemaOpenType == typeof(DataInUpdateResourceRequest<>))
+        if (schemaOpenType == typeof(DataInUpdateRequest<>))
         {
-            return typeof(DataInUpdateResourceRequest);
+            return typeof(DataInUpdateRequest);
         }
 
-        if (schemaOpenType == typeof(ResourceDataInResponse<>))
+        if (schemaOpenType == typeof(DataInResponse<>))
         {
-            return typeof(ResourceDataInResponse);
+            return typeof(DataInResponse);
         }
 
         return null;
@@ -172,24 +172,24 @@ internal sealed class DataSchemaGenerator
 
     private static Type GetCommonFieldsSchemaType(Type schemaOpenType)
     {
-        if (schemaOpenType == typeof(AttributesInCreateResourceRequest<>))
+        if (schemaOpenType == typeof(AttributesInCreateRequest<>))
         {
-            return typeof(AttributesInCreateResourceRequest);
+            return typeof(AttributesInCreateRequest);
         }
 
-        if (schemaOpenType == typeof(RelationshipsInCreateResourceRequest<>))
+        if (schemaOpenType == typeof(RelationshipsInCreateRequest<>))
         {
-            return typeof(RelationshipsInCreateResourceRequest);
+            return typeof(RelationshipsInCreateRequest);
         }
 
-        if (schemaOpenType == typeof(AttributesInUpdateResourceRequest<>))
+        if (schemaOpenType == typeof(AttributesInUpdateRequest<>))
         {
-            return typeof(AttributesInUpdateResourceRequest);
+            return typeof(AttributesInUpdateRequest);
         }
 
-        if (schemaOpenType == typeof(RelationshipsInUpdateResourceRequest<>))
+        if (schemaOpenType == typeof(RelationshipsInUpdateRequest<>))
         {
-            return typeof(RelationshipsInUpdateResourceRequest);
+            return typeof(RelationshipsInUpdateRequest);
         }
 
         throw new UnreachableException();
@@ -297,7 +297,7 @@ internal sealed class DataSchemaGenerator
 
     private static void SetAbstract(OpenApiSchema fullSchema, ResourceSchemaType resourceSchemaType)
     {
-        if (resourceSchemaType.ResourceType.ClrType.IsAbstract && resourceSchemaType.SchemaOpenType != typeof(ResourceIdentifierInRequest<>))
+        if (resourceSchemaType.ResourceType.ClrType.IsAbstract && resourceSchemaType.SchemaOpenType != typeof(IdentifierInRequest<>))
         {
             fullSchema.Extensions["x-abstract"] = new OpenApiBoolean(true);
         }
@@ -327,7 +327,7 @@ internal sealed class DataSchemaGenerator
             fullSchema.Properties.Remove(JsonApiPropertyName.Lid);
         }
 
-        if (resourceSchemaType.SchemaOpenType == typeof(DataInCreateResourceRequest<>))
+        if (resourceSchemaType.SchemaOpenType == typeof(DataInCreateRequest<>))
         {
             ClientIdGenerationMode clientIdGeneration = resourceSchemaType.ResourceType.ClientIdGeneration ?? _options.ClientIdGeneration;
 
@@ -474,8 +474,8 @@ internal sealed class DataSchemaGenerator
                     else
                     {
                         string propertyNameInSchemaType = forAttributes
-                            ? nameof(ResourceDataInResponse<IIdentifiable>.Attributes)
-                            : nameof(ResourceDataInResponse<IIdentifiable>.Relationships);
+                            ? nameof(DataInResponse<IIdentifiable>.Attributes)
+                            : nameof(DataInResponse<IIdentifiable>.Relationships);
 
                         Type fieldsSchemaType = GetSchemaTypeForProperty(resourceSchemaTypeForData.SchemaConstructedType, propertyNameInSchemaType);
                         MapFieldsInDiscriminator(fieldsSchemaType, resourceSchemaTypeForData.ResourceType, schemaRepository);
@@ -697,7 +697,7 @@ internal sealed class DataSchemaGenerator
     {
         Type? commonDataSchemaType = GetCommonDataSchemaType(resourceSchemaType.SchemaOpenType);
 
-        if (forRequestSchema && (commonDataSchemaType == typeof(ResourceIdentifierInRequest) ||
+        if (forRequestSchema && (commonDataSchemaType == typeof(IdentifierInRequest) ||
             (!resourceSchemaType.ResourceType.ClrType.IsAbstract && commonDataSchemaType is { IsGenericType: false })))
         {
             // Bug workaround for NSwag, which fails to properly infer implicit { "type": "object" } of outer schema when it appears inside an allOf.

@@ -293,7 +293,7 @@
             "content": {
               "application/vnd.api+json; ext=openapi": {
                 "schema": {
-                  "$ref": "#/components/schemas/staff-member-primary-response-document"
+                  "$ref": "#/components/schemas/primary-staff-member-response-document"
                 }
               }
             }
@@ -410,7 +410,7 @@
             "content": {
               "application/vnd.api+json; ext=openapi": {
                 "schema": {
-                  "$ref": "#/components/schemas/staff-member-primary-response-document"
+                  "$ref": "#/components/schemas/primary-staff-member-response-document"
                 }
               }
             }
@@ -584,7 +584,7 @@
             "content": {
               "application/vnd.api+json; ext=openapi": {
                 "schema": {
-                  "$ref": "#/components/schemas/staff-member-primary-response-document"
+                  "$ref": "#/components/schemas/primary-staff-member-response-document"
                 }
               }
             }
@@ -864,7 +864,7 @@
             "content": {
               "application/vnd.api+json; ext=openapi": {
                 "schema": {
-                  "$ref": "#/components/schemas/supermarket-primary-response-document"
+                  "$ref": "#/components/schemas/primary-supermarket-response-document"
                 }
               }
             }
@@ -981,7 +981,7 @@
             "content": {
               "application/vnd.api+json; ext=openapi": {
                 "schema": {
-                  "$ref": "#/components/schemas/supermarket-primary-response-document"
+                  "$ref": "#/components/schemas/primary-supermarket-response-document"
                 }
               }
             }
@@ -1155,7 +1155,7 @@
             "content": {
               "application/vnd.api+json; ext=openapi": {
                 "schema": {
-                  "$ref": "#/components/schemas/supermarket-primary-response-document"
+                  "$ref": "#/components/schemas/primary-supermarket-response-document"
                 }
               }
             }
@@ -1297,7 +1297,7 @@
             "content": {
               "application/vnd.api+json; ext=openapi": {
                 "schema": {
-                  "$ref": "#/components/schemas/nullable-staff-member-secondary-response-document"
+                  "$ref": "#/components/schemas/nullable-secondary-staff-member-response-document"
                 }
               }
             }
@@ -2289,7 +2289,7 @@
             "content": {
               "application/vnd.api+json; ext=openapi": {
                 "schema": {
-                  "$ref": "#/components/schemas/staff-member-secondary-response-document"
+                  "$ref": "#/components/schemas/secondary-staff-member-response-document"
                 }
               }
             }
@@ -2838,6 +2838,35 @@
         ],
         "additionalProperties": false
       },
+      "attributes-in-staff-member-response": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "age": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "attributes-in-supermarket-response": {
+        "type": "object",
+        "properties": {
+          "name-of-city": {
+            "type": "string"
+          },
+          "kind": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/supermarket-type"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
       "attributes-in-update-request": {
         "required": [
           "openapi:discriminator"
@@ -3132,11 +3161,90 @@
         "discriminator": {
           "propertyName": "type",
           "mapping": {
-            "staff-members": "#/components/schemas/staff-member-data-in-response",
-            "supermarkets": "#/components/schemas/supermarket-data-in-response"
+            "staff-members": "#/components/schemas/data-in-staff-member-response",
+            "supermarkets": "#/components/schemas/data-in-supermarket-response"
           }
         },
         "x-abstract": true
+      },
+      "data-in-staff-member-response": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/data-in-response"
+          },
+          {
+            "required": [
+              "id"
+            ],
+            "type": "object",
+            "properties": {
+              "id": {
+                "minLength": 1,
+                "type": "string",
+                "format": "int32"
+              },
+              "attributes": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/attributes-in-staff-member-response"
+                  }
+                ]
+              },
+              "links": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/resource-links"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        ],
+        "additionalProperties": false
+      },
+      "data-in-supermarket-response": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/data-in-response"
+          },
+          {
+            "required": [
+              "id"
+            ],
+            "type": "object",
+            "properties": {
+              "id": {
+                "minLength": 1,
+                "type": "string",
+                "format": "int32"
+              },
+              "attributes": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/attributes-in-supermarket-response"
+                  }
+                ]
+              },
+              "relationships": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/relationships-in-supermarket-response"
+                  }
+                ]
+              },
+              "links": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/resource-links"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        ],
+        "additionalProperties": false
       },
       "data-in-update-request": {
         "required": [
@@ -3496,6 +3604,51 @@
           "nullable": true
         }
       },
+      "nullable-secondary-staff-member-response-document": {
+        "required": [
+          "data",
+          "links"
+        ],
+        "type": "object",
+        "properties": {
+          "jsonapi": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/jsonapi"
+              }
+            ]
+          },
+          "links": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/resource-top-level-links"
+              }
+            ]
+          },
+          "data": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/data-in-staff-member-response"
+              }
+            ],
+            "nullable": true
+          },
+          "included": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/data-in-response"
+            }
+          },
+          "meta": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/meta"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
       "nullable-staff-member-identifier-response-document": {
         "required": [
           "data",
@@ -3524,51 +3677,6 @@
               }
             ],
             "nullable": true
-          },
-          "meta": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/meta"
-              }
-            ]
-          }
-        },
-        "additionalProperties": false
-      },
-      "nullable-staff-member-secondary-response-document": {
-        "required": [
-          "data",
-          "links"
-        ],
-        "type": "object",
-        "properties": {
-          "jsonapi": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/jsonapi"
-              }
-            ]
-          },
-          "links": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/resource-top-level-links"
-              }
-            ]
-          },
-          "data": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/staff-member-data-in-response"
-              }
-            ],
-            "nullable": true
-          },
-          "included": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/data-in-response"
-            }
           },
           "meta": {
             "allOf": [
@@ -3693,6 +3801,94 @@
         },
         "additionalProperties": false
       },
+      "primary-staff-member-response-document": {
+        "required": [
+          "data",
+          "links"
+        ],
+        "type": "object",
+        "properties": {
+          "jsonapi": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/jsonapi"
+              }
+            ]
+          },
+          "links": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/resource-top-level-links"
+              }
+            ]
+          },
+          "data": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/data-in-staff-member-response"
+              }
+            ]
+          },
+          "included": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/data-in-response"
+            }
+          },
+          "meta": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/meta"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "primary-supermarket-response-document": {
+        "required": [
+          "data",
+          "links"
+        ],
+        "type": "object",
+        "properties": {
+          "jsonapi": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/jsonapi"
+              }
+            ]
+          },
+          "links": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/resource-top-level-links"
+              }
+            ]
+          },
+          "data": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/data-in-supermarket-response"
+              }
+            ]
+          },
+          "included": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/data-in-response"
+            }
+          },
+          "meta": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/meta"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
       "relationship-links": {
         "type": "object",
         "properties": {
@@ -3764,6 +3960,33 @@
             "additionalProperties": false
           }
         ],
+        "additionalProperties": false
+      },
+      "relationships-in-supermarket-response": {
+        "type": "object",
+        "properties": {
+          "store-manager": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/to-one-staff-member-in-response"
+              }
+            ]
+          },
+          "backup-store-manager": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/nullable-to-one-staff-member-in-response"
+              }
+            ]
+          },
+          "cashiers": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/to-many-staff-member-in-response"
+              }
+            ]
+          }
+        },
         "additionalProperties": false
       },
       "relationships-in-update-request": {
@@ -3963,15 +4186,46 @@
         ],
         "type": "string"
       },
-      "staff-member-attributes-in-response": {
+      "secondary-staff-member-response-document": {
+        "required": [
+          "data",
+          "links"
+        ],
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string"
+          "jsonapi": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/jsonapi"
+              }
+            ]
           },
-          "age": {
-            "type": "integer",
-            "format": "int32"
+          "links": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/resource-top-level-links"
+              }
+            ]
+          },
+          "data": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/data-in-staff-member-response"
+              }
+            ]
+          },
+          "included": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/data-in-response"
+            }
+          },
+          "meta": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/meta"
+              }
+            ]
           }
         },
         "additionalProperties": false
@@ -4000,7 +4254,7 @@
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/staff-member-data-in-response"
+              "$ref": "#/components/schemas/data-in-staff-member-response"
             }
           },
           "included": {
@@ -4017,42 +4271,6 @@
             ]
           }
         },
-        "additionalProperties": false
-      },
-      "staff-member-data-in-response": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/data-in-response"
-          },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "minLength": 1,
-                "type": "string",
-                "format": "int32"
-              },
-              "attributes": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/staff-member-attributes-in-response"
-                  }
-                ]
-              },
-              "links": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/resource-links"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
-          }
-        ],
         "additionalProperties": false
       },
       "staff-member-identifier-collection-response-document": {
@@ -4183,115 +4401,11 @@
         },
         "additionalProperties": false
       },
-      "staff-member-primary-response-document": {
-        "required": [
-          "data",
-          "links"
-        ],
-        "type": "object",
-        "properties": {
-          "jsonapi": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/jsonapi"
-              }
-            ]
-          },
-          "links": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/resource-top-level-links"
-              }
-            ]
-          },
-          "data": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/staff-member-data-in-response"
-              }
-            ]
-          },
-          "included": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/data-in-response"
-            }
-          },
-          "meta": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/meta"
-              }
-            ]
-          }
-        },
-        "additionalProperties": false
-      },
       "staff-member-resource-type": {
         "enum": [
           "staff-members"
         ],
         "type": "string"
-      },
-      "staff-member-secondary-response-document": {
-        "required": [
-          "data",
-          "links"
-        ],
-        "type": "object",
-        "properties": {
-          "jsonapi": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/jsonapi"
-              }
-            ]
-          },
-          "links": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/resource-top-level-links"
-              }
-            ]
-          },
-          "data": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/staff-member-data-in-response"
-              }
-            ]
-          },
-          "included": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/data-in-response"
-            }
-          },
-          "meta": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/meta"
-              }
-            ]
-          }
-        },
-        "additionalProperties": false
-      },
-      "supermarket-attributes-in-response": {
-        "type": "object",
-        "properties": {
-          "name-of-city": {
-            "type": "string"
-          },
-          "kind": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/supermarket-type"
-              }
-            ]
-          }
-        },
-        "additionalProperties": false
       },
       "supermarket-backup-store-manager-relationship-identifier": {
         "required": [
@@ -4395,7 +4509,7 @@
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/supermarket-data-in-response"
+              "$ref": "#/components/schemas/data-in-supermarket-response"
             }
           },
           "included": {
@@ -4412,49 +4526,6 @@
             ]
           }
         },
-        "additionalProperties": false
-      },
-      "supermarket-data-in-response": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/data-in-response"
-          },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "minLength": 1,
-                "type": "string",
-                "format": "int32"
-              },
-              "attributes": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/supermarket-attributes-in-response"
-                  }
-                ]
-              },
-              "relationships": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/supermarket-relationships-in-response"
-                  }
-                ]
-              },
-              "links": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/resource-links"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
-          }
-        ],
         "additionalProperties": false
       },
       "supermarket-identifier-in-request": {
@@ -4479,77 +4550,6 @@
             "additionalProperties": false
           }
         ],
-        "additionalProperties": false
-      },
-      "supermarket-primary-response-document": {
-        "required": [
-          "data",
-          "links"
-        ],
-        "type": "object",
-        "properties": {
-          "jsonapi": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/jsonapi"
-              }
-            ]
-          },
-          "links": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/resource-top-level-links"
-              }
-            ]
-          },
-          "data": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/supermarket-data-in-response"
-              }
-            ]
-          },
-          "included": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/data-in-response"
-            }
-          },
-          "meta": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/meta"
-              }
-            ]
-          }
-        },
-        "additionalProperties": false
-      },
-      "supermarket-relationships-in-response": {
-        "type": "object",
-        "properties": {
-          "store-manager": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/to-one-staff-member-in-response"
-              }
-            ]
-          },
-          "backup-store-manager": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/nullable-to-one-staff-member-in-response"
-              }
-            ]
-          },
-          "cashiers": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/to-many-staff-member-in-response"
-              }
-            ]
-          }
-        },
         "additionalProperties": false
       },
       "supermarket-resource-type": {

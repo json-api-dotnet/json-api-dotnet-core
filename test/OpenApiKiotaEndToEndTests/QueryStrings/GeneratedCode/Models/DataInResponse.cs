@@ -51,8 +51,8 @@ namespace OpenApiKiotaEndToEndTests.QueryStrings.GeneratedCode.Models
             var mappingValue = parseNode.GetChildNode("type")?.GetStringValue();
             return mappingValue switch
             {
-                "nameValuePairs" => new global::OpenApiKiotaEndToEndTests.QueryStrings.GeneratedCode.Models.NameValuePairDataInResponse(),
-                "nodes" => new global::OpenApiKiotaEndToEndTests.QueryStrings.GeneratedCode.Models.NodeDataInResponse(),
+                "nameValuePairs" => new global::OpenApiKiotaEndToEndTests.QueryStrings.GeneratedCode.Models.DataInNameValuePairResponse(),
+                "nodes" => new global::OpenApiKiotaEndToEndTests.QueryStrings.GeneratedCode.Models.DataInNodeResponse(),
                 _ => new global::OpenApiKiotaEndToEndTests.QueryStrings.GeneratedCode.Models.DataInResponse(),
             };
         }

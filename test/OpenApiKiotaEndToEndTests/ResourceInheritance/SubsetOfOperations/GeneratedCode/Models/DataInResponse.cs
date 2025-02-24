@@ -51,16 +51,16 @@ namespace OpenApiKiotaEndToEndTests.ResourceInheritance.SubsetOfOperations.Gener
             var mappingValue = parseNode.GetChildNode("type")?.GetStringValue();
             return mappingValue switch
             {
-                "bathrooms" => new global::OpenApiKiotaEndToEndTests.ResourceInheritance.SubsetOfOperations.GeneratedCode.Models.BathroomDataInResponse(),
-                "bedrooms" => new global::OpenApiKiotaEndToEndTests.ResourceInheritance.SubsetOfOperations.GeneratedCode.Models.BedroomDataInResponse(),
-                "buildings" => new global::OpenApiKiotaEndToEndTests.ResourceInheritance.SubsetOfOperations.GeneratedCode.Models.BuildingDataInResponse(),
-                "familyHomes" => new global::OpenApiKiotaEndToEndTests.ResourceInheritance.SubsetOfOperations.GeneratedCode.Models.FamilyHomeDataInResponse(),
-                "kitchens" => new global::OpenApiKiotaEndToEndTests.ResourceInheritance.SubsetOfOperations.GeneratedCode.Models.KitchenDataInResponse(),
-                "livingRooms" => new global::OpenApiKiotaEndToEndTests.ResourceInheritance.SubsetOfOperations.GeneratedCode.Models.LivingRoomDataInResponse(),
-                "mansions" => new global::OpenApiKiotaEndToEndTests.ResourceInheritance.SubsetOfOperations.GeneratedCode.Models.MansionDataInResponse(),
-                "residences" => new global::OpenApiKiotaEndToEndTests.ResourceInheritance.SubsetOfOperations.GeneratedCode.Models.ResidenceDataInResponse(),
-                "rooms" => new global::OpenApiKiotaEndToEndTests.ResourceInheritance.SubsetOfOperations.GeneratedCode.Models.RoomDataInResponse(),
-                "toilets" => new global::OpenApiKiotaEndToEndTests.ResourceInheritance.SubsetOfOperations.GeneratedCode.Models.ToiletDataInResponse(),
+                "bathrooms" => new global::OpenApiKiotaEndToEndTests.ResourceInheritance.SubsetOfOperations.GeneratedCode.Models.DataInBathroomResponse(),
+                "bedrooms" => new global::OpenApiKiotaEndToEndTests.ResourceInheritance.SubsetOfOperations.GeneratedCode.Models.DataInBedroomResponse(),
+                "buildings" => new global::OpenApiKiotaEndToEndTests.ResourceInheritance.SubsetOfOperations.GeneratedCode.Models.DataInBuildingResponse(),
+                "familyHomes" => new global::OpenApiKiotaEndToEndTests.ResourceInheritance.SubsetOfOperations.GeneratedCode.Models.DataInFamilyHomeResponse(),
+                "kitchens" => new global::OpenApiKiotaEndToEndTests.ResourceInheritance.SubsetOfOperations.GeneratedCode.Models.DataInKitchenResponse(),
+                "livingRooms" => new global::OpenApiKiotaEndToEndTests.ResourceInheritance.SubsetOfOperations.GeneratedCode.Models.DataInLivingRoomResponse(),
+                "mansions" => new global::OpenApiKiotaEndToEndTests.ResourceInheritance.SubsetOfOperations.GeneratedCode.Models.DataInMansionResponse(),
+                "residences" => new global::OpenApiKiotaEndToEndTests.ResourceInheritance.SubsetOfOperations.GeneratedCode.Models.DataInResidenceResponse(),
+                "rooms" => new global::OpenApiKiotaEndToEndTests.ResourceInheritance.SubsetOfOperations.GeneratedCode.Models.DataInRoomResponse(),
+                "toilets" => new global::OpenApiKiotaEndToEndTests.ResourceInheritance.SubsetOfOperations.GeneratedCode.Models.DataInToiletResponse(),
                 _ => new global::OpenApiKiotaEndToEndTests.ResourceInheritance.SubsetOfOperations.GeneratedCode.Models.DataInResponse(),
             };
         }

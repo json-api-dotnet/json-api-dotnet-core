@@ -51,9 +51,9 @@ namespace OpenApiKiotaEndToEndTests.ClientIdGenerationModes.GeneratedCode.Models
             var mappingValue = parseNode.GetChildNode("type")?.GetStringValue();
             return mappingValue switch
             {
-                "games" => new global::OpenApiKiotaEndToEndTests.ClientIdGenerationModes.GeneratedCode.Models.GameDataInResponse(),
-                "playerGroups" => new global::OpenApiKiotaEndToEndTests.ClientIdGenerationModes.GeneratedCode.Models.PlayerGroupDataInResponse(),
-                "players" => new global::OpenApiKiotaEndToEndTests.ClientIdGenerationModes.GeneratedCode.Models.PlayerDataInResponse(),
+                "games" => new global::OpenApiKiotaEndToEndTests.ClientIdGenerationModes.GeneratedCode.Models.DataInGameResponse(),
+                "playerGroups" => new global::OpenApiKiotaEndToEndTests.ClientIdGenerationModes.GeneratedCode.Models.DataInPlayerGroupResponse(),
+                "players" => new global::OpenApiKiotaEndToEndTests.ClientIdGenerationModes.GeneratedCode.Models.DataInPlayerResponse(),
                 _ => new global::OpenApiKiotaEndToEndTests.ClientIdGenerationModes.GeneratedCode.Models.DataInResponse(),
             };
         }

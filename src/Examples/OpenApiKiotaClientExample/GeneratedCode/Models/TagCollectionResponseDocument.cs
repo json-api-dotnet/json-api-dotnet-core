@@ -19,9 +19,9 @@ namespace OpenApiKiotaClientExample.GeneratedCode.Models
         public IBackingStore BackingStore { get; private set; }
 
         /// <summary>The data property</summary>
-        public List<global::OpenApiKiotaClientExample.GeneratedCode.Models.TagDataInResponse>? Data
+        public List<global::OpenApiKiotaClientExample.GeneratedCode.Models.DataInTagResponse>? Data
         {
-            get { return BackingStore?.Get<List<global::OpenApiKiotaClientExample.GeneratedCode.Models.TagDataInResponse>?>("data"); }
+            get { return BackingStore?.Get<List<global::OpenApiKiotaClientExample.GeneratedCode.Models.DataInTagResponse>?>("data"); }
             set { BackingStore?.Set("data", value); }
         }
 
@@ -73,7 +73,7 @@ namespace OpenApiKiotaClientExample.GeneratedCode.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "data", n => { Data = n.GetCollectionOfObjectValues<global::OpenApiKiotaClientExample.GeneratedCode.Models.TagDataInResponse>(global::OpenApiKiotaClientExample.GeneratedCode.Models.TagDataInResponse.CreateFromDiscriminatorValue)?.AsList(); } },
+                { "data", n => { Data = n.GetCollectionOfObjectValues<global::OpenApiKiotaClientExample.GeneratedCode.Models.DataInTagResponse>(global::OpenApiKiotaClientExample.GeneratedCode.Models.DataInTagResponse.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "included", n => { Included = n.GetCollectionOfObjectValues<global::OpenApiKiotaClientExample.GeneratedCode.Models.DataInResponse>(global::OpenApiKiotaClientExample.GeneratedCode.Models.DataInResponse.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "links", n => { Links = n.GetObjectValue<global::OpenApiKiotaClientExample.GeneratedCode.Models.ResourceCollectionTopLevelLinks>(global::OpenApiKiotaClientExample.GeneratedCode.Models.ResourceCollectionTopLevelLinks.CreateFromDiscriminatorValue); } },
                 { "meta", n => { Meta = n.GetObjectValue<global::OpenApiKiotaClientExample.GeneratedCode.Models.Meta>(global::OpenApiKiotaClientExample.GeneratedCode.Models.Meta.CreateFromDiscriminatorValue); } },
@@ -87,7 +87,7 @@ namespace OpenApiKiotaClientExample.GeneratedCode.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
-            writer.WriteCollectionOfObjectValues<global::OpenApiKiotaClientExample.GeneratedCode.Models.TagDataInResponse>("data", Data);
+            writer.WriteCollectionOfObjectValues<global::OpenApiKiotaClientExample.GeneratedCode.Models.DataInTagResponse>("data", Data);
             writer.WriteCollectionOfObjectValues<global::OpenApiKiotaClientExample.GeneratedCode.Models.DataInResponse>("included", Included);
             writer.WriteObjectValue<global::OpenApiKiotaClientExample.GeneratedCode.Models.ResourceCollectionTopLevelLinks>("links", Links);
             writer.WriteObjectValue<global::OpenApiKiotaClientExample.GeneratedCode.Models.Meta>("meta", Meta);

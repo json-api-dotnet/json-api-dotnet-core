@@ -204,7 +204,7 @@
             "content": {
               "application/vnd.api+json; ext=openapi": {
                 "schema": {
-                  "$ref": "#/components/schemas/resourcePrimaryResponseDocument"
+                  "$ref": "#/components/schemas/primaryResourceResponseDocument"
                 }
               }
             }
@@ -321,7 +321,7 @@
             "content": {
               "application/vnd.api+json; ext=openapi": {
                 "schema": {
-                  "$ref": "#/components/schemas/resourcePrimaryResponseDocument"
+                  "$ref": "#/components/schemas/primaryResourceResponseDocument"
                 }
               }
             }
@@ -495,7 +495,7 @@
             "content": {
               "application/vnd.api+json; ext=openapi": {
                 "schema": {
-                  "$ref": "#/components/schemas/resourcePrimaryResponseDocument"
+                  "$ref": "#/components/schemas/primaryResourceResponseDocument"
                 }
               }
             }
@@ -637,7 +637,7 @@
             "content": {
               "application/vnd.api+json; ext=openapi": {
                 "schema": {
-                  "$ref": "#/components/schemas/emptySecondaryResponseDocument"
+                  "$ref": "#/components/schemas/secondaryEmptyResponseDocument"
                 }
               }
             }
@@ -1063,7 +1063,7 @@
             "content": {
               "application/vnd.api+json; ext=openapi": {
                 "schema": {
-                  "$ref": "#/components/schemas/nullableEmptySecondaryResponseDocument"
+                  "$ref": "#/components/schemas/nullableSecondaryEmptyResponseDocument"
                 }
               }
             }
@@ -1489,7 +1489,7 @@
             "content": {
               "application/vnd.api+json; ext=openapi": {
                 "schema": {
-                  "$ref": "#/components/schemas/emptySecondaryResponseDocument"
+                  "$ref": "#/components/schemas/secondaryEmptyResponseDocument"
                 }
               }
             }
@@ -1915,7 +1915,7 @@
             "content": {
               "application/vnd.api+json; ext=openapi": {
                 "schema": {
-                  "$ref": "#/components/schemas/nullableEmptySecondaryResponseDocument"
+                  "$ref": "#/components/schemas/nullableSecondaryEmptyResponseDocument"
                 }
               }
             }
@@ -3497,6 +3497,46 @@
         ],
         "additionalProperties": false
       },
+      "attributesInResourceResponse": {
+        "type": "object",
+        "properties": {
+          "nonNullableReferenceType": {
+            "type": "string"
+          },
+          "requiredNonNullableReferenceType": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "nullableReferenceType": {
+            "type": "string",
+            "nullable": true
+          },
+          "requiredNullableReferenceType": {
+            "minLength": 1,
+            "type": "string",
+            "nullable": true
+          },
+          "valueType": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "requiredValueType": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nullableValueType": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "requiredNullableValueType": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "attributesInUpdateRequest": {
         "required": [
           "openapi:discriminator"
@@ -3650,6 +3690,78 @@
         ],
         "additionalProperties": false
       },
+      "dataInEmptyResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/dataInResponse"
+          },
+          {
+            "required": [
+              "id"
+            ],
+            "type": "object",
+            "properties": {
+              "id": {
+                "minLength": 1,
+                "type": "string",
+                "format": "int32"
+              },
+              "links": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/resourceLinks"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        ],
+        "additionalProperties": false
+      },
+      "dataInResourceResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/dataInResponse"
+          },
+          {
+            "required": [
+              "id"
+            ],
+            "type": "object",
+            "properties": {
+              "id": {
+                "minLength": 1,
+                "type": "string",
+                "format": "int32"
+              },
+              "attributes": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/attributesInResourceResponse"
+                  }
+                ]
+              },
+              "relationships": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/relationshipsInResourceResponse"
+                  }
+                ]
+              },
+              "links": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/resourceLinks"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        ],
+        "additionalProperties": false
+      },
       "dataInResponse": {
         "required": [
           "type"
@@ -3675,8 +3787,8 @@
         "discriminator": {
           "propertyName": "type",
           "mapping": {
-            "empties": "#/components/schemas/emptyDataInResponse",
-            "resources": "#/components/schemas/resourceDataInResponse"
+            "empties": "#/components/schemas/dataInEmptyResponse",
+            "resources": "#/components/schemas/dataInResourceResponse"
           }
         },
         "x-abstract": true
@@ -3765,7 +3877,7 @@
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/emptyDataInResponse"
+              "$ref": "#/components/schemas/dataInEmptyResponse"
             }
           },
           "included": {
@@ -3782,35 +3894,6 @@
             ]
           }
         },
-        "additionalProperties": false
-      },
-      "emptyDataInResponse": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/dataInResponse"
-          },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "minLength": 1,
-                "type": "string",
-                "format": "int32"
-              },
-              "links": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/resourceLinks"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
-          }
-        ],
         "additionalProperties": false
       },
       "emptyIdentifierCollectionResponseDocument": {
@@ -3931,43 +4014,6 @@
           "empties"
         ],
         "type": "string"
-      },
-      "emptySecondaryResponseDocument": {
-        "required": [
-          "data",
-          "links"
-        ],
-        "type": "object",
-        "properties": {
-          "links": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/resourceTopLevelLinks"
-              }
-            ]
-          },
-          "data": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/emptyDataInResponse"
-              }
-            ]
-          },
-          "included": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/dataInResponse"
-            }
-          },
-          "meta": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/meta"
-              }
-            ]
-          }
-        },
-        "additionalProperties": false
       },
       "errorLinks": {
         "type": "object",
@@ -4159,7 +4205,7 @@
         },
         "additionalProperties": false
       },
-      "nullableEmptySecondaryResponseDocument": {
+      "nullableSecondaryEmptyResponseDocument": {
         "required": [
           "data",
           "links"
@@ -4176,7 +4222,7 @@
           "data": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/emptyDataInResponse"
+                "$ref": "#/components/schemas/dataInEmptyResponse"
               }
             ],
             "nullable": true
@@ -4238,6 +4284,43 @@
               }
             ],
             "nullable": true
+          },
+          "meta": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/meta"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "primaryResourceResponseDocument": {
+        "required": [
+          "data",
+          "links"
+        ],
+        "type": "object",
+        "properties": {
+          "links": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/resourceTopLevelLinks"
+              }
+            ]
+          },
+          "data": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/dataInResourceResponse"
+              }
+            ]
+          },
+          "included": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/dataInResponse"
+            }
           },
           "meta": {
             "allOf": [
@@ -4345,6 +4428,54 @@
         ],
         "additionalProperties": false
       },
+      "relationshipsInResourceResponse": {
+        "type": "object",
+        "properties": {
+          "nonNullableToOne": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/toOneEmptyInResponse"
+              }
+            ]
+          },
+          "requiredNonNullableToOne": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/toOneEmptyInResponse"
+              }
+            ]
+          },
+          "nullableToOne": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/nullableToOneEmptyInResponse"
+              }
+            ]
+          },
+          "requiredNullableToOne": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/nullableToOneEmptyInResponse"
+              }
+            ]
+          },
+          "toMany": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/toManyEmptyInResponse"
+              }
+            ]
+          },
+          "requiredToMany": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/toManyEmptyInResponse"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
       "relationshipsInUpdateRequest": {
         "required": [
           "openapi:discriminator"
@@ -4424,46 +4555,6 @@
         ],
         "additionalProperties": false
       },
-      "resourceAttributesInResponse": {
-        "type": "object",
-        "properties": {
-          "nonNullableReferenceType": {
-            "type": "string"
-          },
-          "requiredNonNullableReferenceType": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "nullableReferenceType": {
-            "type": "string",
-            "nullable": true
-          },
-          "requiredNullableReferenceType": {
-            "minLength": 1,
-            "type": "string",
-            "nullable": true
-          },
-          "valueType": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "requiredValueType": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "nullableValueType": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "requiredNullableValueType": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "resourceCollectionResponseDocument": {
         "required": [
           "data",
@@ -4481,7 +4572,7 @@
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/resourceDataInResponse"
+              "$ref": "#/components/schemas/dataInResourceResponse"
             }
           },
           "included": {
@@ -4522,49 +4613,6 @@
             "type": "string"
           }
         },
-        "additionalProperties": false
-      },
-      "resourceDataInResponse": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/dataInResponse"
-          },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "minLength": 1,
-                "type": "string",
-                "format": "int32"
-              },
-              "attributes": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/resourceAttributesInResponse"
-                  }
-                ]
-              },
-              "relationships": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/resourceRelationshipsInResponse"
-                  }
-                ]
-              },
-              "links": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/resourceLinks"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
-          }
-        ],
         "additionalProperties": false
       },
       "resourceIdentifierCollectionTopLevelLinks": {
@@ -4618,91 +4666,6 @@
         },
         "additionalProperties": false
       },
-      "resourcePrimaryResponseDocument": {
-        "required": [
-          "data",
-          "links"
-        ],
-        "type": "object",
-        "properties": {
-          "links": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/resourceTopLevelLinks"
-              }
-            ]
-          },
-          "data": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/resourceDataInResponse"
-              }
-            ]
-          },
-          "included": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/dataInResponse"
-            }
-          },
-          "meta": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/meta"
-              }
-            ]
-          }
-        },
-        "additionalProperties": false
-      },
-      "resourceRelationshipsInResponse": {
-        "type": "object",
-        "properties": {
-          "nonNullableToOne": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/toOneEmptyInResponse"
-              }
-            ]
-          },
-          "requiredNonNullableToOne": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/toOneEmptyInResponse"
-              }
-            ]
-          },
-          "nullableToOne": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/nullableToOneEmptyInResponse"
-              }
-            ]
-          },
-          "requiredNullableToOne": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/nullableToOneEmptyInResponse"
-              }
-            ]
-          },
-          "toMany": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/toManyEmptyInResponse"
-              }
-            ]
-          },
-          "requiredToMany": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/toManyEmptyInResponse"
-              }
-            ]
-          }
-        },
-        "additionalProperties": false
-      },
       "resourceTopLevelLinks": {
         "type": "object",
         "properties": {
@@ -4721,6 +4684,43 @@
           "resources"
         ],
         "type": "string"
+      },
+      "secondaryEmptyResponseDocument": {
+        "required": [
+          "data",
+          "links"
+        ],
+        "type": "object",
+        "properties": {
+          "links": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/resourceTopLevelLinks"
+              }
+            ]
+          },
+          "data": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/dataInEmptyResponse"
+              }
+            ]
+          },
+          "included": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/dataInResponse"
+            }
+          },
+          "meta": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/meta"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
       },
       "toManyEmptyInRequest": {
         "required": [

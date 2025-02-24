@@ -204,7 +204,7 @@
             "content": {
               "application/vnd.api+json; ext=openapi": {
                 "schema": {
-                  "$ref": "#/components/schemas/accommodationPrimaryResponseDocument"
+                  "$ref": "#/components/schemas/primaryAccommodationResponseDocument"
                 }
               }
             }
@@ -321,7 +321,7 @@
             "content": {
               "application/vnd.api+json; ext=openapi": {
                 "schema": {
-                  "$ref": "#/components/schemas/accommodationPrimaryResponseDocument"
+                  "$ref": "#/components/schemas/primaryAccommodationResponseDocument"
                 }
               }
             }
@@ -495,7 +495,7 @@
             "content": {
               "application/vnd.api+json; ext=openapi": {
                 "schema": {
-                  "$ref": "#/components/schemas/accommodationPrimaryResponseDocument"
+                  "$ref": "#/components/schemas/primaryAccommodationResponseDocument"
                 }
               }
             }
@@ -775,7 +775,7 @@
             "content": {
               "application/vnd.api+json; ext=openapi": {
                 "schema": {
-                  "$ref": "#/components/schemas/excursionPrimaryResponseDocument"
+                  "$ref": "#/components/schemas/primaryExcursionResponseDocument"
                 }
               }
             }
@@ -892,7 +892,7 @@
             "content": {
               "application/vnd.api+json; ext=openapi": {
                 "schema": {
-                  "$ref": "#/components/schemas/excursionPrimaryResponseDocument"
+                  "$ref": "#/components/schemas/primaryExcursionResponseDocument"
                 }
               }
             }
@@ -1066,7 +1066,7 @@
             "content": {
               "application/vnd.api+json; ext=openapi": {
                 "schema": {
-                  "$ref": "#/components/schemas/excursionPrimaryResponseDocument"
+                  "$ref": "#/components/schemas/primaryExcursionResponseDocument"
                 }
               }
             }
@@ -1346,7 +1346,7 @@
             "content": {
               "application/vnd.api+json; ext=openapi": {
                 "schema": {
-                  "$ref": "#/components/schemas/transportPrimaryResponseDocument"
+                  "$ref": "#/components/schemas/primaryTransportResponseDocument"
                 }
               }
             }
@@ -1463,7 +1463,7 @@
             "content": {
               "application/vnd.api+json; ext=openapi": {
                 "schema": {
-                  "$ref": "#/components/schemas/transportPrimaryResponseDocument"
+                  "$ref": "#/components/schemas/primaryTransportResponseDocument"
                 }
               }
             }
@@ -1637,7 +1637,7 @@
             "content": {
               "application/vnd.api+json; ext=openapi": {
                 "schema": {
-                  "$ref": "#/components/schemas/transportPrimaryResponseDocument"
+                  "$ref": "#/components/schemas/primaryTransportResponseDocument"
                 }
               }
             }
@@ -1917,7 +1917,7 @@
             "content": {
               "application/vnd.api+json; ext=openapi": {
                 "schema": {
-                  "$ref": "#/components/schemas/vacationPrimaryResponseDocument"
+                  "$ref": "#/components/schemas/primaryVacationResponseDocument"
                 }
               }
             }
@@ -2034,7 +2034,7 @@
             "content": {
               "application/vnd.api+json; ext=openapi": {
                 "schema": {
-                  "$ref": "#/components/schemas/vacationPrimaryResponseDocument"
+                  "$ref": "#/components/schemas/primaryVacationResponseDocument"
                 }
               }
             }
@@ -2208,7 +2208,7 @@
             "content": {
               "application/vnd.api+json; ext=openapi": {
                 "schema": {
-                  "$ref": "#/components/schemas/vacationPrimaryResponseDocument"
+                  "$ref": "#/components/schemas/primaryVacationResponseDocument"
                 }
               }
             }
@@ -2350,7 +2350,7 @@
             "content": {
               "application/vnd.api+json; ext=openapi": {
                 "schema": {
-                  "$ref": "#/components/schemas/accommodationSecondaryResponseDocument"
+                  "$ref": "#/components/schemas/secondaryAccommodationResponseDocument"
                 }
               }
             }
@@ -3342,7 +3342,7 @@
             "content": {
               "application/vnd.api+json; ext=openapi": {
                 "schema": {
-                  "$ref": "#/components/schemas/nullableTransportSecondaryResponseDocument"
+                  "$ref": "#/components/schemas/nullableSecondaryTransportResponseDocument"
                 }
               }
             }
@@ -3715,15 +3715,6 @@
   },
   "components": {
     "schemas": {
-      "accommodationAttributesInResponse": {
-        "type": "object",
-        "properties": {
-          "address": {
-            "type": "string"
-          }
-        },
-        "additionalProperties": false
-      },
       "accommodationCollectionResponseDocument": {
         "required": [
           "data",
@@ -3741,7 +3732,7 @@
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/accommodationDataInResponse"
+              "$ref": "#/components/schemas/dataInAccommodationResponse"
             }
           },
           "included": {
@@ -3758,42 +3749,6 @@
             ]
           }
         },
-        "additionalProperties": false
-      },
-      "accommodationDataInResponse": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/dataInResponse"
-          },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "minLength": 1,
-                "type": "string",
-                "format": "int64"
-              },
-              "attributes": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/accommodationAttributesInResponse"
-                  }
-                ]
-              },
-              "links": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/resourceLinks"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
-          }
-        ],
         "additionalProperties": false
       },
       "accommodationIdentifierInRequest": {
@@ -3879,82 +3834,17 @@
         },
         "additionalProperties": false
       },
-      "accommodationPrimaryResponseDocument": {
-        "required": [
-          "data",
-          "links"
-        ],
-        "type": "object",
-        "properties": {
-          "links": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/resourceTopLevelLinks"
-              }
-            ]
-          },
-          "data": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/accommodationDataInResponse"
-              }
-            ]
-          },
-          "included": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/dataInResponse"
-            }
-          },
-          "meta": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/meta"
-              }
-            ]
-          }
-        },
-        "additionalProperties": false
-      },
       "accommodationResourceType": {
         "enum": [
           "accommodations"
         ],
         "type": "string"
       },
-      "accommodationSecondaryResponseDocument": {
-        "required": [
-          "data",
-          "links"
-        ],
+      "attributesInAccommodationResponse": {
         "type": "object",
         "properties": {
-          "links": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/resourceTopLevelLinks"
-              }
-            ]
-          },
-          "data": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/accommodationDataInResponse"
-              }
-            ]
-          },
-          "included": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/dataInResponse"
-            }
-          },
-          "meta": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/meta"
-              }
-            ]
+          "address": {
+            "type": "string"
           }
         },
         "additionalProperties": false
@@ -4085,6 +3975,36 @@
         ],
         "additionalProperties": false
       },
+      "attributesInExcursionResponse": {
+        "type": "object",
+        "properties": {
+          "occursAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "attributesInTransportResponse": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/transportType"
+              }
+            ]
+          },
+          "durationInMinutes": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
       "attributesInUpdateAccommodationRequest": {
         "allOf": [
           {
@@ -4196,6 +4116,20 @@
         ],
         "additionalProperties": false
       },
+      "attributesInVacationResponse": {
+        "type": "object",
+        "properties": {
+          "startsAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endsAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
       "createAccommodationRequestDocument": {
         "required": [
           "data"
@@ -4286,6 +4220,42 @@
             ]
           }
         },
+        "additionalProperties": false
+      },
+      "dataInAccommodationResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/dataInResponse"
+          },
+          {
+            "required": [
+              "id"
+            ],
+            "type": "object",
+            "properties": {
+              "id": {
+                "minLength": 1,
+                "type": "string",
+                "format": "int64"
+              },
+              "attributes": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/attributesInAccommodationResponse"
+                  }
+                ]
+              },
+              "links": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/resourceLinks"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        ],
         "additionalProperties": false
       },
       "dataInCreateAccommodationRequest": {
@@ -4416,6 +4386,42 @@
         ],
         "additionalProperties": false
       },
+      "dataInExcursionResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/dataInResponse"
+          },
+          {
+            "required": [
+              "id"
+            ],
+            "type": "object",
+            "properties": {
+              "id": {
+                "minLength": 1,
+                "type": "string",
+                "format": "int64"
+              },
+              "attributes": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/attributesInExcursionResponse"
+                  }
+                ]
+              },
+              "links": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/resourceLinks"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        ],
+        "additionalProperties": false
+      },
       "dataInResponse": {
         "required": [
           "type"
@@ -4441,13 +4447,49 @@
         "discriminator": {
           "propertyName": "type",
           "mapping": {
-            "accommodations": "#/components/schemas/accommodationDataInResponse",
-            "excursions": "#/components/schemas/excursionDataInResponse",
-            "transports": "#/components/schemas/transportDataInResponse",
-            "vacations": "#/components/schemas/vacationDataInResponse"
+            "accommodations": "#/components/schemas/dataInAccommodationResponse",
+            "excursions": "#/components/schemas/dataInExcursionResponse",
+            "transports": "#/components/schemas/dataInTransportResponse",
+            "vacations": "#/components/schemas/dataInVacationResponse"
           }
         },
         "x-abstract": true
+      },
+      "dataInTransportResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/dataInResponse"
+          },
+          {
+            "required": [
+              "id"
+            ],
+            "type": "object",
+            "properties": {
+              "id": {
+                "minLength": 1,
+                "type": "string",
+                "format": "int64"
+              },
+              "attributes": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/attributesInTransportResponse"
+                  }
+                ]
+              },
+              "links": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/resourceLinks"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        ],
+        "additionalProperties": false
       },
       "dataInUpdateAccommodationRequest": {
         "type": "object",
@@ -4609,6 +4651,49 @@
         ],
         "additionalProperties": false
       },
+      "dataInVacationResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/dataInResponse"
+          },
+          {
+            "required": [
+              "id"
+            ],
+            "type": "object",
+            "properties": {
+              "id": {
+                "minLength": 1,
+                "type": "string",
+                "format": "int64"
+              },
+              "attributes": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/attributesInVacationResponse"
+                  }
+                ]
+              },
+              "relationships": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/relationshipsInVacationResponse"
+                  }
+                ]
+              },
+              "links": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/resourceLinks"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        ],
+        "additionalProperties": false
+      },
       "errorLinks": {
         "type": "object",
         "properties": {
@@ -4731,19 +4816,6 @@
         },
         "additionalProperties": false
       },
-      "excursionAttributesInResponse": {
-        "type": "object",
-        "properties": {
-          "occursAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "description": {
-            "type": "string"
-          }
-        },
-        "additionalProperties": false
-      },
       "excursionCollectionResponseDocument": {
         "required": [
           "data",
@@ -4761,7 +4833,7 @@
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/excursionDataInResponse"
+              "$ref": "#/components/schemas/dataInExcursionResponse"
             }
           },
           "included": {
@@ -4778,42 +4850,6 @@
             ]
           }
         },
-        "additionalProperties": false
-      },
-      "excursionDataInResponse": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/dataInResponse"
-          },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "minLength": 1,
-                "type": "string",
-                "format": "int64"
-              },
-              "attributes": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/excursionAttributesInResponse"
-                  }
-                ]
-              },
-              "links": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/resourceLinks"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
-          }
-        ],
         "additionalProperties": false
       },
       "excursionIdentifierCollectionResponseDocument": {
@@ -4898,43 +4934,6 @@
         },
         "additionalProperties": false
       },
-      "excursionPrimaryResponseDocument": {
-        "required": [
-          "data",
-          "links"
-        ],
-        "type": "object",
-        "properties": {
-          "links": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/resourceTopLevelLinks"
-              }
-            ]
-          },
-          "data": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/excursionDataInResponse"
-              }
-            ]
-          },
-          "included": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/dataInResponse"
-            }
-          },
-          "meta": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/meta"
-              }
-            ]
-          }
-        },
-        "additionalProperties": false
-      },
       "excursionResourceType": {
         "enum": [
           "excursions"
@@ -4978,6 +4977,44 @@
         "additionalProperties": {
           "nullable": true
         }
+      },
+      "nullableSecondaryTransportResponseDocument": {
+        "required": [
+          "data",
+          "links"
+        ],
+        "type": "object",
+        "properties": {
+          "links": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/resourceTopLevelLinks"
+              }
+            ]
+          },
+          "data": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/dataInTransportResponse"
+              }
+            ],
+            "nullable": true
+          },
+          "included": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/dataInResponse"
+            }
+          },
+          "meta": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/meta"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
       },
       "nullableToOneTransportInRequest": {
         "required": [
@@ -5063,7 +5100,7 @@
         },
         "additionalProperties": false
       },
-      "nullableTransportSecondaryResponseDocument": {
+      "primaryAccommodationResponseDocument": {
         "required": [
           "data",
           "links"
@@ -5080,10 +5117,120 @@
           "data": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/transportDataInResponse"
+                "$ref": "#/components/schemas/dataInAccommodationResponse"
               }
-            ],
-            "nullable": true
+            ]
+          },
+          "included": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/dataInResponse"
+            }
+          },
+          "meta": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/meta"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "primaryExcursionResponseDocument": {
+        "required": [
+          "data",
+          "links"
+        ],
+        "type": "object",
+        "properties": {
+          "links": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/resourceTopLevelLinks"
+              }
+            ]
+          },
+          "data": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/dataInExcursionResponse"
+              }
+            ]
+          },
+          "included": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/dataInResponse"
+            }
+          },
+          "meta": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/meta"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "primaryTransportResponseDocument": {
+        "required": [
+          "data",
+          "links"
+        ],
+        "type": "object",
+        "properties": {
+          "links": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/resourceTopLevelLinks"
+              }
+            ]
+          },
+          "data": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/dataInTransportResponse"
+              }
+            ]
+          },
+          "included": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/dataInResponse"
+            }
+          },
+          "meta": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/meta"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "primaryVacationResponseDocument": {
+        "required": [
+          "data",
+          "links"
+        ],
+        "type": "object",
+        "properties": {
+          "links": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/resourceTopLevelLinks"
+              }
+            ]
+          },
+          "data": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/dataInVacationResponse"
+              }
+            ]
           },
           "included": {
             "type": "array",
@@ -5232,6 +5379,33 @@
         ],
         "additionalProperties": false
       },
+      "relationshipsInVacationResponse": {
+        "type": "object",
+        "properties": {
+          "accommodation": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/toOneAccommodationInResponse"
+              }
+            ]
+          },
+          "transport": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/nullableToOneTransportInResponse"
+              }
+            ]
+          },
+          "excursions": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/toManyExcursionInResponse"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
       "resourceCollectionTopLevelLinks": {
         "type": "object",
         "properties": {
@@ -5327,6 +5501,43 @@
           "vacations"
         ],
         "type": "string"
+      },
+      "secondaryAccommodationResponseDocument": {
+        "required": [
+          "data",
+          "links"
+        ],
+        "type": "object",
+        "properties": {
+          "links": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/resourceTopLevelLinks"
+              }
+            ]
+          },
+          "data": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/dataInAccommodationResponse"
+              }
+            ]
+          },
+          "included": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/dataInResponse"
+            }
+          },
+          "meta": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/meta"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
       },
       "toManyExcursionInRequest": {
         "required": [
@@ -5426,23 +5637,6 @@
         },
         "additionalProperties": false
       },
-      "transportAttributesInResponse": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/transportType"
-              }
-            ]
-          },
-          "durationInMinutes": {
-            "type": "integer",
-            "format": "int32"
-          }
-        },
-        "additionalProperties": false
-      },
       "transportCollectionResponseDocument": {
         "required": [
           "data",
@@ -5460,7 +5654,7 @@
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/transportDataInResponse"
+              "$ref": "#/components/schemas/dataInTransportResponse"
             }
           },
           "included": {
@@ -5477,42 +5671,6 @@
             ]
           }
         },
-        "additionalProperties": false
-      },
-      "transportDataInResponse": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/dataInResponse"
-          },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "minLength": 1,
-                "type": "string",
-                "format": "int64"
-              },
-              "attributes": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/transportAttributesInResponse"
-                  }
-                ]
-              },
-              "links": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/resourceLinks"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
-          }
-        ],
         "additionalProperties": false
       },
       "transportIdentifierInRequest": {
@@ -5556,43 +5714,6 @@
             "minLength": 1,
             "type": "string",
             "format": "int64"
-          },
-          "meta": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/meta"
-              }
-            ]
-          }
-        },
-        "additionalProperties": false
-      },
-      "transportPrimaryResponseDocument": {
-        "required": [
-          "data",
-          "links"
-        ],
-        "type": "object",
-        "properties": {
-          "links": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/resourceTopLevelLinks"
-              }
-            ]
-          },
-          "data": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/transportDataInResponse"
-              }
-            ]
-          },
-          "included": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/dataInResponse"
-            }
           },
           "meta": {
             "allOf": [
@@ -5712,20 +5833,6 @@
         },
         "additionalProperties": false
       },
-      "vacationAttributesInResponse": {
-        "type": "object",
-        "properties": {
-          "startsAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "endsAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        },
-        "additionalProperties": false
-      },
       "vacationCollectionResponseDocument": {
         "required": [
           "data",
@@ -5743,7 +5850,7 @@
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/vacationDataInResponse"
+              "$ref": "#/components/schemas/dataInVacationResponse"
             }
           },
           "included": {
@@ -5756,113 +5863,6 @@
             "allOf": [
               {
                 "$ref": "#/components/schemas/meta"
-              }
-            ]
-          }
-        },
-        "additionalProperties": false
-      },
-      "vacationDataInResponse": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/dataInResponse"
-          },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "minLength": 1,
-                "type": "string",
-                "format": "int64"
-              },
-              "attributes": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/vacationAttributesInResponse"
-                  }
-                ]
-              },
-              "relationships": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/vacationRelationshipsInResponse"
-                  }
-                ]
-              },
-              "links": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/resourceLinks"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
-          }
-        ],
-        "additionalProperties": false
-      },
-      "vacationPrimaryResponseDocument": {
-        "required": [
-          "data",
-          "links"
-        ],
-        "type": "object",
-        "properties": {
-          "links": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/resourceTopLevelLinks"
-              }
-            ]
-          },
-          "data": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/vacationDataInResponse"
-              }
-            ]
-          },
-          "included": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/dataInResponse"
-            }
-          },
-          "meta": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/meta"
-              }
-            ]
-          }
-        },
-        "additionalProperties": false
-      },
-      "vacationRelationshipsInResponse": {
-        "type": "object",
-        "properties": {
-          "accommodation": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/toOneAccommodationInResponse"
-              }
-            ]
-          },
-          "transport": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/nullableToOneTransportInResponse"
-              }
-            ]
-          },
-          "excursions": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/toManyExcursionInResponse"
               }
             ]
           }

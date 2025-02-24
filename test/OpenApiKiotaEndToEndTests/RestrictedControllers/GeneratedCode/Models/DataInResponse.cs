@@ -51,10 +51,10 @@ namespace OpenApiKiotaEndToEndTests.RestrictedControllers.GeneratedCode.Models
             var mappingValue = parseNode.GetChildNode("type")?.GetStringValue();
             return mappingValue switch
             {
-                "dataStreams" => new global::OpenApiKiotaEndToEndTests.RestrictedControllers.GeneratedCode.Models.DataStreamDataInResponse(),
-                "readOnlyChannels" => new global::OpenApiKiotaEndToEndTests.RestrictedControllers.GeneratedCode.Models.ReadOnlyChannelDataInResponse(),
-                "readOnlyResourceChannels" => new global::OpenApiKiotaEndToEndTests.RestrictedControllers.GeneratedCode.Models.ReadOnlyResourceChannelDataInResponse(),
-                "writeOnlyChannels" => new global::OpenApiKiotaEndToEndTests.RestrictedControllers.GeneratedCode.Models.WriteOnlyChannelDataInResponse(),
+                "dataStreams" => new global::OpenApiKiotaEndToEndTests.RestrictedControllers.GeneratedCode.Models.DataInDataStreamResponse(),
+                "readOnlyChannels" => new global::OpenApiKiotaEndToEndTests.RestrictedControllers.GeneratedCode.Models.DataInReadOnlyChannelResponse(),
+                "readOnlyResourceChannels" => new global::OpenApiKiotaEndToEndTests.RestrictedControllers.GeneratedCode.Models.DataInReadOnlyResourceChannelResponse(),
+                "writeOnlyChannels" => new global::OpenApiKiotaEndToEndTests.RestrictedControllers.GeneratedCode.Models.DataInWriteOnlyChannelResponse(),
                 _ => new global::OpenApiKiotaEndToEndTests.RestrictedControllers.GeneratedCode.Models.DataInResponse(),
             };
         }

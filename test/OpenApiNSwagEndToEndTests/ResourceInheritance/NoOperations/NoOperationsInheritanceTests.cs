@@ -61,14 +61,14 @@ public sealed class NoOperationsInheritanceTests
         };
 
         // Act
-        RoadPrimaryResponseDocument? response = await ApiResponse.TranslateAsync(async () => await apiClient.PostRoadAsync(requestBody));
+        PrimaryRoadResponseDocument? response = await ApiResponse.TranslateAsync(async () => await apiClient.PostRoadAsync(requestBody));
 
         // Assert
         response.ShouldNotBeNull();
 
-        RoadDataInResponse roadData = response.Data.Should().BeOfType<RoadDataInResponse>().Subject;
+        DataInRoadResponse roadData = response.Data.Should().BeOfType<DataInRoadResponse>().Subject;
 
-        RoadAttributesInResponse roadAttributes = roadData.Attributes.Should().BeOfType<RoadAttributesInResponse>().Subject;
+        AttributesInRoadResponse roadAttributes = roadData.Attributes.Should().BeOfType<AttributesInRoadResponse>().Subject;
         roadAttributes.LengthInMeters.Should().Be(newLengthInMeters);
 
         roadData.Relationships.Should().BeNull();
@@ -142,19 +142,19 @@ public sealed class NoOperationsInheritanceTests
         };
 
         // Act
-        BuildingPrimaryResponseDocument? response = await ApiResponse.TranslateAsync(async () => await apiClient.PostBuildingAsync(requestBody));
+        PrimaryBuildingResponseDocument? response = await ApiResponse.TranslateAsync(async () => await apiClient.PostBuildingAsync(requestBody));
 
         // Assert
         response.ShouldNotBeNull();
 
-        FamilyHomeDataInResponse familyHomeData = response.Data.Should().BeOfType<FamilyHomeDataInResponse>().Subject;
+        DataInFamilyHomeResponse familyHomeData = response.Data.Should().BeOfType<DataInFamilyHomeResponse>().Subject;
 
-        FamilyHomeAttributesInResponse familyHomeAttributes = familyHomeData.Attributes.Should().BeOfType<FamilyHomeAttributesInResponse>().Subject;
+        AttributesInFamilyHomeResponse familyHomeAttributes = familyHomeData.Attributes.Should().BeOfType<AttributesInFamilyHomeResponse>().Subject;
         familyHomeAttributes.SurfaceInSquareMeters.Should().Be(newFamilyHome.SurfaceInSquareMeters);
         familyHomeAttributes.NumberOfResidents.Should().Be(newFamilyHome.NumberOfResidents);
         familyHomeAttributes.FloorCount.Should().Be(newFamilyHome.FloorCount);
 
-        FamilyHomeRelationshipsInResponse familyHomeRelationships = familyHomeData.Relationships.Should().BeOfType<FamilyHomeRelationshipsInResponse>().Subject;
+        RelationshipsInFamilyHomeResponse familyHomeRelationships = familyHomeData.Relationships.Should().BeOfType<RelationshipsInFamilyHomeResponse>().Subject;
         familyHomeRelationships.Rooms.Should().NotBeNull();
 
         long newFamilyHomeId = long.Parse(familyHomeData.Id.ShouldNotBeNull());
@@ -204,15 +204,15 @@ public sealed class NoOperationsInheritanceTests
         };
 
         // Act
-        RoadPrimaryResponseDocument? response =
+        PrimaryRoadResponseDocument? response =
             await ApiResponse.TranslateAsync(async () => await apiClient.PatchRoadAsync(existingRoad.StringId!, requestBody));
 
         // Assert
         response.ShouldNotBeNull();
 
-        RoadDataInResponse roadData = response.Data.Should().BeOfType<RoadDataInResponse>().Subject;
+        DataInRoadResponse roadData = response.Data.Should().BeOfType<DataInRoadResponse>().Subject;
 
-        RoadAttributesInResponse roadAttributes = roadData.Attributes.Should().BeOfType<RoadAttributesInResponse>().Subject;
+        AttributesInRoadResponse roadAttributes = roadData.Attributes.Should().BeOfType<AttributesInRoadResponse>().Subject;
         roadAttributes.LengthInMeters.Should().Be(newLengthInMeters);
 
         roadData.Relationships.Should().BeNull();
@@ -289,20 +289,20 @@ public sealed class NoOperationsInheritanceTests
         };
 
         // Act
-        BuildingPrimaryResponseDocument? response =
+        PrimaryBuildingResponseDocument? response =
             await ApiResponse.TranslateAsync(async () => await apiClient.PatchBuildingAsync(existingFamilyHome.StringId!, requestBody));
 
         // Assert
         response.ShouldNotBeNull();
 
-        FamilyHomeDataInResponse familyHomeData = response.Data.Should().BeOfType<FamilyHomeDataInResponse>().Subject;
+        DataInFamilyHomeResponse familyHomeData = response.Data.Should().BeOfType<DataInFamilyHomeResponse>().Subject;
 
-        FamilyHomeAttributesInResponse familyHomeAttributes = familyHomeData.Attributes.Should().BeOfType<FamilyHomeAttributesInResponse>().Subject;
+        AttributesInFamilyHomeResponse familyHomeAttributes = familyHomeData.Attributes.Should().BeOfType<AttributesInFamilyHomeResponse>().Subject;
         familyHomeAttributes.SurfaceInSquareMeters.Should().Be(newFamilyHome.SurfaceInSquareMeters);
         familyHomeAttributes.NumberOfResidents.Should().Be(newFamilyHome.NumberOfResidents);
         familyHomeAttributes.FloorCount.Should().Be(newFamilyHome.FloorCount);
 
-        FamilyHomeRelationshipsInResponse familyHomeRelationships = familyHomeData.Relationships.Should().BeOfType<FamilyHomeRelationshipsInResponse>().Subject;
+        RelationshipsInFamilyHomeResponse familyHomeRelationships = familyHomeData.Relationships.Should().BeOfType<RelationshipsInFamilyHomeResponse>().Subject;
         familyHomeRelationships.Rooms.Should().NotBeNull();
 
         await _testContext.RunOnDatabaseAsync(async dbContext =>

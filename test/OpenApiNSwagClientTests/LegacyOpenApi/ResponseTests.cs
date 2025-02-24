@@ -108,7 +108,7 @@ public sealed class ResponseTests
         document.Links.Last.Should().Be(topLevelLink);
         document.Data.Should().HaveCount(1);
 
-        FlightDataInResponse flight = document.Data.First();
+        DataInFlightResponse flight = document.Data.First();
         flight.Id.Should().Be(flightId);
         flight.Links.Self.Should().Be(flightResourceLink);
         flight.Meta.Should().HaveCount(1);
@@ -178,7 +178,7 @@ public sealed class ResponseTests
         var apiClient = new LegacyClient(wrapper.HttpClient);
 
         // Act
-        FlightPrimaryResponseDocument document = await apiClient.GetFlightAsync(flightId, null, null);
+        PrimaryFlightResponseDocument document = await apiClient.GetFlightAsync(flightId, null, null);
 
         // Assert
         document.Jsonapi.Should().BeNull();
@@ -312,7 +312,7 @@ public sealed class ResponseTests
         };
 
         // Act
-        FlightPrimaryResponseDocument document = await apiClient.PostFlightAsync(null, requestBody);
+        PrimaryFlightResponseDocument document = await apiClient.PostFlightAsync(null, requestBody);
 
         // Assert
         document.Data.Attributes.Should().BeNull();
@@ -357,7 +357,7 @@ public sealed class ResponseTests
         };
 
         // Act
-        FlightPrimaryResponseDocument document = await apiClient.PatchFlightAsync(flightId, null, requestBody);
+        PrimaryFlightResponseDocument document = await apiClient.PatchFlightAsync(flightId, null, requestBody);
 
         // Assert
         document.Data.Attributes.Should().BeNull();
@@ -373,7 +373,7 @@ public sealed class ResponseTests
         var apiClient = new LegacyClient(wrapper.HttpClient);
 
         // Act
-        FlightPrimaryResponseDocument? document = await ApiResponse.TranslateAsync(async () => await apiClient.PatchFlightAsync(flightId, null,
+        PrimaryFlightResponseDocument? document = await ApiResponse.TranslateAsync(async () => await apiClient.PatchFlightAsync(flightId, null,
             new UpdateFlightRequestDocument
             {
                 Data = new DataInUpdateFlightRequest
@@ -452,7 +452,7 @@ public sealed class ResponseTests
         var apiClient = new LegacyClient(wrapper.HttpClient);
 
         // Act
-        FlightAttendantSecondaryResponseDocument document = await apiClient.GetFlightPurserAsync(flightId, null, null);
+        SecondaryFlightAttendantResponseDocument document = await apiClient.GetFlightPurserAsync(flightId, null, null);
 
         // Assert
         document.Data.Should().NotBeNull();
@@ -484,7 +484,7 @@ public sealed class ResponseTests
         var apiClient = new LegacyClient(wrapper.HttpClient);
 
         // Act
-        NullableFlightAttendantSecondaryResponseDocument document = await apiClient.GetFlightBackupPurserAsync(flightId, null, null);
+        NullableSecondaryFlightAttendantResponseDocument document = await apiClient.GetFlightBackupPurserAsync(flightId, null, null);
 
         // Assert
         document.Data.Should().BeNull();

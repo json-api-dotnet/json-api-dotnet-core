@@ -51,10 +51,10 @@ namespace OpenApiKiotaEndToEndTests.Links.GeneratedCode.Models
             var mappingValue = parseNode.GetChildNode("type")?.GetStringValue();
             return mappingValue switch
             {
-                "accommodations" => new global::OpenApiKiotaEndToEndTests.Links.GeneratedCode.Models.AccommodationDataInResponse(),
-                "excursions" => new global::OpenApiKiotaEndToEndTests.Links.GeneratedCode.Models.ExcursionDataInResponse(),
-                "transports" => new global::OpenApiKiotaEndToEndTests.Links.GeneratedCode.Models.TransportDataInResponse(),
-                "vacations" => new global::OpenApiKiotaEndToEndTests.Links.GeneratedCode.Models.VacationDataInResponse(),
+                "accommodations" => new global::OpenApiKiotaEndToEndTests.Links.GeneratedCode.Models.DataInAccommodationResponse(),
+                "excursions" => new global::OpenApiKiotaEndToEndTests.Links.GeneratedCode.Models.DataInExcursionResponse(),
+                "transports" => new global::OpenApiKiotaEndToEndTests.Links.GeneratedCode.Models.DataInTransportResponse(),
+                "vacations" => new global::OpenApiKiotaEndToEndTests.Links.GeneratedCode.Models.DataInVacationResponse(),
                 _ => new global::OpenApiKiotaEndToEndTests.Links.GeneratedCode.Models.DataInResponse(),
             };
         }
