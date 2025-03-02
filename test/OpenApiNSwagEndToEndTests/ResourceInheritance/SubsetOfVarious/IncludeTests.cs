@@ -74,10 +74,10 @@ public sealed class IncludeTests
         DistrictCollectionResponseDocument response = await apiClient.GetDistrictCollectionAsync(queryString);
 
         // Assert
-        response.Data.ShouldHaveCount(1);
+        response.Data.Should().HaveCount(1);
         response.Data.ElementAt(0).Id.Should().Be(district.StringId);
 
-        response.Included.ShouldHaveCount(9);
+        response.Included.Should().HaveCount(9);
 
         string familyHomeLivingRoomId = familyHome.Rooms.OfType<LivingRoom>().Single().StringId!;
         string familyRoomBedroomId = familyHome.Rooms.OfType<Bedroom>().Single().StringId!;
@@ -97,8 +97,8 @@ public sealed class IncludeTests
 
                 RelationshipsInFamilyHomeResponse relationships = familyHomeData.Relationships.Should().BeOfType<RelationshipsInFamilyHomeResponse>().Subject;
 
-                relationships.Rooms.ShouldNotBeNull();
-                relationships.Rooms.Data.ShouldHaveCount(2);
+                relationships.Rooms.Should().NotBeNull();
+                relationships.Rooms.Data.Should().HaveCount(2);
                 relationships.Rooms.Data.OfType<LivingRoomIdentifierInResponse>().Should().ContainSingle(livingRoom => livingRoom.Id == familyHomeLivingRoomId);
                 relationships.Rooms.Data.OfType<BedroomIdentifierInResponse>().Should().ContainSingle(bedroom => bedroom.Id == familyRoomBedroomId);
             });
@@ -113,8 +113,8 @@ public sealed class IncludeTests
 
             RelationshipsInMansionResponse relationships = mansionData.Relationships.Should().BeOfType<RelationshipsInMansionResponse>().Subject;
 
-            relationships.Rooms.ShouldNotBeNull();
-            relationships.Rooms.Data.ShouldHaveCount(3);
+            relationships.Rooms.Should().NotBeNull();
+            relationships.Rooms.Data.Should().HaveCount(3);
             relationships.Rooms.Data.OfType<KitchenIdentifierInResponse>().Should().ContainSingle(kitchen => kitchen.Id == mansionKitchenId);
             relationships.Rooms.Data.OfType<BathroomIdentifierInResponse>().Should().ContainSingle(bathroom => bathroom.Id == mansionBathroomId);
             relationships.Rooms.Data.OfType<ToiletIdentifierInResponse>().Should().ContainSingle(toilet => toilet.Id == mansionToiletId);
@@ -130,8 +130,8 @@ public sealed class IncludeTests
 
                 RelationshipsInResidenceResponse relationships = residenceData.Relationships.Should().BeOfType<RelationshipsInResidenceResponse>().Subject;
 
-                relationships.Rooms.ShouldNotBeNull();
-                relationships.Rooms.Data.ShouldHaveCount(1);
+                relationships.Rooms.Should().NotBeNull();
+                relationships.Rooms.Data.Should().HaveCount(1);
                 relationships.Rooms.Data.OfType<BedroomIdentifierInResponse>().Should().ContainSingle(bedroom => bedroom.Id == residenceBedroomId);
             });
 

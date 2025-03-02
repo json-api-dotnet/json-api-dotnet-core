@@ -224,8 +224,8 @@ public sealed class SubsetOfOperationsInheritanceTests
         OperationsResponseDocument? response = await apiClient.Operations.PostAsync(requestBody);
 
         // Assert
-        response.ShouldNotBeNull();
-        response.AtomicResults.ShouldHaveCount(7);
+        response.Should().NotBeNull();
+        response.AtomicResults.Should().HaveCount(7);
 
         DataInMansionResponse mansionData = response.AtomicResults.ElementAt(0).Data.Should().BeOfType<DataInMansionResponse>().Subject;
         AttributesInMansionResponse mansionAttributes = mansionData.Attributes.Should().BeOfType<AttributesInMansionResponse>().Subject;
@@ -264,10 +264,10 @@ public sealed class SubsetOfOperationsInheritanceTests
 
         response.AtomicResults.ElementAt(6).Data.Should().BeNull();
 
-        long newMansionId = long.Parse(mansionData.Id.ShouldNotBeNull());
-        long newKitchenId = long.Parse(kitchenData.Id.ShouldNotBeNull());
-        long newFamilyHomeId = long.Parse(familyHomeData2.Id.ShouldNotBeNull());
-        long newBedroomId = long.Parse(bedroomData.Id.ShouldNotBeNull());
+        long newMansionId = long.Parse(mansionData.Id.Should().NotBeNull().And.Subject);
+        long newKitchenId = long.Parse(kitchenData.Id.Should().NotBeNull().And.Subject);
+        long newFamilyHomeId = long.Parse(familyHomeData2.Id.Should().NotBeNull().And.Subject);
+        long newBedroomId = long.Parse(bedroomData.Id.Should().NotBeNull().And.Subject);
 
         await _testContext.RunOnDatabaseAsync(async dbContext =>
         {
@@ -279,7 +279,7 @@ public sealed class SubsetOfOperationsInheritanceTests
             mansionInDatabase.OwnerName.Should().Be(newMansion.OwnerName);
 
             mansionInDatabase.Rooms.Should().BeEmpty();
-            mansionInDatabase.Staff.ShouldHaveCount(1);
+            mansionInDatabase.Staff.Should().HaveCount(1);
             mansionInDatabase.Staff.ElementAt(0).Id.Should().Be(existingStaffMember.Id);
 
             FamilyHome familyHomeInDatabase = await dbContext.FamilyHomes.Include(familyHome => familyHome.Rooms).FirstWithIdAsync(newFamilyHomeId);
@@ -288,7 +288,7 @@ public sealed class SubsetOfOperationsInheritanceTests
             familyHomeInDatabase.NumberOfResidents.Should().Be(newFamilyHome.NumberOfResidents);
             familyHomeInDatabase.FloorCount.Should().Be(newFamilyHome.FloorCount);
 
-            familyHomeInDatabase.Rooms.ShouldHaveCount(2);
+            familyHomeInDatabase.Rooms.Should().HaveCount(2);
             familyHomeInDatabase.Rooms.OfType<Kitchen>().Should().ContainSingle(kitchen => kitchen.Id == newKitchenId);
             familyHomeInDatabase.Rooms.OfType<Bedroom>().Should().ContainSingle(bedroom => bedroom.Id == newBedroomId);
         });
@@ -335,13 +335,13 @@ public sealed class SubsetOfOperationsInheritanceTests
         ErrorResponseDocument exception = (await action.Should().ThrowExactlyAsync<ErrorResponseDocument>()).Which;
         exception.ResponseStatusCode.Should().Be((int)HttpStatusCode.Conflict);
         exception.Message.Should().Be($"Exception of type '{typeof(ErrorResponseDocument).FullName}' was thrown.");
-        exception.Errors.ShouldHaveCount(1);
+        exception.Errors.Should().HaveCount(1);
 
         ErrorObject error = exception.Errors.ElementAt(0);
         error.Status.Should().Be("409");
         error.Title.Should().Be("Incompatible resource type found.");
         error.Detail.Should().Be("Expected openapi:discriminator with value 'familyHomes' instead of 'residences'.");
-        error.Source.ShouldNotBeNull();
+        error.Source.Should().NotBeNull();
         error.Source.Pointer.Should().Be("/atomic:operations[0]/data/attributes/openapi:discriminator");
     }
 

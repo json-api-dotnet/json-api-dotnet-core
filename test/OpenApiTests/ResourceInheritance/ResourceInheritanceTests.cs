@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Text.Json;
+using FluentAssertions;
 using JsonApiDotNetCore.Configuration;
 using JsonApiDotNetCore.Controllers;
 using Microsoft.Extensions.DependencyInjection;
@@ -96,7 +97,7 @@ public abstract class ResourceInheritanceTests : IClassFixture<OpenApiTestContex
                         discriminatorElement.Should().ContainPath("mapping").With(mappingElement =>
                         {
                             string[] valueArray = discriminatorValues.Split('|');
-                            mappingElement.EnumerateObject().ShouldHaveCount(valueArray.Length);
+                            mappingElement.EnumerateObject().Should().HaveCount(valueArray.Length);
 
                             foreach (string value in valueArray)
                             {
@@ -136,7 +137,7 @@ public abstract class ResourceInheritanceTests : IClassFixture<OpenApiTestContex
                         discriminatorElement.Should().ContainPath("mapping").With(mappingElement =>
                         {
                             string[] valueArray = discriminatorValues.Split('|');
-                            mappingElement.EnumerateObject().ShouldHaveCount(valueArray.Length);
+                            mappingElement.EnumerateObject().Should().HaveCount(valueArray.Length);
 
                             foreach (string value in valueArray)
                             {
@@ -172,7 +173,7 @@ public abstract class ResourceInheritanceTests : IClassFixture<OpenApiTestContex
                     schemaElement.Should().ContainPath("enum").With(enumElement =>
                     {
                         string[] valueArray = enumValues.Split('|');
-                        enumElement.EnumerateArray().ShouldHaveCount(valueArray.Length);
+                        enumElement.EnumerateArray().Should().HaveCount(valueArray.Length);
 
                         foreach (string value in valueArray)
                         {
@@ -219,7 +220,7 @@ public abstract class ResourceInheritanceTests : IClassFixture<OpenApiTestContex
 
                     schemaElement.Should().ContainPath(propertiesPath).With(propertiesElement =>
                     {
-                        propertiesElement.EnumerateObject().ShouldHaveCount(propertyArray.Length);
+                        propertiesElement.EnumerateObject().Should().HaveCount(propertyArray.Length);
 
                         foreach (string value in propertyArray)
                         {

@@ -57,8 +57,8 @@ public sealed class OnlyRelationshipsInheritanceTests
         ResidenceIdentifierResponseDocument? response = await apiClient.Rooms[bedroom.StringId!].Relationships.Residence.GetAsync();
 
         // Assert
-        response.ShouldNotBeNull();
-        response.Data.ShouldNotBeNull();
+        response.Should().NotBeNull();
+        response.Data.Should().NotBeNull();
         response.Data.Should().BeOfType<FamilyHomeIdentifierInResponse>();
         response.Data.Id.Should().Be(bedroom.Residence.StringId);
     }

@@ -66,7 +66,7 @@ public sealed class NoOperationsInheritanceTests
         PrimaryRoadResponseDocument? response = await apiClient.Roads.PostAsync(requestBody);
 
         // Assert
-        response.ShouldNotBeNull();
+        response.Should().NotBeNull();
 
         DataInRoadResponse roadData = response.Data.Should().BeOfType<DataInRoadResponse>().Subject;
 
@@ -75,7 +75,7 @@ public sealed class NoOperationsInheritanceTests
 
         roadData.Relationships.Should().BeNull();
 
-        long newRoadId = long.Parse(roadData.Id.ShouldNotBeNull());
+        long newRoadId = long.Parse(roadData.Id.Should().NotBeNull().And.Subject);
 
         await _testContext.RunOnDatabaseAsync(async dbContext =>
         {
@@ -151,7 +151,7 @@ public sealed class NoOperationsInheritanceTests
         PrimaryBuildingResponseDocument? response = await apiClient.Buildings.PostAsync(requestBody);
 
         // Assert
-        response.ShouldNotBeNull();
+        response.Should().NotBeNull();
 
         DataInFamilyHomeResponse familyHomeData = response.Data.Should().BeOfType<DataInFamilyHomeResponse>().Subject;
 
@@ -163,7 +163,7 @@ public sealed class NoOperationsInheritanceTests
         RelationshipsInFamilyHomeResponse familyHomeRelationships = familyHomeData.Relationships.Should().BeOfType<RelationshipsInFamilyHomeResponse>().Subject;
         familyHomeRelationships.Rooms.Should().NotBeNull();
 
-        long newFamilyHomeId = long.Parse(familyHomeData.Id.ShouldNotBeNull());
+        long newFamilyHomeId = long.Parse(familyHomeData.Id.Should().NotBeNull().And.Subject);
 
         await _testContext.RunOnDatabaseAsync(async dbContext =>
         {
@@ -173,7 +173,7 @@ public sealed class NoOperationsInheritanceTests
             familyHomeInDatabase.NumberOfResidents.Should().Be(newFamilyHome.NumberOfResidents);
             familyHomeInDatabase.FloorCount.Should().Be(newFamilyHome.FloorCount);
 
-            familyHomeInDatabase.Rooms.ShouldHaveCount(3);
+            familyHomeInDatabase.Rooms.Should().HaveCount(3);
             familyHomeInDatabase.Rooms.OfType<Bedroom>().Should().ContainSingle(bedroom => bedroom.Id == existingBedroom1.Id);
             familyHomeInDatabase.Rooms.OfType<Bedroom>().Should().ContainSingle(bedroom => bedroom.Id == existingBedroom2.Id);
             familyHomeInDatabase.Rooms.OfType<LivingRoom>().Should().ContainSingle(livingRoom => livingRoom.Id == existingLivingRoom.Id);
@@ -214,7 +214,7 @@ public sealed class NoOperationsInheritanceTests
         PrimaryRoadResponseDocument? response = await apiClient.Roads[existingRoad.StringId!].PatchAsync(requestBody);
 
         // Assert
-        response.ShouldNotBeNull();
+        response.Should().NotBeNull();
 
         DataInRoadResponse roadData = response.Data.Should().BeOfType<DataInRoadResponse>().Subject;
 
@@ -302,7 +302,7 @@ public sealed class NoOperationsInheritanceTests
         PrimaryBuildingResponseDocument? response = await apiClient.Buildings[existingFamilyHome.StringId!].PatchAsync(requestBody);
 
         // Assert
-        response.ShouldNotBeNull();
+        response.Should().NotBeNull();
 
         DataInFamilyHomeResponse familyHomeData = response.Data.Should().BeOfType<DataInFamilyHomeResponse>().Subject;
 
@@ -322,7 +322,7 @@ public sealed class NoOperationsInheritanceTests
             familyHomeInDatabase.NumberOfResidents.Should().Be(newFamilyHome.NumberOfResidents);
             familyHomeInDatabase.FloorCount.Should().Be(newFamilyHome.FloorCount);
 
-            familyHomeInDatabase.Rooms.ShouldHaveCount(3);
+            familyHomeInDatabase.Rooms.Should().HaveCount(3);
             familyHomeInDatabase.Rooms.OfType<Bedroom>().Should().ContainSingle(bedroom => bedroom.Id == existingBedroom1.Id);
             familyHomeInDatabase.Rooms.OfType<Bedroom>().Should().ContainSingle(bedroom => bedroom.Id == existingBedroom2.Id);
             familyHomeInDatabase.Rooms.OfType<LivingRoom>().Should().ContainSingle(livingRoom => livingRoom.Id == existingLivingRoom.Id);

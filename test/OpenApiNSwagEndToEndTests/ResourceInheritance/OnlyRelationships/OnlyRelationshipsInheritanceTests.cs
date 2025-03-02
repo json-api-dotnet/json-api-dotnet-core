@@ -58,7 +58,7 @@ public sealed class OnlyRelationshipsInheritanceTests
             await ApiResponse.TranslateAsync(async () => await apiClient.GetRoomResidenceRelationshipAsync(bedroom.StringId!));
 
         // Assert
-        response.ShouldNotBeNull();
+        response.Should().NotBeNull();
         response.Data.Should().BeOfType<FamilyHomeIdentifierInResponse>();
         response.Data.Id.Should().Be(bedroom.Residence.StringId);
     }
@@ -84,7 +84,7 @@ public sealed class OnlyRelationshipsInheritanceTests
             await ApiResponse.TranslateAsync(async () => await apiClient.GetBedroomResidenceRelationshipAsync(bedroom.StringId!));
 
         // Assert
-        response.ShouldNotBeNull();
+        response.Should().NotBeNull();
         response.Data.Should().BeOfType<FamilyHomeIdentifierInResponse>();
         response.Data.Id.Should().Be(bedroom.Residence.StringId);
     }
@@ -114,8 +114,8 @@ public sealed class OnlyRelationshipsInheritanceTests
             await ApiResponse.TranslateAsync(async () => await apiClient.GetResidenceRoomsRelationshipAsync(familyHome.StringId!));
 
         // Assert
-        response.ShouldNotBeNull();
-        response.Data.ShouldHaveCount(2);
+        response.Should().NotBeNull();
+        response.Data.Should().HaveCount(2);
 
         response.Data.OfType<KitchenIdentifierInResponse>().Should().ContainSingle(kitchenIdentifier => kitchenIdentifier.Id == kitchen.StringId);
         response.Data.OfType<BedroomIdentifierInResponse>().Should().ContainSingle(bedroomIdentifier => bedroomIdentifier.Id == bedroom.StringId);
@@ -146,8 +146,8 @@ public sealed class OnlyRelationshipsInheritanceTests
             await ApiResponse.TranslateAsync(async () => await apiClient.GetMansionRoomsRelationshipAsync(mansion.StringId!));
 
         // Assert
-        response.ShouldNotBeNull();
-        response.Data.ShouldHaveCount(2);
+        response.Should().NotBeNull();
+        response.Data.Should().HaveCount(2);
 
         response.Data.OfType<BathroomIdentifierInResponse>().Should().ContainSingle(bathroomIdentifier => bathroomIdentifier.Id == bathroom.StringId);
         response.Data.OfType<ToiletIdentifierInResponse>().Should().ContainSingle(toiletIdentifier => toiletIdentifier.Id == toilet.StringId);
@@ -368,7 +368,7 @@ public sealed class OnlyRelationshipsInheritanceTests
 
             residenceInDatabase.Should().BeOfType<Mansion>();
 
-            residenceInDatabase.Rooms.ShouldHaveCount(1);
+            residenceInDatabase.Rooms.Should().HaveCount(1);
             residenceInDatabase.Rooms.OfType<Bedroom>().Should().ContainSingle(bedroomIdentifier => bedroomIdentifier.Id == existingBedroom.Id);
         });
     }
@@ -416,7 +416,7 @@ public sealed class OnlyRelationshipsInheritanceTests
 
             residenceInDatabase.Should().BeOfType<Mansion>();
 
-            residenceInDatabase.Rooms.ShouldHaveCount(1);
+            residenceInDatabase.Rooms.Should().HaveCount(1);
             residenceInDatabase.Rooms.OfType<Bedroom>().Should().ContainSingle(bedroomIdentifier => bedroomIdentifier.Id == existingBedroom.Id);
         });
     }
@@ -464,7 +464,7 @@ public sealed class OnlyRelationshipsInheritanceTests
 
             residenceInDatabase.Should().BeOfType<Mansion>();
 
-            residenceInDatabase.Rooms.ShouldHaveCount(1);
+            residenceInDatabase.Rooms.Should().HaveCount(1);
             residenceInDatabase.Rooms.OfType<Bedroom>().Should().ContainSingle(bedroomIdentifier => bedroomIdentifier.Id == existingBedroom.Id);
         });
     }
@@ -512,7 +512,7 @@ public sealed class OnlyRelationshipsInheritanceTests
 
             residenceInDatabase.Should().BeOfType<Mansion>();
 
-            residenceInDatabase.Rooms.ShouldHaveCount(1);
+            residenceInDatabase.Rooms.Should().HaveCount(1);
             residenceInDatabase.Rooms.OfType<Bedroom>().Should().ContainSingle(bedroomIdentifier => bedroomIdentifier.Id == existingBedroom.Id);
         });
     }
