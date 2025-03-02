@@ -49,10 +49,14 @@ public sealed class NoOperationsInheritanceTests : ResourceInheritanceTests
     }
 
     [Theory]
-    [InlineData("dataInCreateRequest", false, "bathrooms|bedrooms|kitchens|livingRooms|toilets|rooms|familyHomes|mansions|residences|buildings|districts|roads|cyclePaths|staffMembers")]
-    [InlineData("dataInUpdateRequest", false, "bathrooms|bedrooms|kitchens|livingRooms|toilets|rooms|familyHomes|mansions|residences|buildings|districts|roads|cyclePaths|staffMembers")]
-    [InlineData("identifierInRequest", false, "bathrooms|bedrooms|kitchens|livingRooms|toilets|rooms|familyHomes|mansions|residences|buildings|roads|cyclePaths|staffMembers")]
-    [InlineData("dataInResponse", false, "bathrooms|bedrooms|kitchens|livingRooms|toilets|rooms|familyHomes|mansions|residences|buildings|districts|roads|cyclePaths|staffMembers")]
+    [InlineData("dataInCreateRequest", false,
+        "bathrooms|bedrooms|kitchens|livingRooms|toilets|rooms|familyHomes|mansions|residences|buildings|districts|roads|cyclePaths|staffMembers")]
+    [InlineData("dataInUpdateRequest", false,
+        "bathrooms|bedrooms|kitchens|livingRooms|toilets|rooms|familyHomes|mansions|residences|buildings|districts|roads|cyclePaths|staffMembers")]
+    [InlineData("identifierInRequest", false,
+        "bathrooms|bedrooms|kitchens|livingRooms|toilets|rooms|familyHomes|mansions|residences|buildings|roads|cyclePaths|staffMembers")]
+    [InlineData("dataInResponse", false,
+        "bathrooms|bedrooms|kitchens|livingRooms|toilets|rooms|familyHomes|mansions|residences|buildings|districts|roads|cyclePaths|staffMembers")]
     [InlineData("dataInBuildingResponse", true, "familyHomes|mansions|residences")]
     [InlineData("buildingIdentifierInResponse", false, "familyHomes|mansions|residences")]
     [InlineData("dataInResidenceResponse", true, "familyHomes|mansions")]
@@ -67,10 +71,14 @@ public sealed class NoOperationsInheritanceTests : ResourceInheritanceTests
     }
 
     [Theory]
-    [InlineData("attributesInCreateRequest", "familyHomes|mansions|residences|buildings|bathrooms|bedrooms|kitchens|livingRooms|toilets|rooms|cyclePaths|roads|districts|staffMembers")]
-    [InlineData("attributesInUpdateRequest", "familyHomes|mansions|residences|buildings|bathrooms|bedrooms|kitchens|livingRooms|toilets|rooms|cyclePaths|roads|districts|staffMembers")]
-    [InlineData("relationshipsInCreateRequest", "familyHomes|mansions|residences|buildings|bathrooms|bedrooms|kitchens|livingRooms|toilets|rooms|cyclePaths|roads|districts")]
-    [InlineData("relationshipsInUpdateRequest", "familyHomes|mansions|residences|buildings|bathrooms|bedrooms|kitchens|livingRooms|toilets|rooms|cyclePaths|roads|districts")]
+    [InlineData("attributesInCreateRequest",
+        "familyHomes|mansions|residences|buildings|bathrooms|bedrooms|kitchens|livingRooms|toilets|rooms|cyclePaths|roads|districts|staffMembers")]
+    [InlineData("attributesInUpdateRequest",
+        "familyHomes|mansions|residences|buildings|bathrooms|bedrooms|kitchens|livingRooms|toilets|rooms|cyclePaths|roads|districts|staffMembers")]
+    [InlineData("relationshipsInCreateRequest",
+        "familyHomes|mansions|residences|buildings|bathrooms|bedrooms|kitchens|livingRooms|toilets|rooms|cyclePaths|roads|districts")]
+    [InlineData("relationshipsInUpdateRequest",
+        "familyHomes|mansions|residences|buildings|bathrooms|bedrooms|kitchens|livingRooms|toilets|rooms|cyclePaths|roads|districts")]
     [InlineData("attributesInBuildingResponse", "familyHomes|mansions|residences")]
     [InlineData("relationshipsInBuildingResponse", "familyHomes|mansions|residences")]
     [InlineData("attributesInRoomResponse", "bathrooms|bedrooms|kitchens|livingRooms|toilets")]

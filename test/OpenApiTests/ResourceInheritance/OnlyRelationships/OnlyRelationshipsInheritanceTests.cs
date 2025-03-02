@@ -54,7 +54,8 @@ public sealed class OnlyRelationshipsInheritanceTests : ResourceInheritanceTests
     [Theory]
     [InlineData("dataInCreateRequest", false, null)]
     [InlineData("dataInUpdateRequest", false, null)]
-    [InlineData("identifierInRequest", false, "bathrooms|bedrooms|kitchens|livingRooms|toilets|rooms|familyHomes|mansions|residences|buildings|roads|cyclePaths|staffMembers")]
+    [InlineData("identifierInRequest", false,
+        "bathrooms|bedrooms|kitchens|livingRooms|toilets|rooms|familyHomes|mansions|residences|buildings|roads|cyclePaths|staffMembers")]
     [InlineData("dataInResponse", false, "")]
     [InlineData("dataInBuildingResponse", true, null)]
     [InlineData("buildingIdentifierInResponse", false, "familyHomes|mansions|residences")]

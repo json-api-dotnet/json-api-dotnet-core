@@ -50,7 +50,8 @@ public sealed class SubsetOfVariousInheritanceTests : ResourceInheritanceTests
     [InlineData("dataInCreateRequest", false, "familyHomes|mansions|residences|buildings")]
     [InlineData("dataInUpdateRequest", false, "familyHomes|mansions|residences|buildings")]
     [InlineData("identifierInRequest", false, "bathrooms|bedrooms|kitchens|livingRooms|toilets|rooms|staffMembers")]
-    [InlineData("dataInResponse", false, "bathrooms|bedrooms|kitchens|livingRooms|toilets|rooms|familyHomes|mansions|residences|buildings|districts|roads|cyclePaths|staffMembers")]
+    [InlineData("dataInResponse", false,
+        "bathrooms|bedrooms|kitchens|livingRooms|toilets|rooms|familyHomes|mansions|residences|buildings|districts|roads|cyclePaths|staffMembers")]
     [InlineData("dataInBuildingResponse", true, "familyHomes|mansions|residences")]
     [InlineData("buildingIdentifierInResponse", false, "familyHomes|mansions|residences")]
     [InlineData("dataInResidenceResponse", true, "familyHomes|mansions")]

@@ -429,7 +429,8 @@ internal sealed class DataSchemaGenerator
         }
         else
         {
-            var resourceSchemaTypeForFields = GetResourceSchemaTypeForFieldsProperty(resourceSchemaTypeForData, forAttributes ? "Attributes" : "Relationships");
+            ResourceSchemaType? resourceSchemaTypeForFields =
+                GetResourceSchemaTypeForFieldsProperty(resourceSchemaTypeForData, forAttributes ? "Attributes" : "Relationships");
 
             if (forRequestSchema)
             {
@@ -442,7 +443,9 @@ internal sealed class DataSchemaGenerator
 
                 if (resourceSchemaTypeForFields.ResourceType.BaseType != null)
                 {
-                    var resourceSchemaTypeForBase = resourceSchemaTypeForFields.ChangeResourceType(resourceSchemaTypeForFields.ResourceType.BaseType);
+                    ResourceSchemaType? resourceSchemaTypeForBase =
+                        resourceSchemaTypeForFields.ChangeResourceType(resourceSchemaTypeForFields.ResourceType.BaseType);
+
                     baseSchemaType = resourceSchemaTypeForBase.SchemaConstructedType;
                 }
                 else
