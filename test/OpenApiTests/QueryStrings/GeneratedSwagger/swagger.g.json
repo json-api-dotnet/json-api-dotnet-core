@@ -3353,7 +3353,7 @@
         "type": "object",
         "allOf": [
           {
-            "$ref": "#/components/schemas/dataInCreateRequest"
+            "$ref": "#/components/schemas/resourceInCreateRequest"
           },
           {
             "type": "object",
@@ -3382,7 +3382,7 @@
         "type": "object",
         "allOf": [
           {
-            "$ref": "#/components/schemas/dataInCreateRequest"
+            "$ref": "#/components/schemas/resourceInCreateRequest"
           },
           {
             "type": "object",
@@ -3407,41 +3407,10 @@
         ],
         "additionalProperties": false
       },
-      "dataInCreateRequest": {
-        "required": [
-          "type"
-        ],
-        "type": "object",
-        "properties": {
-          "type": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/resourceType"
-              }
-            ]
-          },
-          "meta": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/meta"
-              }
-            ]
-          }
-        },
-        "additionalProperties": false,
-        "discriminator": {
-          "propertyName": "type",
-          "mapping": {
-            "nameValuePairs": "#/components/schemas/dataInCreateNameValuePairRequest",
-            "nodes": "#/components/schemas/dataInCreateNodeRequest"
-          }
-        },
-        "x-abstract": true
-      },
       "dataInNameValuePairResponse": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/dataInResponse"
+            "$ref": "#/components/schemas/resourceInResponse"
           },
           {
             "required": [
@@ -3484,7 +3453,7 @@
       "dataInNodeResponse": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/dataInResponse"
+            "$ref": "#/components/schemas/resourceInResponse"
           },
           {
             "required": [
@@ -3524,42 +3493,11 @@
         ],
         "additionalProperties": false
       },
-      "dataInResponse": {
-        "required": [
-          "type"
-        ],
-        "type": "object",
-        "properties": {
-          "type": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/resourceType"
-              }
-            ]
-          },
-          "meta": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/meta"
-              }
-            ]
-          }
-        },
-        "additionalProperties": false,
-        "discriminator": {
-          "propertyName": "type",
-          "mapping": {
-            "nameValuePairs": "#/components/schemas/dataInNameValuePairResponse",
-            "nodes": "#/components/schemas/dataInNodeResponse"
-          }
-        },
-        "x-abstract": true
-      },
       "dataInUpdateNameValuePairRequest": {
         "type": "object",
         "allOf": [
           {
-            "$ref": "#/components/schemas/dataInUpdateRequest"
+            "$ref": "#/components/schemas/resourceInUpdateRequest"
           },
           {
             "required": [
@@ -3596,7 +3534,7 @@
         "type": "object",
         "allOf": [
           {
-            "$ref": "#/components/schemas/dataInUpdateRequest"
+            "$ref": "#/components/schemas/resourceInUpdateRequest"
           },
           {
             "required": [
@@ -3628,37 +3566,6 @@
           }
         ],
         "additionalProperties": false
-      },
-      "dataInUpdateRequest": {
-        "required": [
-          "type"
-        ],
-        "type": "object",
-        "properties": {
-          "type": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/resourceType"
-              }
-            ]
-          },
-          "meta": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/meta"
-              }
-            ]
-          }
-        },
-        "additionalProperties": false,
-        "discriminator": {
-          "propertyName": "type",
-          "mapping": {
-            "nameValuePairs": "#/components/schemas/dataInUpdateNameValuePairRequest",
-            "nodes": "#/components/schemas/dataInUpdateNodeRequest"
-          }
-        },
-        "x-abstract": true
       },
       "errorLinks": {
         "type": "object",
@@ -3842,7 +3749,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -3966,7 +3873,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -4155,7 +4062,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -4244,7 +4151,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -4281,7 +4188,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -4575,6 +4482,99 @@
         },
         "additionalProperties": false
       },
+      "resourceInCreateRequest": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/resourceType"
+              }
+            ]
+          },
+          "meta": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/meta"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "nameValuePairs": "#/components/schemas/dataInCreateNameValuePairRequest",
+            "nodes": "#/components/schemas/dataInCreateNodeRequest"
+          }
+        },
+        "x-abstract": true
+      },
+      "resourceInResponse": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/resourceType"
+              }
+            ]
+          },
+          "meta": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/meta"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "nameValuePairs": "#/components/schemas/dataInNameValuePairResponse",
+            "nodes": "#/components/schemas/dataInNodeResponse"
+          }
+        },
+        "x-abstract": true
+      },
+      "resourceInUpdateRequest": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/resourceType"
+              }
+            ]
+          },
+          "meta": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/meta"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "nameValuePairs": "#/components/schemas/dataInUpdateNameValuePairRequest",
+            "nodes": "#/components/schemas/dataInUpdateNodeRequest"
+          }
+        },
+        "x-abstract": true
+      },
       "resourceLinks": {
         "type": "object",
         "properties": {
@@ -4627,7 +4627,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {

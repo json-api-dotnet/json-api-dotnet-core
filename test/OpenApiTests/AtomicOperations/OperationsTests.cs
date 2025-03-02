@@ -240,7 +240,7 @@ public sealed class OperationsTests : IClassFixture<OpenApiTestContext<OpenApiSt
                 }
                 """);
 
-            schemasElement.Should().ContainPath("dataInCreateRequest").Should().BeJson("""
+            schemasElement.Should().ContainPath("resourceInCreateRequest").Should().BeJson("""
                 {
                   "required": [
                     "type"
@@ -276,7 +276,7 @@ public sealed class OperationsTests : IClassFixture<OpenApiTestContext<OpenApiSt
                 }
                 """);
 
-            schemasElement.Should().ContainPath("dataInUpdateRequest").Should().BeJson("""
+            schemasElement.Should().ContainPath("resourceInUpdateRequest").Should().BeJson("""
                 {
                   "required": [
                     "type"
@@ -419,7 +419,7 @@ public sealed class OperationsTests : IClassFixture<OpenApiTestContext<OpenApiSt
                     "data": {
                       "allOf": [
                         {
-                          "$ref": "#/components/schemas/dataInResponse"
+                          "$ref": "#/components/schemas/resourceInResponse"
                         }
                       ]
                     },
@@ -487,7 +487,7 @@ public sealed class OperationsTests : IClassFixture<OpenApiTestContext<OpenApiSt
                   "type": "object",
                   "allOf": [
                     {
-                      "$ref": "#/components/schemas/dataInCreateRequest"
+                      "$ref": "#/components/schemas/resourceInCreateRequest"
                     },
                     {
                       "required": [
@@ -627,7 +627,7 @@ public sealed class OperationsTests : IClassFixture<OpenApiTestContext<OpenApiSt
                   "type": "object",
                   "allOf": [
                     {
-                      "$ref": "#/components/schemas/dataInUpdateRequest"
+                      "$ref": "#/components/schemas/resourceInUpdateRequest"
                     },
                     {
                       "type": "object",
@@ -967,7 +967,7 @@ public sealed class OperationsTests : IClassFixture<OpenApiTestContext<OpenApiSt
                   "type": "object",
                   "allOf": [
                     {
-                      "$ref": "#/components/schemas/dataInCreateRequest"
+                      "$ref": "#/components/schemas/resourceInCreateRequest"
                     },
                     {
                       "type": "object",
@@ -1103,7 +1103,7 @@ public sealed class OperationsTests : IClassFixture<OpenApiTestContext<OpenApiSt
                   "type": "object",
                   "allOf": [
                     {
-                      "$ref": "#/components/schemas/dataInUpdateRequest"
+                      "$ref": "#/components/schemas/resourceInUpdateRequest"
                     },
                     {
                       "type": "object",
@@ -1537,7 +1537,7 @@ public sealed class OperationsTests : IClassFixture<OpenApiTestContext<OpenApiSt
                   "type": "object",
                   "allOf": [
                     {
-                      "$ref": "#/components/schemas/dataInCreateRequest"
+                      "$ref": "#/components/schemas/resourceInCreateRequest"
                     },
                     {
                       "type": "object",
@@ -1673,7 +1673,7 @@ public sealed class OperationsTests : IClassFixture<OpenApiTestContext<OpenApiSt
                   "type": "object",
                   "allOf": [
                     {
-                      "$ref": "#/components/schemas/dataInUpdateRequest"
+                      "$ref": "#/components/schemas/resourceInUpdateRequest"
                     },
                     {
                       "type": "object",
@@ -2051,7 +2051,7 @@ public sealed class OperationsTests : IClassFixture<OpenApiTestContext<OpenApiSt
                   "type": "object",
                   "allOf": [
                     {
-                      "$ref": "#/components/schemas/dataInCreateRequest"
+                      "$ref": "#/components/schemas/resourceInCreateRequest"
                     },
                     {
                       "type": "object",
@@ -2190,7 +2190,7 @@ public sealed class OperationsTests : IClassFixture<OpenApiTestContext<OpenApiSt
                   "type": "object",
                   "allOf": [
                     {
-                      "$ref": "#/components/schemas/dataInUpdateRequest"
+                      "$ref": "#/components/schemas/resourceInUpdateRequest"
                     },
                     {
                       "type": "object",

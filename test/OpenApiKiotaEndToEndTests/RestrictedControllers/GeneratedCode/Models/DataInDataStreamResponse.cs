@@ -11,7 +11,7 @@ namespace OpenApiKiotaEndToEndTests.RestrictedControllers.GeneratedCode.Models
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public partial class DataInDataStreamResponse : global::OpenApiKiotaEndToEndTests.RestrictedControllers.GeneratedCode.Models.DataInResponse, IParsable
+    public partial class DataInDataStreamResponse : global::OpenApiKiotaEndToEndTests.RestrictedControllers.GeneratedCode.Models.ResourceInResponse, IParsable
     #pragma warning restore CS1591
     {
         /// <summary>The attributes property</summary>

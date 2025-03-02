@@ -73,7 +73,7 @@ public sealed class CamelCaseTests : IClassFixture<OpenApiTestContext<CamelCaseN
             string? resourceRelationshipInResponseSchemaRefId = null;
 
             string abstractResourceDataSchemaRefId = schemasElement.Should().ContainPath($"{resourceDataSchemaRefId}.allOf[0].$ref")
-                .ShouldBeSchemaReferenceId("dataInResponse").SchemaReferenceId;
+                .ShouldBeSchemaReferenceId("resourceInResponse").SchemaReferenceId;
 
             schemasElement.Should().ContainPath($"{abstractResourceDataSchemaRefId}.discriminator.mapping").With(mappingElement =>
             {

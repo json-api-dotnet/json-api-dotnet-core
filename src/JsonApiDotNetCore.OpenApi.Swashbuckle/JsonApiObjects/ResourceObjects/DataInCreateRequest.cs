@@ -5,10 +5,8 @@ using JsonApiDotNetCore.Resources;
 
 namespace JsonApiDotNetCore.OpenApi.Swashbuckle.JsonApiObjects.ResourceObjects;
 
-internal abstract class DataInCreateRequest : ResourceData;
-
 [UsedImplicitly(ImplicitUseTargetFlags.Members)]
-internal sealed class DataInCreateRequest<TResource> : DataInCreateRequest
+internal sealed class DataInCreateRequest<TResource> : ResourceInCreateRequest
     where TResource : IIdentifiable
 {
     [MinLength(1)]

@@ -635,41 +635,11 @@
         },
         "additionalProperties": false
       },
-      "dataInCreateRequest": {
-        "required": [
-          "type"
-        ],
-        "type": "object",
-        "properties": {
-          "type": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/resourceType"
-              }
-            ]
-          },
-          "meta": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/meta"
-              }
-            ]
-          }
-        },
-        "additionalProperties": false,
-        "discriminator": {
-          "propertyName": "type",
-          "mapping": {
-            "socialMediaAccounts": "#/components/schemas/dataInCreateSocialMediaAccountRequest"
-          }
-        },
-        "x-abstract": true
-      },
       "dataInCreateSocialMediaAccountRequest": {
         "type": "object",
         "allOf": [
           {
-            "$ref": "#/components/schemas/dataInCreateRequest"
+            "$ref": "#/components/schemas/resourceInCreateRequest"
           },
           {
             "type": "object",
@@ -687,40 +657,10 @@
         ],
         "additionalProperties": false
       },
-      "dataInResponse": {
-        "required": [
-          "type"
-        ],
-        "type": "object",
-        "properties": {
-          "type": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/resourceType"
-              }
-            ]
-          },
-          "meta": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/meta"
-              }
-            ]
-          }
-        },
-        "additionalProperties": false,
-        "discriminator": {
-          "propertyName": "type",
-          "mapping": {
-            "socialMediaAccounts": "#/components/schemas/dataInSocialMediaAccountResponse"
-          }
-        },
-        "x-abstract": true
-      },
       "dataInSocialMediaAccountResponse": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/dataInResponse"
+            "$ref": "#/components/schemas/resourceInResponse"
           },
           {
             "required": [
@@ -753,41 +693,11 @@
         ],
         "additionalProperties": false
       },
-      "dataInUpdateRequest": {
-        "required": [
-          "type"
-        ],
-        "type": "object",
-        "properties": {
-          "type": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/resourceType"
-              }
-            ]
-          },
-          "meta": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/meta"
-              }
-            ]
-          }
-        },
-        "additionalProperties": false,
-        "discriminator": {
-          "propertyName": "type",
-          "mapping": {
-            "socialMediaAccounts": "#/components/schemas/dataInUpdateSocialMediaAccountRequest"
-          }
-        },
-        "x-abstract": true
-      },
       "dataInUpdateSocialMediaAccountRequest": {
         "type": "object",
         "allOf": [
           {
-            "$ref": "#/components/schemas/dataInUpdateRequest"
+            "$ref": "#/components/schemas/resourceInUpdateRequest"
           },
           {
             "required": [
@@ -965,7 +875,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -977,6 +887,96 @@
           }
         },
         "additionalProperties": false
+      },
+      "resourceInCreateRequest": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/resourceType"
+              }
+            ]
+          },
+          "meta": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/meta"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "socialMediaAccounts": "#/components/schemas/dataInCreateSocialMediaAccountRequest"
+          }
+        },
+        "x-abstract": true
+      },
+      "resourceInResponse": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/resourceType"
+              }
+            ]
+          },
+          "meta": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/meta"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "socialMediaAccounts": "#/components/schemas/dataInSocialMediaAccountResponse"
+          }
+        },
+        "x-abstract": true
+      },
+      "resourceInUpdateRequest": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/resourceType"
+              }
+            ]
+          },
+          "meta": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/meta"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "socialMediaAccounts": "#/components/schemas/dataInUpdateSocialMediaAccountRequest"
+          }
+        },
+        "x-abstract": true
       },
       "resourceLinks": {
         "type": "object",

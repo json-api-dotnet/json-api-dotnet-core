@@ -8,7 +8,7 @@ namespace JsonApiDotNetCore.OpenApi.Swashbuckle.JsonApiObjects.AtomicOperations;
 internal sealed class AtomicResult : IHasMeta
 {
     [JsonPropertyName("data")]
-    public DataInResponse Data { get; set; } = null!;
+    public ResourceInResponse Data { get; set; } = null!;
 
     [JsonPropertyName("meta")]
     public Meta Meta { get; set; } = null!;

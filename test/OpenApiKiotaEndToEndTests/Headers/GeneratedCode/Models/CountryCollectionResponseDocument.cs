@@ -26,9 +26,9 @@ namespace OpenApiKiotaEndToEndTests.Headers.GeneratedCode.Models
         }
 
         /// <summary>The included property</summary>
-        public List<global::OpenApiKiotaEndToEndTests.Headers.GeneratedCode.Models.DataInResponse>? Included
+        public List<global::OpenApiKiotaEndToEndTests.Headers.GeneratedCode.Models.ResourceInResponse>? Included
         {
-            get { return BackingStore?.Get<List<global::OpenApiKiotaEndToEndTests.Headers.GeneratedCode.Models.DataInResponse>?>("included"); }
+            get { return BackingStore?.Get<List<global::OpenApiKiotaEndToEndTests.Headers.GeneratedCode.Models.ResourceInResponse>?>("included"); }
             set { BackingStore?.Set("included", value); }
         }
 
@@ -74,7 +74,7 @@ namespace OpenApiKiotaEndToEndTests.Headers.GeneratedCode.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "data", n => { Data = n.GetCollectionOfObjectValues<global::OpenApiKiotaEndToEndTests.Headers.GeneratedCode.Models.DataInCountryResponse>(global::OpenApiKiotaEndToEndTests.Headers.GeneratedCode.Models.DataInCountryResponse.CreateFromDiscriminatorValue)?.AsList(); } },
-                { "included", n => { Included = n.GetCollectionOfObjectValues<global::OpenApiKiotaEndToEndTests.Headers.GeneratedCode.Models.DataInResponse>(global::OpenApiKiotaEndToEndTests.Headers.GeneratedCode.Models.DataInResponse.CreateFromDiscriminatorValue)?.AsList(); } },
+                { "included", n => { Included = n.GetCollectionOfObjectValues<global::OpenApiKiotaEndToEndTests.Headers.GeneratedCode.Models.ResourceInResponse>(global::OpenApiKiotaEndToEndTests.Headers.GeneratedCode.Models.ResourceInResponse.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "links", n => { Links = n.GetObjectValue<global::OpenApiKiotaEndToEndTests.Headers.GeneratedCode.Models.ResourceCollectionTopLevelLinks>(global::OpenApiKiotaEndToEndTests.Headers.GeneratedCode.Models.ResourceCollectionTopLevelLinks.CreateFromDiscriminatorValue); } },
                 { "meta", n => { Meta = n.GetObjectValue<global::OpenApiKiotaEndToEndTests.Headers.GeneratedCode.Models.Meta>(global::OpenApiKiotaEndToEndTests.Headers.GeneratedCode.Models.Meta.CreateFromDiscriminatorValue); } },
             };
@@ -88,7 +88,7 @@ namespace OpenApiKiotaEndToEndTests.Headers.GeneratedCode.Models
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteCollectionOfObjectValues<global::OpenApiKiotaEndToEndTests.Headers.GeneratedCode.Models.DataInCountryResponse>("data", Data);
-            writer.WriteCollectionOfObjectValues<global::OpenApiKiotaEndToEndTests.Headers.GeneratedCode.Models.DataInResponse>("included", Included);
+            writer.WriteCollectionOfObjectValues<global::OpenApiKiotaEndToEndTests.Headers.GeneratedCode.Models.ResourceInResponse>("included", Included);
             writer.WriteObjectValue<global::OpenApiKiotaEndToEndTests.Headers.GeneratedCode.Models.ResourceCollectionTopLevelLinks>("links", Links);
             writer.WriteObjectValue<global::OpenApiKiotaEndToEndTests.Headers.GeneratedCode.Models.Meta>("meta", Meta);
         }

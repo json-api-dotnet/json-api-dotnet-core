@@ -2749,7 +2749,7 @@
           "data": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/dataInResponse"
+                "$ref": "#/components/schemas/resourceInResponse"
               }
             ]
           },
@@ -3046,42 +3046,11 @@
         },
         "additionalProperties": false
       },
-      "dataInCreateRequest": {
-        "required": [
-          "type"
-        ],
-        "type": "object",
-        "properties": {
-          "type": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/resourceType"
-              }
-            ]
-          },
-          "meta": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/meta"
-              }
-            ]
-          }
-        },
-        "additionalProperties": false,
-        "discriminator": {
-          "propertyName": "type",
-          "mapping": {
-            "staffMembers": "#/components/schemas/dataInCreateStaffMemberRequest",
-            "supermarkets": "#/components/schemas/dataInCreateSupermarketRequest"
-          }
-        },
-        "x-abstract": true
-      },
       "dataInCreateStaffMemberRequest": {
         "type": "object",
         "allOf": [
           {
-            "$ref": "#/components/schemas/dataInCreateRequest"
+            "$ref": "#/components/schemas/resourceInCreateRequest"
           },
           {
             "type": "object",
@@ -3107,7 +3076,7 @@
         "type": "object",
         "allOf": [
           {
-            "$ref": "#/components/schemas/dataInCreateRequest"
+            "$ref": "#/components/schemas/resourceInCreateRequest"
           },
           {
             "type": "object",
@@ -3136,41 +3105,10 @@
         ],
         "additionalProperties": false
       },
-      "dataInResponse": {
-        "required": [
-          "type"
-        ],
-        "type": "object",
-        "properties": {
-          "type": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/resourceType"
-              }
-            ]
-          },
-          "meta": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/meta"
-              }
-            ]
-          }
-        },
-        "additionalProperties": false,
-        "discriminator": {
-          "propertyName": "type",
-          "mapping": {
-            "staffMembers": "#/components/schemas/dataInStaffMemberResponse",
-            "supermarkets": "#/components/schemas/dataInSupermarketResponse"
-          }
-        },
-        "x-abstract": true
-      },
       "dataInStaffMemberResponse": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/dataInResponse"
+            "$ref": "#/components/schemas/resourceInResponse"
           },
           {
             "required": [
@@ -3206,7 +3144,7 @@
       "dataInSupermarketResponse": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/dataInResponse"
+            "$ref": "#/components/schemas/resourceInResponse"
           },
           {
             "required": [
@@ -3246,42 +3184,11 @@
         ],
         "additionalProperties": false
       },
-      "dataInUpdateRequest": {
-        "required": [
-          "type"
-        ],
-        "type": "object",
-        "properties": {
-          "type": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/resourceType"
-              }
-            ]
-          },
-          "meta": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/meta"
-              }
-            ]
-          }
-        },
-        "additionalProperties": false,
-        "discriminator": {
-          "propertyName": "type",
-          "mapping": {
-            "staffMembers": "#/components/schemas/dataInUpdateStaffMemberRequest",
-            "supermarkets": "#/components/schemas/dataInUpdateSupermarketRequest"
-          }
-        },
-        "x-abstract": true
-      },
       "dataInUpdateStaffMemberRequest": {
         "type": "object",
         "allOf": [
           {
-            "$ref": "#/components/schemas/dataInUpdateRequest"
+            "$ref": "#/components/schemas/resourceInUpdateRequest"
           },
           {
             "type": "object",
@@ -3312,7 +3219,7 @@
         "type": "object",
         "allOf": [
           {
-            "$ref": "#/components/schemas/dataInUpdateRequest"
+            "$ref": "#/components/schemas/resourceInUpdateRequest"
           },
           {
             "type": "object",
@@ -3636,7 +3543,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -3832,7 +3739,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -3876,7 +3783,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -4158,6 +4065,99 @@
         },
         "additionalProperties": false
       },
+      "resourceInCreateRequest": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/resourceType"
+              }
+            ]
+          },
+          "meta": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/meta"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "staffMembers": "#/components/schemas/dataInCreateStaffMemberRequest",
+            "supermarkets": "#/components/schemas/dataInCreateSupermarketRequest"
+          }
+        },
+        "x-abstract": true
+      },
+      "resourceInResponse": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/resourceType"
+              }
+            ]
+          },
+          "meta": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/meta"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "staffMembers": "#/components/schemas/dataInStaffMemberResponse",
+            "supermarkets": "#/components/schemas/dataInSupermarketResponse"
+          }
+        },
+        "x-abstract": true
+      },
+      "resourceInUpdateRequest": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/resourceType"
+              }
+            ]
+          },
+          "meta": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/meta"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "staffMembers": "#/components/schemas/dataInUpdateStaffMemberRequest",
+            "supermarkets": "#/components/schemas/dataInUpdateSupermarketRequest"
+          }
+        },
+        "x-abstract": true
+      },
       "resourceLinks": {
         "type": "object",
         "properties": {
@@ -4217,7 +4217,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -4260,7 +4260,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -4515,7 +4515,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {

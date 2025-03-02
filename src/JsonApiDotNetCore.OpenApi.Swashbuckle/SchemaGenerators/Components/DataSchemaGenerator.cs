@@ -154,17 +154,17 @@ internal sealed class DataSchemaGenerator
 
         if (schemaOpenType == typeof(DataInCreateRequest<>))
         {
-            return typeof(DataInCreateRequest);
+            return typeof(ResourceInCreateRequest);
         }
 
         if (schemaOpenType == typeof(DataInUpdateRequest<>))
         {
-            return typeof(DataInUpdateRequest);
+            return typeof(ResourceInUpdateRequest);
         }
 
         if (schemaOpenType == typeof(DataInResponse<>))
         {
-            return typeof(DataInResponse);
+            return typeof(ResourceInResponse);
         }
 
         return null;

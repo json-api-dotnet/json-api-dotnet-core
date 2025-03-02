@@ -34,7 +34,7 @@ internal sealed class PeopleMessageFormatter
         return builder.ToString();
     }
 
-    private static void WritePerson(DataInPersonResponse person, ICollection<DataInResponse> includes, StringBuilder builder)
+    private static void WritePerson(DataInPersonResponse person, ICollection<ResourceInResponse> includes, StringBuilder builder)
     {
         ICollection<TodoItemIdentifierInResponse> assignedTodoItems = person.Relationships?.AssignedTodoItems?.Data ?? [];
 
@@ -42,7 +42,7 @@ internal sealed class PeopleMessageFormatter
         WriteRelatedTodoItems(assignedTodoItems, includes, builder);
     }
 
-    private static void WriteRelatedTodoItems(IEnumerable<TodoItemIdentifierInResponse> todoItemIdentifiers, ICollection<DataInResponse> includes,
+    private static void WriteRelatedTodoItems(IEnumerable<TodoItemIdentifierInResponse> todoItemIdentifiers, ICollection<ResourceInResponse> includes,
         StringBuilder builder)
     {
         foreach (TodoItemIdentifierInResponse todoItemIdentifier in todoItemIdentifiers)
@@ -55,7 +55,7 @@ internal sealed class PeopleMessageFormatter
         }
     }
 
-    private static void WriteRelatedTags(IEnumerable<TagIdentifierInResponse> tagIdentifiers, ICollection<DataInResponse> includes, StringBuilder builder)
+    private static void WriteRelatedTags(IEnumerable<TagIdentifierInResponse> tagIdentifiers, ICollection<ResourceInResponse> includes, StringBuilder builder)
     {
         foreach (TagIdentifierInResponse tagIdentifier in tagIdentifiers)
         {

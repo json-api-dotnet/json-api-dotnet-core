@@ -49,13 +49,13 @@ public sealed class OnlyConcreteInheritanceTests : ResourceInheritanceTests
     }
 
     [Theory]
-    [InlineData("dataInCreateRequest", false,
+    [InlineData("resourceInCreateRequest", false,
         "bathrooms|bedrooms|kitchens|livingRooms|toilets|rooms|familyHomes|mansions|residences|buildings|districts|roads|cyclePaths|staffMembers")]
-    [InlineData("dataInUpdateRequest", false,
+    [InlineData("resourceInUpdateRequest", false,
         "bathrooms|bedrooms|kitchens|livingRooms|toilets|rooms|familyHomes|mansions|residences|buildings|districts|roads|cyclePaths|staffMembers")]
     [InlineData("identifierInRequest", false,
         "bathrooms|bedrooms|kitchens|livingRooms|toilets|rooms|familyHomes|mansions|residences|buildings|districts|roads|cyclePaths|staffMembers")]
-    [InlineData("dataInResponse", false,
+    [InlineData("resourceInResponse", false,
         "bathrooms|bedrooms|kitchens|livingRooms|toilets|rooms|familyHomes|mansions|residences|buildings|districts|roads|cyclePaths|staffMembers")]
     [InlineData("dataInBuildingResponse", true, "familyHomes|mansions|residences")]
     [InlineData("buildingIdentifierInResponse", false, "familyHomes|mansions|residences")]
@@ -129,25 +129,25 @@ public sealed class OnlyConcreteInheritanceTests : ResourceInheritanceTests
     }
 
     [Theory]
-    [InlineData("dataInCreateRequest", true, null, "type|meta")]
+    [InlineData("resourceInCreateRequest", true, null, "type|meta")]
     [InlineData("attributesInCreateRequest", true, null, "openapi:discriminator")]
     [InlineData("relationshipsInCreateRequest", true, null, "openapi:discriminator")]
-    [InlineData("dataInUpdateRequest", true, null, "type|meta")]
+    [InlineData("resourceInUpdateRequest", true, null, "type|meta")]
     [InlineData("attributesInUpdateRequest", true, null, "openapi:discriminator")]
     [InlineData("relationshipsInUpdateRequest", true, null, "openapi:discriminator")]
     [InlineData("identifierInRequest", true, null, "type|meta")]
-    [InlineData("dataInResponse", true, null, "type|meta")]
+    [InlineData("resourceInResponse", true, null, "type|meta")]
     [InlineData("atomicOperation", true, null, "openapi:discriminator|meta")]
     // Building hierarchy: Resource Data
-    [InlineData("dataInCreateBuildingRequest", true, "dataInCreateRequest", "lid|attributes|relationships")]
+    [InlineData("dataInCreateBuildingRequest", true, "resourceInCreateRequest", "lid|attributes|relationships")]
     [InlineData("dataInCreateResidenceRequest", false, "dataInCreateBuildingRequest", null)]
     [InlineData("dataInCreateFamilyHomeRequest", false, "dataInCreateResidenceRequest", null)]
     [InlineData("dataInCreateMansionRequest", false, "dataInCreateResidenceRequest", null)]
-    [InlineData("dataInUpdateBuildingRequest", true, "dataInUpdateRequest", "id|lid|attributes|relationships")]
+    [InlineData("dataInUpdateBuildingRequest", true, "resourceInUpdateRequest", "id|lid|attributes|relationships")]
     [InlineData("dataInUpdateResidenceRequest", false, "dataInUpdateBuildingRequest", null)]
     [InlineData("dataInUpdateFamilyHomeRequest", false, "dataInUpdateResidenceRequest", null)]
     [InlineData("dataInUpdateMansionRequest", false, "dataInUpdateResidenceRequest", null)]
-    [InlineData("dataInBuildingResponse", true, "dataInResponse", "id|attributes|relationships|links")]
+    [InlineData("dataInBuildingResponse", true, "resourceInResponse", "id|attributes|relationships|links")]
     [InlineData("dataInResidenceResponse", false, "dataInBuildingResponse", null)]
     [InlineData("dataInFamilyHomeResponse", false, "dataInResidenceResponse", null)]
     [InlineData("dataInMansionResponse", false, "dataInResidenceResponse", null)]
@@ -212,19 +212,19 @@ public sealed class OnlyConcreteInheritanceTests : ResourceInheritanceTests
     [InlineData("removeFromMansionRoomsRelationshipOperation", false, "removeFromResidenceRoomsRelationshipOperation", null)]
     [InlineData("removeFromMansionStaffRelationshipOperation", false, "atomicOperation", "op|ref|data")]
     // Room hierarchy: Resource Data
-    [InlineData("dataInCreateRoomRequest", true, "dataInCreateRequest", "lid|attributes|relationships")]
+    [InlineData("dataInCreateRoomRequest", true, "resourceInCreateRequest", "lid|attributes|relationships")]
     [InlineData("dataInCreateBathroomRequest", false, "dataInCreateRoomRequest", null)]
     [InlineData("dataInCreateBedroomRequest", false, "dataInCreateRoomRequest", null)]
     [InlineData("dataInCreateKitchenRequest", false, "dataInCreateRoomRequest", null)]
     [InlineData("dataInCreateLivingRoomRequest", false, "dataInCreateRoomRequest", null)]
     [InlineData("dataInCreateToiletRequest", false, "dataInCreateRoomRequest", null)]
-    [InlineData("dataInUpdateRoomRequest", true, "dataInUpdateRequest", "id|lid|attributes|relationships")]
+    [InlineData("dataInUpdateRoomRequest", true, "resourceInUpdateRequest", "id|lid|attributes|relationships")]
     [InlineData("dataInUpdateBathroomRequest", false, "dataInUpdateRoomRequest", null)]
     [InlineData("dataInUpdateBedroomRequest", false, "dataInUpdateRoomRequest", null)]
     [InlineData("dataInUpdateKitchenRequest", false, "dataInUpdateRoomRequest", null)]
     [InlineData("dataInUpdateLivingRoomRequest", false, "dataInUpdateRoomRequest", null)]
     [InlineData("dataInUpdateToiletRequest", false, "dataInUpdateRoomRequest", null)]
-    [InlineData("dataInRoomResponse", true, "dataInResponse", "id|attributes|relationships|links")]
+    [InlineData("dataInRoomResponse", true, "resourceInResponse", "id|attributes|relationships|links")]
     [InlineData("dataInBathroomResponse", false, "dataInRoomResponse", null)]
     [InlineData("dataInBedroomResponse", false, "dataInRoomResponse", null)]
     [InlineData("dataInKitchenResponse", false, "dataInRoomResponse", null)]
@@ -307,11 +307,11 @@ public sealed class OnlyConcreteInheritanceTests : ResourceInheritanceTests
     [InlineData("updateLivingRoomResidenceRelationshipOperation", false, "atomicOperation", "op|ref|data")]
     [InlineData("updateToiletResidenceRelationshipOperation", false, "atomicOperation", "op|ref|data")]
     // Road hierarchy: Resource Data
-    [InlineData("dataInCreateRoadRequest", false, "dataInCreateRequest", "lid|attributes|relationships")]
+    [InlineData("dataInCreateRoadRequest", false, "resourceInCreateRequest", "lid|attributes|relationships")]
     [InlineData("dataInCreateCyclePathRequest", false, "dataInCreateRoadRequest", null)]
-    [InlineData("dataInUpdateRoadRequest", false, "dataInUpdateRequest", "id|lid|attributes|relationships")]
+    [InlineData("dataInUpdateRoadRequest", false, "resourceInUpdateRequest", "id|lid|attributes|relationships")]
     [InlineData("dataInUpdateCyclePathRequest", false, "dataInUpdateRoadRequest", null)]
-    [InlineData("dataInRoadResponse", false, "dataInResponse", "id|attributes|relationships|links")]
+    [InlineData("dataInRoadResponse", false, "resourceInResponse", "id|attributes|relationships|links")]
     [InlineData("dataInCyclePathResponse", false, "dataInRoadResponse", null)]
     // Road hierarchy: Attributes
     [InlineData("attributesInCreateRoadRequest", false, "attributesInCreateRequest", "lengthInMeters")]

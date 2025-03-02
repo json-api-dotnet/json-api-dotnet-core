@@ -170,10 +170,10 @@ public sealed class GeneratedTypesTests
     [Fact]
     public void Generated_data_types_are_named_as_expected()
     {
-        _ = nameof(DataInCreateRequest.Meta);
-        _ = nameof(DataInUpdateRequest.Meta);
+        _ = nameof(ResourceInCreateRequest.Meta);
+        _ = nameof(ResourceInUpdateRequest.Meta);
         _ = nameof(IdentifierInRequest.Meta);
-        _ = nameof(DataInResponse.Meta);
+        _ = nameof(ResourceInResponse.Meta);
 
         _ = nameof(DataInCreateSupermarketRequest.Meta);
         _ = nameof(DataInUpdateSupermarketRequest.Meta);

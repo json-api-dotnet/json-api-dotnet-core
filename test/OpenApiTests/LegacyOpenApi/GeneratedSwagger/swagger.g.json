@@ -5905,7 +5905,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/data-in-response"
+              "$ref": "#/components/schemas/resource-in-response"
             }
           },
           "meta": {
@@ -6401,7 +6401,7 @@
       "data-in-airplane-response": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/data-in-response"
+            "$ref": "#/components/schemas/resource-in-response"
           },
           {
             "required": [
@@ -6443,7 +6443,7 @@
         "type": "object",
         "allOf": [
           {
-            "$ref": "#/components/schemas/data-in-create-request"
+            "$ref": "#/components/schemas/resource-in-create-request"
           },
           {
             "type": "object",
@@ -6472,7 +6472,7 @@
         "type": "object",
         "allOf": [
           {
-            "$ref": "#/components/schemas/data-in-create-request"
+            "$ref": "#/components/schemas/resource-in-create-request"
           },
           {
             "type": "object",
@@ -6501,7 +6501,7 @@
         "type": "object",
         "allOf": [
           {
-            "$ref": "#/components/schemas/data-in-create-request"
+            "$ref": "#/components/schemas/resource-in-create-request"
           },
           {
             "type": "object",
@@ -6523,7 +6523,7 @@
         "type": "object",
         "allOf": [
           {
-            "$ref": "#/components/schemas/data-in-create-request"
+            "$ref": "#/components/schemas/resource-in-create-request"
           },
           {
             "type": "object",
@@ -6541,43 +6541,10 @@
         ],
         "additionalProperties": false
       },
-      "data-in-create-request": {
-        "required": [
-          "type"
-        ],
-        "type": "object",
-        "properties": {
-          "type": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/resource-type"
-              }
-            ]
-          },
-          "meta": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/meta"
-              }
-            ]
-          }
-        },
-        "additionalProperties": false,
-        "discriminator": {
-          "propertyName": "type",
-          "mapping": {
-            "airplanes": "#/components/schemas/data-in-create-airplane-request",
-            "flight-attendants": "#/components/schemas/data-in-create-flight-attendant-request",
-            "flights": "#/components/schemas/data-in-create-flight-request",
-            "passengers": "#/components/schemas/data-in-create-passenger-request"
-          }
-        },
-        "x-abstract": true
-      },
       "data-in-flight-attendant-response": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/data-in-response"
+            "$ref": "#/components/schemas/resource-in-response"
           },
           {
             "required": [
@@ -6618,7 +6585,7 @@
       "data-in-flight-response": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/data-in-response"
+            "$ref": "#/components/schemas/resource-in-response"
           },
           {
             "required": [
@@ -6659,7 +6626,7 @@
       "data-in-passenger-response": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/data-in-response"
+            "$ref": "#/components/schemas/resource-in-response"
           },
           {
             "required": [
@@ -6690,44 +6657,11 @@
         ],
         "additionalProperties": false
       },
-      "data-in-response": {
-        "required": [
-          "type"
-        ],
-        "type": "object",
-        "properties": {
-          "type": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/resource-type"
-              }
-            ]
-          },
-          "meta": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/meta"
-              }
-            ]
-          }
-        },
-        "additionalProperties": false,
-        "discriminator": {
-          "propertyName": "type",
-          "mapping": {
-            "airplanes": "#/components/schemas/data-in-airplane-response",
-            "flight-attendants": "#/components/schemas/data-in-flight-attendant-response",
-            "flights": "#/components/schemas/data-in-flight-response",
-            "passengers": "#/components/schemas/data-in-passenger-response"
-          }
-        },
-        "x-abstract": true
-      },
       "data-in-update-airplane-request": {
         "type": "object",
         "allOf": [
           {
-            "$ref": "#/components/schemas/data-in-update-request"
+            "$ref": "#/components/schemas/resource-in-update-request"
           },
           {
             "required": [
@@ -6762,7 +6696,7 @@
         "type": "object",
         "allOf": [
           {
-            "$ref": "#/components/schemas/data-in-update-request"
+            "$ref": "#/components/schemas/resource-in-update-request"
           },
           {
             "required": [
@@ -6797,7 +6731,7 @@
         "type": "object",
         "allOf": [
           {
-            "$ref": "#/components/schemas/data-in-update-request"
+            "$ref": "#/components/schemas/resource-in-update-request"
           },
           {
             "required": [
@@ -6832,7 +6766,7 @@
         "type": "object",
         "allOf": [
           {
-            "$ref": "#/components/schemas/data-in-update-request"
+            "$ref": "#/components/schemas/resource-in-update-request"
           },
           {
             "required": [
@@ -6855,39 +6789,6 @@
           }
         ],
         "additionalProperties": false
-      },
-      "data-in-update-request": {
-        "required": [
-          "type"
-        ],
-        "type": "object",
-        "properties": {
-          "type": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/resource-type"
-              }
-            ]
-          },
-          "meta": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/meta"
-              }
-            ]
-          }
-        },
-        "additionalProperties": false,
-        "discriminator": {
-          "propertyName": "type",
-          "mapping": {
-            "airplanes": "#/components/schemas/data-in-update-airplane-request",
-            "flight-attendants": "#/components/schemas/data-in-update-flight-attendant-request",
-            "flights": "#/components/schemas/data-in-update-flight-request",
-            "passengers": "#/components/schemas/data-in-update-passenger-request"
-          }
-        },
-        "x-abstract": true
       },
       "error-links": {
         "type": "object",
@@ -7048,7 +6949,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/data-in-response"
+              "$ref": "#/components/schemas/resource-in-response"
             }
           },
           "meta": {
@@ -7220,7 +7121,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/data-in-response"
+              "$ref": "#/components/schemas/resource-in-response"
             }
           },
           "meta": {
@@ -7461,7 +7362,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/data-in-response"
+              "$ref": "#/components/schemas/resource-in-response"
             }
           },
           "meta": {
@@ -7556,7 +7457,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/data-in-response"
+              "$ref": "#/components/schemas/resource-in-response"
             }
           },
           "meta": {
@@ -7691,7 +7592,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/data-in-response"
+              "$ref": "#/components/schemas/resource-in-response"
             }
           },
           "meta": {
@@ -7735,7 +7636,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/data-in-response"
+              "$ref": "#/components/schemas/resource-in-response"
             }
           },
           "meta": {
@@ -7779,7 +7680,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/data-in-response"
+              "$ref": "#/components/schemas/resource-in-response"
             }
           },
           "meta": {
@@ -7823,7 +7724,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/data-in-response"
+              "$ref": "#/components/schemas/resource-in-response"
             }
           },
           "meta": {
@@ -8216,6 +8117,105 @@
         },
         "additionalProperties": false
       },
+      "resource-in-create-request": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/resource-type"
+              }
+            ]
+          },
+          "meta": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/meta"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "airplanes": "#/components/schemas/data-in-create-airplane-request",
+            "flight-attendants": "#/components/schemas/data-in-create-flight-attendant-request",
+            "flights": "#/components/schemas/data-in-create-flight-request",
+            "passengers": "#/components/schemas/data-in-create-passenger-request"
+          }
+        },
+        "x-abstract": true
+      },
+      "resource-in-response": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/resource-type"
+              }
+            ]
+          },
+          "meta": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/meta"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "airplanes": "#/components/schemas/data-in-airplane-response",
+            "flight-attendants": "#/components/schemas/data-in-flight-attendant-response",
+            "flights": "#/components/schemas/data-in-flight-response",
+            "passengers": "#/components/schemas/data-in-passenger-response"
+          }
+        },
+        "x-abstract": true
+      },
+      "resource-in-update-request": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/resource-type"
+              }
+            ]
+          },
+          "meta": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/meta"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "airplanes": "#/components/schemas/data-in-update-airplane-request",
+            "flight-attendants": "#/components/schemas/data-in-update-flight-attendant-request",
+            "flights": "#/components/schemas/data-in-update-flight-request",
+            "passengers": "#/components/schemas/data-in-update-passenger-request"
+          }
+        },
+        "x-abstract": true
+      },
       "resource-links": {
         "type": "object",
         "properties": {
@@ -8277,7 +8277,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/data-in-response"
+              "$ref": "#/components/schemas/resource-in-response"
             }
           },
           "meta": {

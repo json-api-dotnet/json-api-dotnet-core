@@ -17,9 +17,9 @@ internal sealed class ConfigureSwaggerGenOptions : IConfigureOptions<SwaggerGenO
     private static readonly Dictionary<Type, Type> BaseToDerivedSchemaTypes = new()
     {
         [typeof(IdentifierInRequest)] = typeof(IdentifierInRequest<>),
-        [typeof(DataInCreateRequest)] = typeof(DataInCreateRequest<>),
-        [typeof(DataInUpdateRequest)] = typeof(DataInUpdateRequest<>),
-        [typeof(DataInResponse)] = typeof(DataInResponse<>)
+        [typeof(ResourceInCreateRequest)] = typeof(DataInCreateRequest<>),
+        [typeof(ResourceInUpdateRequest)] = typeof(DataInUpdateRequest<>),
+        [typeof(ResourceInResponse)] = typeof(DataInResponse<>)
     };
 
     private static readonly Type[] AtomicOperationDerivedSchemaTypes =

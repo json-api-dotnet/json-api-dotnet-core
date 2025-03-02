@@ -29,7 +29,7 @@ internal sealed class DataContainerSchemaGenerator
     {
         ArgumentNullException.ThrowIfNull(schemaRepository);
 
-        return _dataSchemaGenerator.GenerateSchemaForCommonData(typeof(DataInResponse), schemaRepository);
+        return _dataSchemaGenerator.GenerateSchemaForCommonData(typeof(ResourceInResponse), schemaRepository);
     }
 
     public OpenApiSchema GenerateSchema(Type dataContainerConstructedType, ResourceType resourceType, bool forRequestSchema, bool canIncludeRelated,
@@ -74,7 +74,7 @@ internal sealed class DataContainerSchemaGenerator
             ? dataProperty.PropertyType.GenericTypeArguments[0]
             : dataProperty.PropertyType;
 
-        if (innerPropertyType == typeof(DataInResponse))
+        if (innerPropertyType == typeof(ResourceInResponse))
         {
             return typeof(DataInResponse<>).MakeGenericType(resourceType.ClrType);
         }

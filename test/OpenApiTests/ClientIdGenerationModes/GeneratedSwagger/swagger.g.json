@@ -528,7 +528,7 @@
         "type": "object",
         "allOf": [
           {
-            "$ref": "#/components/schemas/dataInCreateRequest"
+            "$ref": "#/components/schemas/resourceInCreateRequest"
           },
           {
             "type": "object",
@@ -555,7 +555,7 @@
         "type": "object",
         "allOf": [
           {
-            "$ref": "#/components/schemas/dataInCreateRequest"
+            "$ref": "#/components/schemas/resourceInCreateRequest"
           },
           {
             "type": "object",
@@ -584,7 +584,7 @@
         "type": "object",
         "allOf": [
           {
-            "$ref": "#/components/schemas/dataInCreateRequest"
+            "$ref": "#/components/schemas/resourceInCreateRequest"
           },
           {
             "required": [
@@ -617,42 +617,10 @@
         ],
         "additionalProperties": false
       },
-      "dataInCreateRequest": {
-        "required": [
-          "type"
-        ],
-        "type": "object",
-        "properties": {
-          "type": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/resourceType"
-              }
-            ]
-          },
-          "meta": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/meta"
-              }
-            ]
-          }
-        },
-        "additionalProperties": false,
-        "discriminator": {
-          "propertyName": "type",
-          "mapping": {
-            "games": "#/components/schemas/dataInCreateGameRequest",
-            "playerGroups": "#/components/schemas/dataInCreatePlayerGroupRequest",
-            "players": "#/components/schemas/dataInCreatePlayerRequest"
-          }
-        },
-        "x-abstract": true
-      },
       "dataInGameResponse": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/dataInResponse"
+            "$ref": "#/components/schemas/resourceInResponse"
           },
           {
             "required": [
@@ -688,7 +656,7 @@
       "dataInPlayerGroupResponse": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/dataInResponse"
+            "$ref": "#/components/schemas/resourceInResponse"
           },
           {
             "required": [
@@ -731,7 +699,7 @@
       "dataInPlayerResponse": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/dataInResponse"
+            "$ref": "#/components/schemas/resourceInResponse"
           },
           {
             "required": [
@@ -770,38 +738,6 @@
           }
         ],
         "additionalProperties": false
-      },
-      "dataInResponse": {
-        "required": [
-          "type"
-        ],
-        "type": "object",
-        "properties": {
-          "type": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/resourceType"
-              }
-            ]
-          },
-          "meta": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/meta"
-              }
-            ]
-          }
-        },
-        "additionalProperties": false,
-        "discriminator": {
-          "propertyName": "type",
-          "mapping": {
-            "games": "#/components/schemas/dataInGameResponse",
-            "playerGroups": "#/components/schemas/dataInPlayerGroupResponse",
-            "players": "#/components/schemas/dataInPlayerResponse"
-          }
-        },
-        "x-abstract": true
       },
       "errorLinks": {
         "type": "object",
@@ -1161,7 +1097,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -1198,7 +1134,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -1235,7 +1171,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -1365,6 +1301,70 @@
           }
         },
         "additionalProperties": false
+      },
+      "resourceInCreateRequest": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/resourceType"
+              }
+            ]
+          },
+          "meta": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/meta"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "games": "#/components/schemas/dataInCreateGameRequest",
+            "playerGroups": "#/components/schemas/dataInCreatePlayerGroupRequest",
+            "players": "#/components/schemas/dataInCreatePlayerRequest"
+          }
+        },
+        "x-abstract": true
+      },
+      "resourceInResponse": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/resourceType"
+              }
+            ]
+          },
+          "meta": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/meta"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "games": "#/components/schemas/dataInGameResponse",
+            "playerGroups": "#/components/schemas/dataInPlayerGroupResponse",
+            "players": "#/components/schemas/dataInPlayerResponse"
+          }
+        },
+        "x-abstract": true
       },
       "resourceLinks": {
         "type": "object",

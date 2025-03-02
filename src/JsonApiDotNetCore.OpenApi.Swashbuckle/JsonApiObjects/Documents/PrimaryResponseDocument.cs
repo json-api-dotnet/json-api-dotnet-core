@@ -23,7 +23,7 @@ internal sealed class PrimaryResponseDocument<TResource> : IHasMeta
     public DataInResponse<TResource> Data { get; set; } = null!;
 
     [JsonPropertyName("included")]
-    public IList<DataInResponse> Included { get; set; } = null!;
+    public IList<ResourceInResponse> Included { get; set; } = null!;
 
     [JsonPropertyName("meta")]
     public Meta Meta { get; set; } = null!;

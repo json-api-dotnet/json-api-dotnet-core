@@ -73,7 +73,7 @@ public sealed class PascalCaseTests : IClassFixture<OpenApiTestContext<PascalCas
             string? resourceRelationshipInResponseSchemaRefId = null;
 
             string abstractResourceDataSchemaRefId = schemasElement.Should().ContainPath($"{resourceDataSchemaRefId}.allOf[0].$ref")
-                .ShouldBeSchemaReferenceId("DataInResponse").SchemaReferenceId;
+                .ShouldBeSchemaReferenceId("ResourceInResponse").SchemaReferenceId;
 
             schemasElement.Should().ContainPath($"{abstractResourceDataSchemaRefId}.discriminator.mapping").With(mappingElement =>
             {

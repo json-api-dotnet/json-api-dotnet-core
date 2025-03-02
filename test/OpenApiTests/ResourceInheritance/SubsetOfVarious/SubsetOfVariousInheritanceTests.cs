@@ -47,10 +47,10 @@ public sealed class SubsetOfVariousInheritanceTests : ResourceInheritanceTests
     }
 
     [Theory]
-    [InlineData("dataInCreateRequest", false, "familyHomes|mansions|residences|buildings")]
-    [InlineData("dataInUpdateRequest", false, "familyHomes|mansions|residences|buildings")]
+    [InlineData("resourceInCreateRequest", false, "familyHomes|mansions|residences|buildings")]
+    [InlineData("resourceInUpdateRequest", false, "familyHomes|mansions|residences|buildings")]
     [InlineData("identifierInRequest", false, "bathrooms|bedrooms|kitchens|livingRooms|toilets|rooms|staffMembers")]
-    [InlineData("dataInResponse", false,
+    [InlineData("resourceInResponse", false,
         "bathrooms|bedrooms|kitchens|livingRooms|toilets|rooms|familyHomes|mansions|residences|buildings|districts|roads|cyclePaths|staffMembers")]
     [InlineData("dataInBuildingResponse", true, "familyHomes|mansions|residences")]
     [InlineData("buildingIdentifierInResponse", false, "familyHomes|mansions|residences")]
@@ -105,25 +105,25 @@ public sealed class SubsetOfVariousInheritanceTests : ResourceInheritanceTests
     }
 
     [Theory]
-    [InlineData("dataInCreateRequest", true, null, "type|meta")]
+    [InlineData("resourceInCreateRequest", true, null, "type|meta")]
     [InlineData("attributesInCreateRequest", true, null, "openapi:discriminator")]
     [InlineData("relationshipsInCreateRequest", true, null, "openapi:discriminator")]
-    [InlineData("dataInUpdateRequest", true, null, "type|meta")]
+    [InlineData("resourceInUpdateRequest", true, null, "type|meta")]
     [InlineData("attributesInUpdateRequest", true, null, "openapi:discriminator")]
     [InlineData("relationshipsInUpdateRequest", true, null, "openapi:discriminator")]
     [InlineData("identifierInRequest", true, null, "type|meta")]
-    [InlineData("dataInResponse", true, null, "type|meta")]
+    [InlineData("resourceInResponse", true, null, "type|meta")]
     [InlineData("atomicOperation", true, null, null)]
     // Building hierarchy: Resource Data
-    [InlineData("dataInCreateBuildingRequest", true, "dataInCreateRequest", "attributes|relationships")]
+    [InlineData("dataInCreateBuildingRequest", true, "resourceInCreateRequest", "attributes|relationships")]
     [InlineData("dataInCreateResidenceRequest", false, "dataInCreateBuildingRequest", null)]
     [InlineData("dataInCreateFamilyHomeRequest", false, "dataInCreateResidenceRequest", null)]
     [InlineData("dataInCreateMansionRequest", false, "dataInCreateResidenceRequest", null)]
-    [InlineData("dataInUpdateBuildingRequest", true, "dataInUpdateRequest", "id|attributes|relationships")]
+    [InlineData("dataInUpdateBuildingRequest", true, "resourceInUpdateRequest", "id|attributes|relationships")]
     [InlineData("dataInUpdateResidenceRequest", false, "dataInUpdateBuildingRequest", null)]
     [InlineData("dataInUpdateFamilyHomeRequest", false, "dataInUpdateResidenceRequest", null)]
     [InlineData("dataInUpdateMansionRequest", false, "dataInUpdateResidenceRequest", null)]
-    [InlineData("dataInBuildingResponse", true, "dataInResponse", "id|attributes|relationships|links")]
+    [InlineData("dataInBuildingResponse", true, "resourceInResponse", "id|attributes|relationships|links")]
     [InlineData("dataInResidenceResponse", false, "dataInBuildingResponse", null)]
     [InlineData("dataInFamilyHomeResponse", false, "dataInResidenceResponse", null)]
     [InlineData("dataInMansionResponse", false, "dataInResidenceResponse", null)]
@@ -200,7 +200,7 @@ public sealed class SubsetOfVariousInheritanceTests : ResourceInheritanceTests
     [InlineData("dataInUpdateKitchenRequest", false, null, null)]
     [InlineData("dataInUpdateLivingRoomRequest", false, null, null)]
     [InlineData("dataInUpdateToiletRequest", false, null, null)]
-    [InlineData("dataInRoomResponse", true, "dataInResponse", "id|attributes|relationships|links")]
+    [InlineData("dataInRoomResponse", true, "resourceInResponse", "id|attributes|relationships|links")]
     [InlineData("dataInBathroomResponse", false, "dataInRoomResponse", null)]
     [InlineData("dataInBedroomResponse", false, "dataInRoomResponse", null)]
     [InlineData("dataInKitchenResponse", false, "dataInRoomResponse", null)]
@@ -287,7 +287,7 @@ public sealed class SubsetOfVariousInheritanceTests : ResourceInheritanceTests
     [InlineData("dataInCreateCyclePathRequest", false, null, null)]
     [InlineData("dataInUpdateRoadRequest", false, null, null)]
     [InlineData("dataInUpdateCyclePathRequest", false, null, null)]
-    [InlineData("dataInRoadResponse", false, "dataInResponse", "id|attributes|relationships|links")]
+    [InlineData("dataInRoadResponse", false, "resourceInResponse", "id|attributes|relationships|links")]
     [InlineData("dataInCyclePathResponse", false, "dataInRoadResponse", null)]
     // Road hierarchy: Attributes
     [InlineData("attributesInCreateRoadRequest", false, null, null)]

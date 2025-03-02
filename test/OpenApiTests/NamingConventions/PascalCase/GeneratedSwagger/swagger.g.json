@@ -2749,7 +2749,7 @@
           "data": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/DataInResponse"
+                "$ref": "#/components/schemas/ResourceInResponse"
               }
             ]
           },
@@ -3046,42 +3046,11 @@
         },
         "additionalProperties": false
       },
-      "DataInCreateRequest": {
-        "required": [
-          "type"
-        ],
-        "type": "object",
-        "properties": {
-          "type": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ResourceType"
-              }
-            ]
-          },
-          "Meta": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/Meta"
-              }
-            ]
-          }
-        },
-        "additionalProperties": false,
-        "discriminator": {
-          "propertyName": "type",
-          "mapping": {
-            "StaffMembers": "#/components/schemas/DataInCreateStaffMemberRequest",
-            "Supermarkets": "#/components/schemas/DataInCreateSupermarketRequest"
-          }
-        },
-        "x-abstract": true
-      },
       "DataInCreateStaffMemberRequest": {
         "type": "object",
         "allOf": [
           {
-            "$ref": "#/components/schemas/DataInCreateRequest"
+            "$ref": "#/components/schemas/ResourceInCreateRequest"
           },
           {
             "type": "object",
@@ -3107,7 +3076,7 @@
         "type": "object",
         "allOf": [
           {
-            "$ref": "#/components/schemas/DataInCreateRequest"
+            "$ref": "#/components/schemas/ResourceInCreateRequest"
           },
           {
             "type": "object",
@@ -3136,41 +3105,10 @@
         ],
         "additionalProperties": false
       },
-      "DataInResponse": {
-        "required": [
-          "type"
-        ],
-        "type": "object",
-        "properties": {
-          "type": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ResourceType"
-              }
-            ]
-          },
-          "Meta": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/Meta"
-              }
-            ]
-          }
-        },
-        "additionalProperties": false,
-        "discriminator": {
-          "propertyName": "type",
-          "mapping": {
-            "StaffMembers": "#/components/schemas/DataInStaffMemberResponse",
-            "Supermarkets": "#/components/schemas/DataInSupermarketResponse"
-          }
-        },
-        "x-abstract": true
-      },
       "DataInStaffMemberResponse": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/DataInResponse"
+            "$ref": "#/components/schemas/ResourceInResponse"
           },
           {
             "required": [
@@ -3206,7 +3144,7 @@
       "DataInSupermarketResponse": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/DataInResponse"
+            "$ref": "#/components/schemas/ResourceInResponse"
           },
           {
             "required": [
@@ -3246,42 +3184,11 @@
         ],
         "additionalProperties": false
       },
-      "DataInUpdateRequest": {
-        "required": [
-          "type"
-        ],
-        "type": "object",
-        "properties": {
-          "type": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ResourceType"
-              }
-            ]
-          },
-          "Meta": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/Meta"
-              }
-            ]
-          }
-        },
-        "additionalProperties": false,
-        "discriminator": {
-          "propertyName": "type",
-          "mapping": {
-            "StaffMembers": "#/components/schemas/DataInUpdateStaffMemberRequest",
-            "Supermarkets": "#/components/schemas/DataInUpdateSupermarketRequest"
-          }
-        },
-        "x-abstract": true
-      },
       "DataInUpdateStaffMemberRequest": {
         "type": "object",
         "allOf": [
           {
-            "$ref": "#/components/schemas/DataInUpdateRequest"
+            "$ref": "#/components/schemas/ResourceInUpdateRequest"
           },
           {
             "type": "object",
@@ -3312,7 +3219,7 @@
         "type": "object",
         "allOf": [
           {
-            "$ref": "#/components/schemas/DataInUpdateRequest"
+            "$ref": "#/components/schemas/ResourceInUpdateRequest"
           },
           {
             "type": "object",
@@ -3636,7 +3543,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/DataInResponse"
+              "$ref": "#/components/schemas/ResourceInResponse"
             }
           },
           "meta": {
@@ -3832,7 +3739,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/DataInResponse"
+              "$ref": "#/components/schemas/ResourceInResponse"
             }
           },
           "meta": {
@@ -3876,7 +3783,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/DataInResponse"
+              "$ref": "#/components/schemas/ResourceInResponse"
             }
           },
           "meta": {
@@ -4158,6 +4065,99 @@
         },
         "additionalProperties": false
       },
+      "ResourceInCreateRequest": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ResourceType"
+              }
+            ]
+          },
+          "Meta": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Meta"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "StaffMembers": "#/components/schemas/DataInCreateStaffMemberRequest",
+            "Supermarkets": "#/components/schemas/DataInCreateSupermarketRequest"
+          }
+        },
+        "x-abstract": true
+      },
+      "ResourceInResponse": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ResourceType"
+              }
+            ]
+          },
+          "Meta": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Meta"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "StaffMembers": "#/components/schemas/DataInStaffMemberResponse",
+            "Supermarkets": "#/components/schemas/DataInSupermarketResponse"
+          }
+        },
+        "x-abstract": true
+      },
+      "ResourceInUpdateRequest": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ResourceType"
+              }
+            ]
+          },
+          "Meta": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Meta"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "StaffMembers": "#/components/schemas/DataInUpdateStaffMemberRequest",
+            "Supermarkets": "#/components/schemas/DataInUpdateSupermarketRequest"
+          }
+        },
+        "x-abstract": true
+      },
       "ResourceLinks": {
         "type": "object",
         "properties": {
@@ -4217,7 +4217,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/DataInResponse"
+              "$ref": "#/components/schemas/ResourceInResponse"
             }
           },
           "meta": {
@@ -4260,7 +4260,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/DataInResponse"
+              "$ref": "#/components/schemas/ResourceInResponse"
             }
           },
           "meta": {
@@ -4515,7 +4515,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/DataInResponse"
+              "$ref": "#/components/schemas/ResourceInResponse"
             }
           },
           "meta": {

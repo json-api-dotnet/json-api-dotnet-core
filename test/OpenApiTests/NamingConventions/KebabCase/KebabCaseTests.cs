@@ -73,7 +73,7 @@ public sealed class KebabCaseTests : IClassFixture<OpenApiTestContext<KebabCaseN
             string? resourceRelationshipInResponseSchemaRefId = null;
 
             string abstractResourceDataSchemaRefId = schemasElement.Should().ContainPath($"{resourceDataSchemaRefId}.allOf[0].$ref")
-                .ShouldBeSchemaReferenceId("data-in-response").SchemaReferenceId;
+                .ShouldBeSchemaReferenceId("resource-in-response").SchemaReferenceId;
 
             schemasElement.Should().ContainPath($"{abstractResourceDataSchemaRefId}.discriminator.mapping").With(mappingElement =>
             {

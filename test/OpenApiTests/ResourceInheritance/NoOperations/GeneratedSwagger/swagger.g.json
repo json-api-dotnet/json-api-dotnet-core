@@ -14077,7 +14077,7 @@
           "data": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/dataInResponse"
+                "$ref": "#/components/schemas/resourceInResponse"
               }
             ]
           },
@@ -14971,7 +14971,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -15032,7 +15032,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -15093,7 +15093,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -15551,7 +15551,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -15616,7 +15616,7 @@
       "dataInBuildingResponse": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/dataInResponse"
+            "$ref": "#/components/schemas/resourceInResponse"
           },
           {
             "required": [
@@ -15694,7 +15694,7 @@
       "dataInCreateBuildingRequest": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/dataInCreateRequest"
+            "$ref": "#/components/schemas/resourceInCreateRequest"
           },
           {
             "type": "object",
@@ -15741,7 +15741,7 @@
         "type": "object",
         "allOf": [
           {
-            "$ref": "#/components/schemas/dataInCreateRequest"
+            "$ref": "#/components/schemas/resourceInCreateRequest"
           },
           {
             "type": "object",
@@ -15822,49 +15822,6 @@
         ],
         "additionalProperties": false
       },
-      "dataInCreateRequest": {
-        "required": [
-          "type"
-        ],
-        "type": "object",
-        "properties": {
-          "type": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/resourceType"
-              }
-            ]
-          },
-          "meta": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/meta"
-              }
-            ]
-          }
-        },
-        "additionalProperties": false,
-        "discriminator": {
-          "propertyName": "type",
-          "mapping": {
-            "bathrooms": "#/components/schemas/dataInCreateBathroomRequest",
-            "bedrooms": "#/components/schemas/dataInCreateBedroomRequest",
-            "buildings": "#/components/schemas/dataInCreateBuildingRequest",
-            "cyclePaths": "#/components/schemas/dataInCreateCyclePathRequest",
-            "districts": "#/components/schemas/dataInCreateDistrictRequest",
-            "familyHomes": "#/components/schemas/dataInCreateFamilyHomeRequest",
-            "kitchens": "#/components/schemas/dataInCreateKitchenRequest",
-            "livingRooms": "#/components/schemas/dataInCreateLivingRoomRequest",
-            "mansions": "#/components/schemas/dataInCreateMansionRequest",
-            "residences": "#/components/schemas/dataInCreateResidenceRequest",
-            "roads": "#/components/schemas/dataInCreateRoadRequest",
-            "rooms": "#/components/schemas/dataInCreateRoomRequest",
-            "staffMembers": "#/components/schemas/dataInCreateStaffMemberRequest",
-            "toilets": "#/components/schemas/dataInCreateToiletRequest"
-          }
-        },
-        "x-abstract": true
-      },
       "dataInCreateResidenceRequest": {
         "type": "object",
         "allOf": [
@@ -15882,7 +15839,7 @@
         "type": "object",
         "allOf": [
           {
-            "$ref": "#/components/schemas/dataInCreateRequest"
+            "$ref": "#/components/schemas/resourceInCreateRequest"
           },
           {
             "type": "object",
@@ -15914,7 +15871,7 @@
       "dataInCreateRoomRequest": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/dataInCreateRequest"
+            "$ref": "#/components/schemas/resourceInCreateRequest"
           },
           {
             "type": "object",
@@ -15948,7 +15905,7 @@
         "type": "object",
         "allOf": [
           {
-            "$ref": "#/components/schemas/dataInCreateRequest"
+            "$ref": "#/components/schemas/resourceInCreateRequest"
           },
           {
             "type": "object",
@@ -15998,7 +15955,7 @@
       "dataInDistrictResponse": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/dataInResponse"
+            "$ref": "#/components/schemas/resourceInResponse"
           },
           {
             "required": [
@@ -16105,53 +16062,10 @@
         ],
         "additionalProperties": false
       },
-      "dataInResponse": {
-        "required": [
-          "type"
-        ],
-        "type": "object",
-        "properties": {
-          "type": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/resourceType"
-              }
-            ]
-          },
-          "meta": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/meta"
-              }
-            ]
-          }
-        },
-        "additionalProperties": false,
-        "discriminator": {
-          "propertyName": "type",
-          "mapping": {
-            "bathrooms": "#/components/schemas/dataInBathroomResponse",
-            "bedrooms": "#/components/schemas/dataInBedroomResponse",
-            "buildings": "#/components/schemas/dataInBuildingResponse",
-            "cyclePaths": "#/components/schemas/dataInCyclePathResponse",
-            "districts": "#/components/schemas/dataInDistrictResponse",
-            "familyHomes": "#/components/schemas/dataInFamilyHomeResponse",
-            "kitchens": "#/components/schemas/dataInKitchenResponse",
-            "livingRooms": "#/components/schemas/dataInLivingRoomResponse",
-            "mansions": "#/components/schemas/dataInMansionResponse",
-            "residences": "#/components/schemas/dataInResidenceResponse",
-            "roads": "#/components/schemas/dataInRoadResponse",
-            "rooms": "#/components/schemas/dataInRoomResponse",
-            "staffMembers": "#/components/schemas/dataInStaffMemberResponse",
-            "toilets": "#/components/schemas/dataInToiletResponse"
-          }
-        },
-        "x-abstract": true
-      },
       "dataInRoadResponse": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/dataInResponse"
+            "$ref": "#/components/schemas/resourceInResponse"
           },
           {
             "required": [
@@ -16200,7 +16114,7 @@
       "dataInRoomResponse": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/dataInResponse"
+            "$ref": "#/components/schemas/resourceInResponse"
           },
           {
             "required": [
@@ -16254,7 +16168,7 @@
       "dataInStaffMemberResponse": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/dataInResponse"
+            "$ref": "#/components/schemas/resourceInResponse"
           },
           {
             "required": [
@@ -16328,7 +16242,7 @@
       "dataInUpdateBuildingRequest": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/dataInUpdateRequest"
+            "$ref": "#/components/schemas/resourceInUpdateRequest"
           },
           {
             "type": "object",
@@ -16380,7 +16294,7 @@
         "type": "object",
         "allOf": [
           {
-            "$ref": "#/components/schemas/dataInUpdateRequest"
+            "$ref": "#/components/schemas/resourceInUpdateRequest"
           },
           {
             "type": "object",
@@ -16466,49 +16380,6 @@
         ],
         "additionalProperties": false
       },
-      "dataInUpdateRequest": {
-        "required": [
-          "type"
-        ],
-        "type": "object",
-        "properties": {
-          "type": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/resourceType"
-              }
-            ]
-          },
-          "meta": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/meta"
-              }
-            ]
-          }
-        },
-        "additionalProperties": false,
-        "discriminator": {
-          "propertyName": "type",
-          "mapping": {
-            "bathrooms": "#/components/schemas/dataInUpdateBathroomRequest",
-            "bedrooms": "#/components/schemas/dataInUpdateBedroomRequest",
-            "buildings": "#/components/schemas/dataInUpdateBuildingRequest",
-            "cyclePaths": "#/components/schemas/dataInUpdateCyclePathRequest",
-            "districts": "#/components/schemas/dataInUpdateDistrictRequest",
-            "familyHomes": "#/components/schemas/dataInUpdateFamilyHomeRequest",
-            "kitchens": "#/components/schemas/dataInUpdateKitchenRequest",
-            "livingRooms": "#/components/schemas/dataInUpdateLivingRoomRequest",
-            "mansions": "#/components/schemas/dataInUpdateMansionRequest",
-            "residences": "#/components/schemas/dataInUpdateResidenceRequest",
-            "roads": "#/components/schemas/dataInUpdateRoadRequest",
-            "rooms": "#/components/schemas/dataInUpdateRoomRequest",
-            "staffMembers": "#/components/schemas/dataInUpdateStaffMemberRequest",
-            "toilets": "#/components/schemas/dataInUpdateToiletRequest"
-          }
-        },
-        "x-abstract": true
-      },
       "dataInUpdateResidenceRequest": {
         "type": "object",
         "allOf": [
@@ -16526,7 +16397,7 @@
         "type": "object",
         "allOf": [
           {
-            "$ref": "#/components/schemas/dataInUpdateRequest"
+            "$ref": "#/components/schemas/resourceInUpdateRequest"
           },
           {
             "type": "object",
@@ -16563,7 +16434,7 @@
       "dataInUpdateRoomRequest": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/dataInUpdateRequest"
+            "$ref": "#/components/schemas/resourceInUpdateRequest"
           },
           {
             "type": "object",
@@ -16602,7 +16473,7 @@
         "type": "object",
         "allOf": [
           {
-            "$ref": "#/components/schemas/dataInUpdateRequest"
+            "$ref": "#/components/schemas/resourceInUpdateRequest"
           },
           {
             "type": "object",
@@ -16665,7 +16536,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -16823,7 +16694,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -16926,7 +16797,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -16987,7 +16858,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -17048,7 +16919,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -17170,7 +17041,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -17207,7 +17078,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -17244,7 +17115,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -17281,7 +17152,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -17318,7 +17189,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -17355,7 +17226,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -17392,7 +17263,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -17429,7 +17300,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -17466,7 +17337,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -17503,7 +17374,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -17540,7 +17411,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -17577,7 +17448,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -17614,7 +17485,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -17651,7 +17522,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -18401,7 +18272,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -18543,6 +18414,135 @@
         },
         "additionalProperties": false
       },
+      "resourceInCreateRequest": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/resourceType"
+              }
+            ]
+          },
+          "meta": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/meta"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "bathrooms": "#/components/schemas/dataInCreateBathroomRequest",
+            "bedrooms": "#/components/schemas/dataInCreateBedroomRequest",
+            "buildings": "#/components/schemas/dataInCreateBuildingRequest",
+            "cyclePaths": "#/components/schemas/dataInCreateCyclePathRequest",
+            "districts": "#/components/schemas/dataInCreateDistrictRequest",
+            "familyHomes": "#/components/schemas/dataInCreateFamilyHomeRequest",
+            "kitchens": "#/components/schemas/dataInCreateKitchenRequest",
+            "livingRooms": "#/components/schemas/dataInCreateLivingRoomRequest",
+            "mansions": "#/components/schemas/dataInCreateMansionRequest",
+            "residences": "#/components/schemas/dataInCreateResidenceRequest",
+            "roads": "#/components/schemas/dataInCreateRoadRequest",
+            "rooms": "#/components/schemas/dataInCreateRoomRequest",
+            "staffMembers": "#/components/schemas/dataInCreateStaffMemberRequest",
+            "toilets": "#/components/schemas/dataInCreateToiletRequest"
+          }
+        },
+        "x-abstract": true
+      },
+      "resourceInResponse": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/resourceType"
+              }
+            ]
+          },
+          "meta": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/meta"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "bathrooms": "#/components/schemas/dataInBathroomResponse",
+            "bedrooms": "#/components/schemas/dataInBedroomResponse",
+            "buildings": "#/components/schemas/dataInBuildingResponse",
+            "cyclePaths": "#/components/schemas/dataInCyclePathResponse",
+            "districts": "#/components/schemas/dataInDistrictResponse",
+            "familyHomes": "#/components/schemas/dataInFamilyHomeResponse",
+            "kitchens": "#/components/schemas/dataInKitchenResponse",
+            "livingRooms": "#/components/schemas/dataInLivingRoomResponse",
+            "mansions": "#/components/schemas/dataInMansionResponse",
+            "residences": "#/components/schemas/dataInResidenceResponse",
+            "roads": "#/components/schemas/dataInRoadResponse",
+            "rooms": "#/components/schemas/dataInRoomResponse",
+            "staffMembers": "#/components/schemas/dataInStaffMemberResponse",
+            "toilets": "#/components/schemas/dataInToiletResponse"
+          }
+        },
+        "x-abstract": true
+      },
+      "resourceInUpdateRequest": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/resourceType"
+              }
+            ]
+          },
+          "meta": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/meta"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "bathrooms": "#/components/schemas/dataInUpdateBathroomRequest",
+            "bedrooms": "#/components/schemas/dataInUpdateBedroomRequest",
+            "buildings": "#/components/schemas/dataInUpdateBuildingRequest",
+            "cyclePaths": "#/components/schemas/dataInUpdateCyclePathRequest",
+            "districts": "#/components/schemas/dataInUpdateDistrictRequest",
+            "familyHomes": "#/components/schemas/dataInUpdateFamilyHomeRequest",
+            "kitchens": "#/components/schemas/dataInUpdateKitchenRequest",
+            "livingRooms": "#/components/schemas/dataInUpdateLivingRoomRequest",
+            "mansions": "#/components/schemas/dataInUpdateMansionRequest",
+            "residences": "#/components/schemas/dataInUpdateResidenceRequest",
+            "roads": "#/components/schemas/dataInUpdateRoadRequest",
+            "rooms": "#/components/schemas/dataInUpdateRoomRequest",
+            "staffMembers": "#/components/schemas/dataInUpdateStaffMemberRequest",
+            "toilets": "#/components/schemas/dataInUpdateToiletRequest"
+          }
+        },
+        "x-abstract": true
+      },
       "resourceLinks": {
         "type": "object",
         "properties": {
@@ -18606,7 +18606,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -18738,7 +18738,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -18879,7 +18879,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -18915,7 +18915,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
@@ -19282,7 +19282,7 @@
           "included": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/dataInResponse"
+              "$ref": "#/components/schemas/resourceInResponse"
             }
           },
           "meta": {
