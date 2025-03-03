@@ -1907,33 +1907,31 @@
         "additionalProperties": false
       },
       "attributesInBuildingResponse": {
-        "required": [
-          "openapi:discriminator"
-        ],
-        "type": "object",
-        "properties": {
-          "surfaceInSquareMeters": {
-            "type": "integer",
-            "format": "int32"
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/attributesInResponse"
           },
-          "openapi:discriminator": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/resourceType"
+          {
+            "type": "object",
+            "properties": {
+              "surfaceInSquareMeters": {
+                "type": "integer",
+                "format": "int32"
               }
-            ]
+            },
+            "additionalProperties": false,
+            "discriminator": {
+              "propertyName": "openapi:discriminator",
+              "mapping": {
+                "familyHomes": "#/components/schemas/attributesInFamilyHomeResponse",
+                "mansions": "#/components/schemas/attributesInMansionResponse",
+                "residences": "#/components/schemas/attributesInResidenceResponse"
+              }
+            },
+            "x-abstract": true
           }
-        },
-        "additionalProperties": false,
-        "discriminator": {
-          "propertyName": "openapi:discriminator",
-          "mapping": {
-            "familyHomes": "#/components/schemas/attributesInFamilyHomeResponse",
-            "mansions": "#/components/schemas/attributesInMansionResponse",
-            "residences": "#/components/schemas/attributesInResidenceResponse"
-          }
-        },
-        "x-abstract": true
+        ],
+        "additionalProperties": false
       },
       "attributesInCreateBathroomRequest": {
         "allOf": [
@@ -2253,21 +2251,24 @@
                 "format": "int32"
               }
             },
-            "additionalProperties": false
+            "additionalProperties": false,
+            "discriminator": {
+              "propertyName": "openapi:discriminator",
+              "mapping": {
+                "familyHomes": "#/components/schemas/attributesInFamilyHomeResponse",
+                "mansions": "#/components/schemas/attributesInMansionResponse"
+              }
+            }
           }
         ],
         "additionalProperties": false
       },
-      "attributesInRoomResponse": {
+      "attributesInResponse": {
         "required": [
           "openapi:discriminator"
         ],
         "type": "object",
         "properties": {
-          "surfaceInSquareMeters": {
-            "type": "integer",
-            "format": "int32"
-          },
           "openapi:discriminator": {
             "allOf": [
               {
@@ -2282,20 +2283,63 @@
           "mapping": {
             "bathrooms": "#/components/schemas/attributesInBathroomResponse",
             "bedrooms": "#/components/schemas/attributesInBedroomResponse",
+            "buildings": "#/components/schemas/attributesInBuildingResponse",
+            "familyHomes": "#/components/schemas/attributesInFamilyHomeResponse",
             "kitchens": "#/components/schemas/attributesInKitchenResponse",
             "livingRooms": "#/components/schemas/attributesInLivingRoomResponse",
+            "mansions": "#/components/schemas/attributesInMansionResponse",
+            "residences": "#/components/schemas/attributesInResidenceResponse",
+            "rooms": "#/components/schemas/attributesInRoomResponse",
+            "staffMembers": "#/components/schemas/attributesInStaffMemberResponse",
             "toilets": "#/components/schemas/attributesInToiletResponse"
           }
         },
         "x-abstract": true
       },
-      "attributesInStaffMemberResponse": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
+      "attributesInRoomResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/attributesInResponse"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "surfaceInSquareMeters": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            "additionalProperties": false,
+            "discriminator": {
+              "propertyName": "openapi:discriminator",
+              "mapping": {
+                "bathrooms": "#/components/schemas/attributesInBathroomResponse",
+                "bedrooms": "#/components/schemas/attributesInBedroomResponse",
+                "kitchens": "#/components/schemas/attributesInKitchenResponse",
+                "livingRooms": "#/components/schemas/attributesInLivingRoomResponse",
+                "toilets": "#/components/schemas/attributesInToiletResponse"
+              }
+            },
+            "x-abstract": true
           }
-        },
+        ],
+        "additionalProperties": false
+      },
+      "attributesInStaffMemberResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/attributesInResponse"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        ],
         "additionalProperties": false
       },
       "attributesInToiletResponse": {
@@ -4119,29 +4163,25 @@
         "additionalProperties": false
       },
       "relationshipsInBuildingResponse": {
-        "required": [
-          "openapi:discriminator"
-        ],
-        "type": "object",
-        "properties": {
-          "openapi:discriminator": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/resourceType"
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/relationshipsInResponse"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "discriminator": {
+              "propertyName": "openapi:discriminator",
+              "mapping": {
+                "familyHomes": "#/components/schemas/relationshipsInFamilyHomeResponse",
+                "mansions": "#/components/schemas/relationshipsInMansionResponse",
+                "residences": "#/components/schemas/relationshipsInResidenceResponse"
               }
-            ]
+            },
+            "x-abstract": true
           }
-        },
-        "additionalProperties": false,
-        "discriminator": {
-          "propertyName": "openapi:discriminator",
-          "mapping": {
-            "familyHomes": "#/components/schemas/relationshipsInFamilyHomeResponse",
-            "mansions": "#/components/schemas/relationshipsInMansionResponse",
-            "residences": "#/components/schemas/relationshipsInResidenceResponse"
-          }
-        },
-        "x-abstract": true
+        ],
+        "additionalProperties": false
       },
       "relationshipsInCreateBathroomRequest": {
         "allOf": [
@@ -4400,24 +4440,24 @@
                 ]
               }
             },
-            "additionalProperties": false
+            "additionalProperties": false,
+            "discriminator": {
+              "propertyName": "openapi:discriminator",
+              "mapping": {
+                "familyHomes": "#/components/schemas/relationshipsInFamilyHomeResponse",
+                "mansions": "#/components/schemas/relationshipsInMansionResponse"
+              }
+            }
           }
         ],
         "additionalProperties": false
       },
-      "relationshipsInRoomResponse": {
+      "relationshipsInResponse": {
         "required": [
           "openapi:discriminator"
         ],
         "type": "object",
         "properties": {
-          "residence": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/toOneResidenceInResponse"
-              }
-            ]
-          },
           "openapi:discriminator": {
             "allOf": [
               {
@@ -4432,12 +4472,49 @@
           "mapping": {
             "bathrooms": "#/components/schemas/relationshipsInBathroomResponse",
             "bedrooms": "#/components/schemas/relationshipsInBedroomResponse",
+            "buildings": "#/components/schemas/relationshipsInBuildingResponse",
+            "familyHomes": "#/components/schemas/relationshipsInFamilyHomeResponse",
             "kitchens": "#/components/schemas/relationshipsInKitchenResponse",
             "livingRooms": "#/components/schemas/relationshipsInLivingRoomResponse",
+            "mansions": "#/components/schemas/relationshipsInMansionResponse",
+            "residences": "#/components/schemas/relationshipsInResidenceResponse",
+            "rooms": "#/components/schemas/relationshipsInRoomResponse",
             "toilets": "#/components/schemas/relationshipsInToiletResponse"
           }
         },
         "x-abstract": true
+      },
+      "relationshipsInRoomResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/relationshipsInResponse"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "residence": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/toOneResidenceInResponse"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false,
+            "discriminator": {
+              "propertyName": "openapi:discriminator",
+              "mapping": {
+                "bathrooms": "#/components/schemas/relationshipsInBathroomResponse",
+                "bedrooms": "#/components/schemas/relationshipsInBedroomResponse",
+                "kitchens": "#/components/schemas/relationshipsInKitchenResponse",
+                "livingRooms": "#/components/schemas/relationshipsInLivingRoomResponse",
+                "toilets": "#/components/schemas/relationshipsInToiletResponse"
+              }
+            },
+            "x-abstract": true
+          }
+        ],
+        "additionalProperties": false
       },
       "relationshipsInToiletResponse": {
         "allOf": [

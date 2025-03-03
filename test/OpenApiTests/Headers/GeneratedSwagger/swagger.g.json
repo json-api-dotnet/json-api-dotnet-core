@@ -1151,16 +1151,24 @@
   "components": {
     "schemas": {
       "attributesInCountryResponse": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/attributesInResponse"
           },
-          "population": {
-            "type": "integer",
-            "format": "int64"
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "population": {
+                "type": "integer",
+                "format": "int64"
+              }
+            },
+            "additionalProperties": false
           }
-        },
+        ],
         "additionalProperties": false
       },
       "attributesInCreateCountryRequest": {
@@ -1211,16 +1219,48 @@
         "x-abstract": true
       },
       "attributesInLanguageResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/attributesInResponse"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        ],
+        "additionalProperties": false
+      },
+      "attributesInResponse": {
+        "required": [
+          "openapi:discriminator"
+        ],
         "type": "object",
         "properties": {
-          "code": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
+          "openapi:discriminator": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/resourceType"
+              }
+            ]
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "discriminator": {
+          "propertyName": "openapi:discriminator",
+          "mapping": {
+            "countries": "#/components/schemas/attributesInCountryResponse",
+            "languages": "#/components/schemas/attributesInLanguageResponse"
+          }
+        },
+        "x-abstract": true
       },
       "attributesInUpdateCountryRequest": {
         "allOf": [
@@ -1802,16 +1842,24 @@
         "additionalProperties": false
       },
       "relationshipsInCountryResponse": {
-        "type": "object",
-        "properties": {
-          "languages": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/toManyLanguageInResponse"
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/relationshipsInResponse"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "languages": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/toManyLanguageInResponse"
+                  }
+                ]
               }
-            ]
+            },
+            "additionalProperties": false
           }
-        },
+        ],
         "additionalProperties": false
       },
       "relationshipsInCreateCountryRequest": {
@@ -1854,6 +1902,29 @@
           "propertyName": "openapi:discriminator",
           "mapping": {
             "countries": "#/components/schemas/relationshipsInCreateCountryRequest"
+          }
+        },
+        "x-abstract": true
+      },
+      "relationshipsInResponse": {
+        "required": [
+          "openapi:discriminator"
+        ],
+        "type": "object",
+        "properties": {
+          "openapi:discriminator": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/resourceType"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "discriminator": {
+          "propertyName": "openapi:discriminator",
+          "mapping": {
+            "countries": "#/components/schemas/relationshipsInCountryResponse"
           }
         },
         "x-abstract": true

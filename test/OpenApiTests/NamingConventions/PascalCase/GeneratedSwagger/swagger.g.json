@@ -2838,33 +2838,73 @@
         ],
         "additionalProperties": false
       },
-      "AttributesInStaffMemberResponse": {
+      "AttributesInResponse": {
+        "required": [
+          "openapi:discriminator"
+        ],
         "type": "object",
         "properties": {
-          "Name": {
-            "type": "string"
-          },
-          "Age": {
-            "type": "integer",
-            "format": "int32"
-          }
-        },
-        "additionalProperties": false
-      },
-      "AttributesInSupermarketResponse": {
-        "type": "object",
-        "properties": {
-          "NameOfCity": {
-            "type": "string"
-          },
-          "Kind": {
+          "openapi:discriminator": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/SupermarketType"
+                "$ref": "#/components/schemas/ResourceType"
               }
             ]
           }
         },
+        "additionalProperties": false,
+        "discriminator": {
+          "propertyName": "openapi:discriminator",
+          "mapping": {
+            "StaffMembers": "#/components/schemas/AttributesInStaffMemberResponse",
+            "Supermarkets": "#/components/schemas/AttributesInSupermarketResponse"
+          }
+        },
+        "x-abstract": true
+      },
+      "AttributesInStaffMemberResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/AttributesInResponse"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "Name": {
+                "type": "string"
+              },
+              "Age": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            "additionalProperties": false
+          }
+        ],
+        "additionalProperties": false
+      },
+      "AttributesInSupermarketResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/AttributesInResponse"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "NameOfCity": {
+                "type": "string"
+              },
+              "Kind": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SupermarketType"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        ],
         "additionalProperties": false
       },
       "AttributesInUpdateRequest": {
@@ -3869,31 +3909,62 @@
         ],
         "additionalProperties": false
       },
-      "RelationshipsInSupermarketResponse": {
+      "RelationshipsInResponse": {
+        "required": [
+          "openapi:discriminator"
+        ],
         "type": "object",
         "properties": {
-          "StoreManager": {
+          "openapi:discriminator": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/ToOneStaffMemberInResponse"
-              }
-            ]
-          },
-          "BackupStoreManager": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/NullableToOneStaffMemberInResponse"
-              }
-            ]
-          },
-          "Cashiers": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ToManyStaffMemberInResponse"
+                "$ref": "#/components/schemas/ResourceType"
               }
             ]
           }
         },
+        "additionalProperties": false,
+        "discriminator": {
+          "propertyName": "openapi:discriminator",
+          "mapping": {
+            "Supermarkets": "#/components/schemas/RelationshipsInSupermarketResponse"
+          }
+        },
+        "x-abstract": true
+      },
+      "RelationshipsInSupermarketResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RelationshipsInResponse"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "StoreManager": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ToOneStaffMemberInResponse"
+                  }
+                ]
+              },
+              "BackupStoreManager": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/NullableToOneStaffMemberInResponse"
+                  }
+                ]
+              },
+              "Cashiers": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ToManyStaffMemberInResponse"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        ],
         "additionalProperties": false
       },
       "RelationshipsInUpdateRequest": {

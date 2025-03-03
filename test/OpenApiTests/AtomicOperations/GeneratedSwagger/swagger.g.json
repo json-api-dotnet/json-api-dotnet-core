@@ -6582,16 +6582,24 @@
         "additionalProperties": false
       },
       "attributesInCourseResponse": {
-        "type": "object",
-        "properties": {
-          "subject": {
-            "type": "string"
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/attributesInResponse"
           },
-          "description": {
-            "type": "string",
-            "nullable": true
+          {
+            "type": "object",
+            "properties": {
+              "subject": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "additionalProperties": false
           }
-        },
+        ],
         "additionalProperties": false
       },
       "attributesInCreateCourseRequest": {
@@ -6716,48 +6724,98 @@
         "additionalProperties": false
       },
       "attributesInEnrollmentResponse": {
-        "type": "object",
-        "properties": {
-          "enrolledAt": {
-            "type": "string",
-            "format": "date"
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/attributesInResponse"
           },
-          "graduatedAt": {
-            "type": "string",
-            "format": "date",
-            "nullable": true
-          },
-          "hasGraduated": {
-            "type": "boolean",
-            "readOnly": true
+          {
+            "type": "object",
+            "properties": {
+              "enrolledAt": {
+                "type": "string",
+                "format": "date"
+              },
+              "graduatedAt": {
+                "type": "string",
+                "format": "date",
+                "nullable": true
+              },
+              "hasGraduated": {
+                "type": "boolean",
+                "readOnly": true
+              }
+            },
+            "additionalProperties": false
           }
-        },
+        ],
         "additionalProperties": false
       },
-      "attributesInStudentResponse": {
+      "attributesInResponse": {
+        "required": [
+          "openapi:discriminator"
+        ],
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string"
-          },
-          "emailAddress": {
-            "type": "string",
-            "nullable": true
+          "openapi:discriminator": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/resourceType"
+              }
+            ]
           }
         },
+        "additionalProperties": false,
+        "discriminator": {
+          "propertyName": "openapi:discriminator",
+          "mapping": {
+            "courses": "#/components/schemas/attributesInCourseResponse",
+            "enrollments": "#/components/schemas/attributesInEnrollmentResponse",
+            "students": "#/components/schemas/attributesInStudentResponse",
+            "teachers": "#/components/schemas/attributesInTeacherResponse"
+          }
+        },
+        "x-abstract": true
+      },
+      "attributesInStudentResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/attributesInResponse"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "emailAddress": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "additionalProperties": false
+          }
+        ],
         "additionalProperties": false
       },
       "attributesInTeacherResponse": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/attributesInResponse"
           },
-          "emailAddress": {
-            "type": "string",
-            "nullable": true
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "emailAddress": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "additionalProperties": false
           }
-        },
+        ],
         "additionalProperties": false
       },
       "attributesInUpdateCourseRequest": {
@@ -8702,23 +8760,31 @@
         "additionalProperties": false
       },
       "relationshipsInCourseResponse": {
-        "type": "object",
-        "properties": {
-          "taughtBy": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/toManyTeacherInResponse"
-              }
-            ]
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/relationshipsInResponse"
           },
-          "enrollments": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/toManyEnrollmentInResponse"
+          {
+            "type": "object",
+            "properties": {
+              "taughtBy": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/toManyTeacherInResponse"
+                  }
+                ]
+              },
+              "enrollments": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/toManyEnrollmentInResponse"
+                  }
+                ]
               }
-            ]
+            },
+            "additionalProperties": false
           }
-        },
+        ],
         "additionalProperties": false
       },
       "relationshipsInCreateCourseRequest": {
@@ -8864,63 +8930,113 @@
         "additionalProperties": false
       },
       "relationshipsInEnrollmentResponse": {
-        "type": "object",
-        "properties": {
-          "student": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/toOneStudentInResponse"
-              }
-            ]
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/relationshipsInResponse"
           },
-          "course": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/toOneCourseInResponse"
+          {
+            "type": "object",
+            "properties": {
+              "student": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/toOneStudentInResponse"
+                  }
+                ]
+              },
+              "course": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/toOneCourseInResponse"
+                  }
+                ]
               }
-            ]
+            },
+            "additionalProperties": false
           }
-        },
+        ],
         "additionalProperties": false
       },
-      "relationshipsInStudentResponse": {
+      "relationshipsInResponse": {
+        "required": [
+          "openapi:discriminator"
+        ],
         "type": "object",
         "properties": {
-          "mentor": {
+          "openapi:discriminator": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/nullableToOneTeacherInResponse"
-              }
-            ]
-          },
-          "enrollments": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/toManyEnrollmentInResponse"
+                "$ref": "#/components/schemas/resourceType"
               }
             ]
           }
         },
+        "additionalProperties": false,
+        "discriminator": {
+          "propertyName": "openapi:discriminator",
+          "mapping": {
+            "courses": "#/components/schemas/relationshipsInCourseResponse",
+            "enrollments": "#/components/schemas/relationshipsInEnrollmentResponse",
+            "students": "#/components/schemas/relationshipsInStudentResponse",
+            "teachers": "#/components/schemas/relationshipsInTeacherResponse"
+          }
+        },
+        "x-abstract": true
+      },
+      "relationshipsInStudentResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/relationshipsInResponse"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "mentor": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/nullableToOneTeacherInResponse"
+                  }
+                ]
+              },
+              "enrollments": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/toManyEnrollmentInResponse"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        ],
         "additionalProperties": false
       },
       "relationshipsInTeacherResponse": {
-        "type": "object",
-        "properties": {
-          "teaches": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/toManyCourseInResponse"
-              }
-            ]
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/relationshipsInResponse"
           },
-          "mentors": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/toManyStudentInResponse"
+          {
+            "type": "object",
+            "properties": {
+              "teaches": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/toManyCourseInResponse"
+                  }
+                ]
+              },
+              "mentors": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/toManyStudentInResponse"
+                  }
+                ]
               }
-            ]
+            },
+            "additionalProperties": false
           }
-        },
+        ],
         "additionalProperties": false
       },
       "relationshipsInUpdateCourseRequest": {

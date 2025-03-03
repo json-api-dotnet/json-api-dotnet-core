@@ -5,14 +5,11 @@ using JsonApiDotNetCore.Configuration;
 using JsonApiDotNetCore.OpenApi.Swashbuckle.JsonApiMetadata;
 using JsonApiDotNetCore.OpenApi.Swashbuckle.JsonApiObjects.ResourceObjects;
 using JsonApiDotNetCore.OpenApi.Swashbuckle.SwaggerComponents;
-using JsonApiDotNetCore.Resources;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace JsonApiDotNetCore.OpenApi.Swashbuckle.SchemaGenerators.Components;
-
-// TODO: Cleanup.
 
 internal sealed class DataSchemaGenerator
 {
@@ -94,7 +91,7 @@ internal sealed class DataSchemaGenerator
         var resourceSchemaType = ResourceSchemaType.Create(dataSchemaType, _resourceGraph);
         ResourceType resourceType = resourceSchemaType.ResourceType;
 
-        Type? commonDataSchemaType = GetCommonDataSchemaType(resourceSchemaType.SchemaOpenType);
+        Type? commonDataSchemaType = GetCommonSchemaType(resourceSchemaType.SchemaOpenType);
 
         if (commonDataSchemaType != null)
         {
@@ -134,7 +131,7 @@ internal sealed class DataSchemaGenerator
 
         if (commonDataSchemaType != null)
         {
-            MapDataInDiscriminator(resourceSchemaType, forRequestSchema, schemaRepository);
+            MapInDiscriminator(resourceSchemaType, forRequestSchema, JsonApiPropertyName.Type, schemaRepository);
         }
 
         if (RequiresRootObjectTypeInDataSchema(resourceSchemaType, forRequestSchema))
@@ -145,7 +142,7 @@ internal sealed class DataSchemaGenerator
         return referenceSchemaForData;
     }
 
-    private static Type? GetCommonDataSchemaType(Type schemaOpenType)
+    private static Type? GetCommonSchemaType(Type schemaOpenType)
     {
         if (schemaOpenType == typeof(IdentifierInRequest<>))
         {
@@ -157,21 +154,6 @@ internal sealed class DataSchemaGenerator
             return typeof(ResourceInCreateRequest);
         }
 
-        if (schemaOpenType == typeof(DataInUpdateRequest<>))
-        {
-            return typeof(ResourceInUpdateRequest);
-        }
-
-        if (schemaOpenType == typeof(DataInResponse<>))
-        {
-            return typeof(ResourceInResponse);
-        }
-
-        return null;
-    }
-
-    private static Type GetCommonFieldsSchemaType(Type schemaOpenType)
-    {
         if (schemaOpenType == typeof(AttributesInCreateRequest<>))
         {
             return typeof(AttributesInCreateRequest);
@@ -182,6 +164,11 @@ internal sealed class DataSchemaGenerator
             return typeof(RelationshipsInCreateRequest);
         }
 
+        if (schemaOpenType == typeof(DataInUpdateRequest<>))
+        {
+            return typeof(ResourceInUpdateRequest);
+        }
+
         if (schemaOpenType == typeof(AttributesInUpdateRequest<>))
         {
             return typeof(AttributesInUpdateRequest);
@@ -190,6 +177,26 @@ internal sealed class DataSchemaGenerator
         if (schemaOpenType == typeof(RelationshipsInUpdateRequest<>))
         {
             return typeof(RelationshipsInUpdateRequest);
+        }
+
+        if (schemaOpenType == typeof(IdentifierInResponse<>))
+        {
+            return null;
+        }
+
+        if (schemaOpenType == typeof(DataInResponse<>))
+        {
+            return typeof(ResourceInResponse);
+        }
+
+        if (schemaOpenType == typeof(AttributesInResponse<>))
+        {
+            return typeof(AttributesInResponse);
+        }
+
+        if (schemaOpenType == typeof(RelationshipsInResponse<>))
+        {
+            return typeof(RelationshipsInResponse);
         }
 
         throw new UnreachableException();
@@ -233,43 +240,6 @@ internal sealed class DataSchemaGenerator
 
         referenceSchema = schemaRepository.AddDefinition(schemaId, fullSchema);
         schemaRepository.RegisterType(commonDataSchemaType, schemaId);
-
-        return referenceSchema;
-    }
-
-    private OpenApiSchema GenerateSchemaForCommonFields(Type commonFieldsSchemaType, SchemaRepository schemaRepository)
-    {
-        if (schemaRepository.TryLookupByType(commonFieldsSchemaType, out OpenApiSchema? referenceSchema))
-        {
-            return referenceSchema;
-        }
-
-        OpenApiSchema referenceSchemaForResourceType = _resourceTypeSchemaGenerator.GenerateSchema(schemaRepository);
-
-        var fullSchema = new OpenApiSchema
-        {
-            Type = "object",
-            Required = new SortedSet<string>([OpenApiMediaTypeExtension.FullyQualifiedOpenApiDiscriminatorPropertyName]),
-            Properties = new Dictionary<string, OpenApiSchema>
-            {
-                [OpenApiMediaTypeExtension.FullyQualifiedOpenApiDiscriminatorPropertyName] = referenceSchemaForResourceType.WrapInExtendedSchema()
-            },
-            AdditionalPropertiesAllowed = false,
-            Discriminator = new OpenApiDiscriminator
-            {
-                PropertyName = OpenApiMediaTypeExtension.FullyQualifiedOpenApiDiscriminatorPropertyName,
-                Mapping = new SortedDictionary<string, string>(StringComparer.Ordinal)
-            },
-            Extensions =
-            {
-                ["x-abstract"] = new OpenApiBoolean(true)
-            }
-        };
-
-        string schemaId = _schemaIdSelector.GetSchemaId(commonFieldsSchemaType);
-
-        referenceSchema = schemaRepository.AddDefinition(schemaId, fullSchema);
-        schemaRepository.RegisterType(commonFieldsSchemaType, schemaId);
 
         return referenceSchema;
     }
@@ -389,19 +359,6 @@ internal sealed class DataSchemaGenerator
         }
     }
 
-    private ResourceSchemaType GetResourceSchemaTypeForFieldsProperty(ResourceSchemaType resourceSchemaTypeForData, string propertyName)
-    {
-        PropertyInfo? fieldsProperty = resourceSchemaTypeForData.SchemaConstructedType.GetProperty(propertyName);
-
-        if (fieldsProperty == null)
-        {
-            throw new UnreachableException();
-        }
-
-        Type fieldsConstructedType = fieldsProperty.PropertyType;
-        return ResourceSchemaType.Create(fieldsConstructedType, _resourceGraph);
-    }
-
     private void SetFieldSchemaMembers(OpenApiSchema fullSchemaForData, ResourceSchemaType resourceSchemaTypeForData, bool forRequestSchema, bool forAttributes,
         ResourceFieldSchemaBuilder fieldSchemaBuilder, SchemaRepository schemaRepository)
     {
@@ -429,118 +386,164 @@ internal sealed class DataSchemaGenerator
         }
         else
         {
-            ResourceSchemaType? resourceSchemaTypeForFields =
+            ResourceSchemaType resourceSchemaTypeForFields =
                 GetResourceSchemaTypeForFieldsProperty(resourceSchemaTypeForData, forAttributes ? "Attributes" : "Relationships");
 
-            if (forRequestSchema)
+            Type? commonFieldsSchemaType = GetCommonSchemaType(resourceSchemaTypeForFields.SchemaOpenType);
+
+            if (commonFieldsSchemaType == null)
             {
-                Type commonFieldsSchemaType = GetCommonFieldsSchemaType(resourceSchemaTypeForFields.SchemaOpenType);
+                throw new UnreachableException();
+            }
 
-                _ = GenerateSchemaForCommonFields(commonFieldsSchemaType, schemaRepository);
-                MapFieldsInDiscriminator(resourceSchemaTypeForFields, schemaRepository);
+            _ = GenerateSchemaForCommonFields(commonFieldsSchemaType, schemaRepository);
 
-                Type baseSchemaType;
+            MapInDiscriminator(resourceSchemaTypeForFields, forRequestSchema, OpenApiMediaTypeExtension.FullyQualifiedOpenApiDiscriminatorPropertyName,
+                schemaRepository);
 
-                if (resourceSchemaTypeForFields.ResourceType.BaseType != null)
-                {
-                    ResourceSchemaType? resourceSchemaTypeForBase =
-                        resourceSchemaTypeForFields.ChangeResourceType(resourceSchemaTypeForFields.ResourceType.BaseType);
+            Type baseSchemaType;
 
-                    baseSchemaType = resourceSchemaTypeForBase.SchemaConstructedType;
-                }
-                else
-                {
-                    baseSchemaType = commonFieldsSchemaType;
-                }
+            if (resourceSchemaTypeForFields.ResourceType.BaseType != null)
+            {
+                ResourceSchemaType resourceSchemaTypeForBase =
+                    resourceSchemaTypeForFields.ChangeResourceType(resourceSchemaTypeForFields.ResourceType.BaseType);
 
-                OpenApiSchema referenceSchemaForBase = schemaRepository.LookupByType(baseSchemaType);
-
-                schemaRepository.Schemas[referenceSchemaForFields.Reference.Id] = new OpenApiSchema
-                {
-                    AllOf =
-                    [
-                        referenceSchemaForBase,
-                        fullSchemaForFields
-                    ],
-                    AdditionalPropertiesAllowed = false
-                };
+                baseSchemaType = resourceSchemaTypeForBase.SchemaConstructedType;
             }
             else
             {
-                // original code
-                if (resourceSchemaTypeForData.ResourceType.IsPartOfTypeHierarchy())
-                {
-                    if (resourceSchemaTypeForData.ResourceType.BaseType == null)
-                    {
-                        CreateFieldsDiscriminator(fullSchemaForFields, schemaRepository);
-                    }
-                    else
-                    {
-                        string propertyNameInSchemaType = forAttributes
-                            ? nameof(DataInResponse<IIdentifiable>.Attributes)
-                            : nameof(DataInResponse<IIdentifiable>.Relationships);
-
-                        Type fieldsSchemaType = GetSchemaTypeForProperty(resourceSchemaTypeForData.SchemaConstructedType, propertyNameInSchemaType);
-                        MapFieldsInDiscriminator(fieldsSchemaType, resourceSchemaTypeForData.ResourceType, schemaRepository);
-
-                        Type baseSchemaType = ChangeResourceTypeInSchemaType(fieldsSchemaType, resourceSchemaTypeForData.ResourceType.BaseType);
-                        OpenApiSchema referenceSchemaForBase = schemaRepository.LookupByType(baseSchemaType);
-
-                        schemaRepository.Schemas[referenceSchemaForFields.Reference.Id] = new OpenApiSchema
-                        {
-                            AllOf =
-                            [
-                                referenceSchemaForBase,
-                                fullSchemaForFields
-                            ],
-                            AdditionalPropertiesAllowed = false
-                        };
-                    }
-                }
+                baseSchemaType = commonFieldsSchemaType;
             }
+
+            OpenApiSchema referenceSchemaForBase = schemaRepository.LookupByType(baseSchemaType);
+
+            schemaRepository.Schemas[referenceSchemaForFields.Reference.Id] = new OpenApiSchema
+            {
+                AllOf =
+                [
+                    referenceSchemaForBase,
+                    fullSchemaForFields
+                ],
+                AdditionalPropertiesAllowed = false
+            };
         }
     }
 
-    private void CreateFieldsDiscriminator(OpenApiSchema fullSchema, SchemaRepository schemaRepository)
+    private ResourceSchemaType GetResourceSchemaTypeForFieldsProperty(ResourceSchemaType resourceSchemaTypeForData, string propertyName)
     {
-        OpenApiSchema referenceSchemaForResourceType = _resourceTypeSchemaGenerator.GenerateSchema(schemaRepository);
+        PropertyInfo? fieldsProperty = resourceSchemaTypeForData.SchemaConstructedType.GetProperty(propertyName);
 
-        fullSchema.Properties.Add(OpenApiMediaTypeExtension.FullyQualifiedOpenApiDiscriminatorPropertyName,
-            referenceSchemaForResourceType.WrapInExtendedSchema());
-
-        fullSchema.Required.Add(OpenApiMediaTypeExtension.FullyQualifiedOpenApiDiscriminatorPropertyName);
-
-        fullSchema.Discriminator = new OpenApiDiscriminator
-        {
-            PropertyName = OpenApiMediaTypeExtension.FullyQualifiedOpenApiDiscriminatorPropertyName,
-            Mapping = new SortedDictionary<string, string>(StringComparer.Ordinal)
-        };
-    }
-
-    private static Type GetSchemaTypeForProperty(Type containingType, string propertyName)
-    {
-        PropertyInfo? propertyInfo = containingType.GetProperty(propertyName);
-
-        if (propertyInfo == null)
+        if (fieldsProperty == null)
         {
             throw new UnreachableException();
         }
 
-        return propertyInfo.PropertyType;
+        Type fieldsConstructedType = fieldsProperty.PropertyType;
+        return ResourceSchemaType.Create(fieldsConstructedType, _resourceGraph);
     }
 
-    private void MapFieldsInDiscriminator(Type schemaType, ResourceType resourceType, SchemaRepository schemaRepository)
+    private OpenApiSchema GenerateSchemaForCommonFields(Type commonFieldsSchemaType, SchemaRepository schemaRepository)
     {
-        OpenApiSchema referenceSchemaForDerived = schemaRepository.LookupByType(schemaType);
-        ResourceType ultimateBaseResourceType = GetUltimateBaseType(resourceType);
-        Type ultimateBaseSchemaType = ChangeResourceTypeInSchemaType(schemaType, ultimateBaseResourceType);
-
-        OpenApiSchema referenceSchemaForUltimateBase = schemaRepository.LookupByType(ultimateBaseSchemaType);
-        OpenApiSchema fullSchemaForUltimateBase = schemaRepository.Schemas[referenceSchemaForUltimateBase.Reference.Id];
-
-        if (fullSchemaForUltimateBase.Discriminator.Mapping.TryAdd(resourceType.PublicName, referenceSchemaForDerived.Reference.ReferenceV3))
+        if (schemaRepository.TryLookupByType(commonFieldsSchemaType, out OpenApiSchema? referenceSchema))
         {
-            MapResourceTypeInEnum(resourceType.PublicName, schemaRepository);
+            return referenceSchema;
+        }
+
+        OpenApiSchema referenceSchemaForResourceType = _resourceTypeSchemaGenerator.GenerateSchema(schemaRepository);
+
+        var fullSchema = new OpenApiSchema
+        {
+            Type = "object",
+            Required = new SortedSet<string>([OpenApiMediaTypeExtension.FullyQualifiedOpenApiDiscriminatorPropertyName]),
+            Properties = new Dictionary<string, OpenApiSchema>
+            {
+                [OpenApiMediaTypeExtension.FullyQualifiedOpenApiDiscriminatorPropertyName] = referenceSchemaForResourceType.WrapInExtendedSchema()
+            },
+            AdditionalPropertiesAllowed = false,
+            Discriminator = new OpenApiDiscriminator
+            {
+                PropertyName = OpenApiMediaTypeExtension.FullyQualifiedOpenApiDiscriminatorPropertyName,
+                Mapping = new SortedDictionary<string, string>(StringComparer.Ordinal)
+            },
+            Extensions =
+            {
+                ["x-abstract"] = new OpenApiBoolean(true)
+            }
+        };
+
+        string schemaId = _schemaIdSelector.GetSchemaId(commonFieldsSchemaType);
+
+        referenceSchema = schemaRepository.AddDefinition(schemaId, fullSchema);
+        schemaRepository.RegisterType(commonFieldsSchemaType, schemaId);
+
+        return referenceSchema;
+    }
+
+    private void MapInDiscriminator(ResourceSchemaType resourceSchemaType, bool forRequestSchema, string discriminatorPropertyName,
+        SchemaRepository schemaRepository)
+    {
+        OpenApiSchema referenceSchemaForDerived = schemaRepository.LookupByType(resourceSchemaType.SchemaConstructedType);
+
+        foreach (ResourceType? baseResourceType in GetBaseTypesToMapInto(resourceSchemaType, forRequestSchema))
+        {
+            Type baseSchemaType = baseResourceType == null
+                ? GetCommonSchemaType(resourceSchemaType.SchemaOpenType)!
+                : resourceSchemaType.ChangeResourceType(baseResourceType).SchemaConstructedType;
+
+            OpenApiSchema referenceSchemaForBase = schemaRepository.LookupByType(baseSchemaType);
+            OpenApiSchema inlineSchemaForBase = schemaRepository.Schemas[referenceSchemaForBase.Reference.Id].UnwrapLastExtendedSchema();
+
+            inlineSchemaForBase.Discriminator ??= new OpenApiDiscriminator
+            {
+                PropertyName = discriminatorPropertyName,
+                Mapping = new SortedDictionary<string, string>(StringComparer.Ordinal)
+            };
+
+            string publicName = resourceSchemaType.ResourceType.PublicName;
+
+            if (inlineSchemaForBase.Discriminator.Mapping.TryAdd(publicName, referenceSchemaForDerived.Reference.ReferenceV3) && baseResourceType == null)
+            {
+                MapResourceTypeInEnum(publicName, schemaRepository);
+            }
+        }
+    }
+
+    private static IEnumerable<ResourceType?> GetBaseTypesToMapInto(ResourceSchemaType resourceSchemaType, bool forRequestSchema)
+    {
+        bool dependsOnCommonSchemaType = GetCommonSchemaType(resourceSchemaType.SchemaOpenType) != null;
+
+        if (RepeatDiscriminatorInResponseDerivedTypes && !forRequestSchema)
+        {
+            ResourceType? baseType = resourceSchemaType.ResourceType.BaseType;
+
+            while (baseType != null)
+            {
+                yield return baseType;
+                baseType = baseType.BaseType;
+            }
+        }
+        else
+        {
+            if (!dependsOnCommonSchemaType)
+            {
+                yield return GetUltimateBaseType(resourceSchemaType.ResourceType);
+            }
+        }
+
+        if (dependsOnCommonSchemaType)
+        {
+            yield return null;
+        }
+    }
+
+    private void MapResourceTypeInEnum(string publicName, SchemaRepository schemaRepository)
+    {
+        string schemaId = _schemaIdSelector.GetResourceTypeSchemaId(null);
+        OpenApiSchema fullSchema = schemaRepository.Schemas[schemaId];
+
+        if (!fullSchema.Enum.Any(openApiAny => openApiAny is OpenApiString openApiString && openApiString.Value == publicName))
+        {
+            fullSchema.Enum.Add(new OpenApiString(publicName));
         }
     }
 
@@ -572,7 +575,7 @@ internal sealed class DataSchemaGenerator
 
             SetAbstract(inlineSchemaForDerived, resourceSchemaTypeForDerived);
             RemoveProperties(inlineSchemaForDerived);
-            MapDataInDiscriminator(resourceSchemaTypeForDerived, forRequestSchema, schemaRepository);
+            MapInDiscriminator(resourceSchemaTypeForDerived, forRequestSchema, JsonApiPropertyName.Type, schemaRepository);
 
             if (fullSchemaForDerived.AllOf.Count == 0)
             {
@@ -612,93 +615,10 @@ internal sealed class DataSchemaGenerator
         }
     }
 
-    private void MapDataInDiscriminator(ResourceSchemaType resourceSchemaType, bool forRequestSchema, SchemaRepository schemaRepository)
-    {
-        OpenApiSchema referenceSchemaForDerived = schemaRepository.LookupByType(resourceSchemaType.SchemaConstructedType);
-
-        foreach (ResourceType? baseResourceType in GetBaseResourceTypesToMapDataInto(resourceSchemaType, forRequestSchema))
-        {
-            Type baseSchemaType = baseResourceType == null
-                ? GetCommonDataSchemaType(resourceSchemaType.SchemaOpenType)!
-                : resourceSchemaType.ChangeResourceType(baseResourceType).SchemaConstructedType;
-
-            OpenApiSchema referenceSchemaForBase = schemaRepository.LookupByType(baseSchemaType);
-            OpenApiSchema inlineSchemaForBase = schemaRepository.Schemas[referenceSchemaForBase.Reference.Id].UnwrapLastExtendedSchema();
-
-            inlineSchemaForBase.Discriminator ??= new OpenApiDiscriminator
-            {
-                PropertyName = JsonApiPropertyName.Type,
-                Mapping = new SortedDictionary<string, string>(StringComparer.Ordinal)
-            };
-
-            string publicName = resourceSchemaType.ResourceType.PublicName;
-
-            if (inlineSchemaForBase.Discriminator.Mapping.TryAdd(publicName, referenceSchemaForDerived.Reference.ReferenceV3) && baseResourceType == null)
-            {
-                MapResourceTypeInEnum(publicName, schemaRepository);
-            }
-        }
-    }
-
-    private void MapFieldsInDiscriminator(ResourceSchemaType resourceSchemaType, SchemaRepository schemaRepository)
-    {
-        OpenApiSchema referenceSchemaForDerived = schemaRepository.LookupByType(resourceSchemaType.SchemaConstructedType);
-
-        Type baseSchemaType = GetCommonFieldsSchemaType(resourceSchemaType.SchemaOpenType);
-        OpenApiSchema referenceSchemaForBase = schemaRepository.LookupByType(baseSchemaType);
-        OpenApiSchema inlineSchemaForBase = schemaRepository.Schemas[referenceSchemaForBase.Reference.Id].UnwrapLastExtendedSchema();
-
-        string publicName = resourceSchemaType.ResourceType.PublicName;
-
-        if (inlineSchemaForBase.Discriminator.Mapping.TryAdd(publicName, referenceSchemaForDerived.Reference.ReferenceV3))
-        {
-            MapResourceTypeInEnum(publicName, schemaRepository);
-        }
-    }
-
-    private static IEnumerable<ResourceType?> GetBaseResourceTypesToMapDataInto(ResourceSchemaType resourceSchemaType, bool forRequestSchema)
-    {
-        bool dependsOnCommonDataSchemaType = GetCommonDataSchemaType(resourceSchemaType.SchemaOpenType) != null;
-
-        if (RepeatDiscriminatorInResponseDerivedTypes && !forRequestSchema)
-        {
-            ResourceType? baseType = resourceSchemaType.ResourceType.BaseType;
-
-            while (baseType != null)
-            {
-                yield return baseType;
-                baseType = baseType.BaseType;
-            }
-        }
-        else
-        {
-            if (!dependsOnCommonDataSchemaType)
-            {
-                yield return GetUltimateBaseType(resourceSchemaType.ResourceType);
-            }
-        }
-
-        if (dependsOnCommonDataSchemaType)
-        {
-            yield return null;
-        }
-    }
-
-    private void MapResourceTypeInEnum(string publicName, SchemaRepository schemaRepository)
-    {
-        string schemaId = _schemaIdSelector.GetResourceTypeSchemaId(null);
-        OpenApiSchema fullSchema = schemaRepository.Schemas[schemaId];
-
-        if (!fullSchema.Enum.Any(openApiAny => openApiAny is OpenApiString openApiString && openApiString.Value == publicName))
-        {
-            fullSchema.Enum.Add(new OpenApiString(publicName));
-        }
-    }
-
     // TODO: Also call for attributes/relationships?
     private static bool RequiresRootObjectTypeInDataSchema(ResourceSchemaType resourceSchemaType, bool forRequestSchema)
     {
-        Type? commonDataSchemaType = GetCommonDataSchemaType(resourceSchemaType.SchemaOpenType);
+        Type? commonDataSchemaType = GetCommonSchemaType(resourceSchemaType.SchemaOpenType);
 
         if (forRequestSchema && (commonDataSchemaType == typeof(IdentifierInRequest) ||
             (!resourceSchemaType.ResourceType.ClrType.IsAbstract && commonDataSchemaType is { IsGenericType: false })))

@@ -4122,50 +4122,100 @@
         "additionalProperties": false
       },
       "attributesInDataStreamResponse": {
-        "type": "object",
-        "properties": {
-          "bytesTransmitted": {
-            "type": "integer",
-            "format": "int64"
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/attributesInResponse"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "bytesTransmitted": {
+                "type": "integer",
+                "format": "int64"
+              }
+            },
+            "additionalProperties": false
           }
-        },
+        ],
         "additionalProperties": false
       },
       "attributesInReadOnlyChannelResponse": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "nullable": true
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/attributesInResponse"
           },
-          "isCommercial": {
-            "type": "boolean",
-            "nullable": true
-          },
-          "isAdultOnly": {
-            "type": "boolean",
-            "nullable": true
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "nullable": true
+              },
+              "isCommercial": {
+                "type": "boolean",
+                "nullable": true
+              },
+              "isAdultOnly": {
+                "type": "boolean",
+                "nullable": true
+              }
+            },
+            "additionalProperties": false
           }
-        },
+        ],
         "additionalProperties": false
       },
       "attributesInReadOnlyResourceChannelResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/attributesInResponse"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "nullable": true
+              },
+              "isCommercial": {
+                "type": "boolean",
+                "nullable": true
+              },
+              "isAdultOnly": {
+                "type": "boolean",
+                "nullable": true
+              }
+            },
+            "additionalProperties": false
+          }
+        ],
+        "additionalProperties": false
+      },
+      "attributesInResponse": {
+        "required": [
+          "openapi:discriminator"
+        ],
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string",
-            "nullable": true
-          },
-          "isCommercial": {
-            "type": "boolean",
-            "nullable": true
-          },
-          "isAdultOnly": {
-            "type": "boolean",
-            "nullable": true
+          "openapi:discriminator": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/resourceType"
+              }
+            ]
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "discriminator": {
+          "propertyName": "openapi:discriminator",
+          "mapping": {
+            "dataStreams": "#/components/schemas/attributesInDataStreamResponse",
+            "readOnlyChannels": "#/components/schemas/attributesInReadOnlyChannelResponse",
+            "readOnlyResourceChannels": "#/components/schemas/attributesInReadOnlyResourceChannelResponse",
+            "writeOnlyChannels": "#/components/schemas/attributesInWriteOnlyChannelResponse"
+          }
+        },
+        "x-abstract": true
       },
       "attributesInUpdateRequest": {
         "required": [
@@ -4217,21 +4267,29 @@
         "additionalProperties": false
       },
       "attributesInWriteOnlyChannelResponse": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "nullable": true
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/attributesInResponse"
           },
-          "isCommercial": {
-            "type": "boolean",
-            "nullable": true
-          },
-          "isAdultOnly": {
-            "type": "boolean",
-            "nullable": true
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "nullable": true
+              },
+              "isCommercial": {
+                "type": "boolean",
+                "nullable": true
+              },
+              "isAdultOnly": {
+                "type": "boolean",
+                "nullable": true
+              }
+            },
+            "additionalProperties": false
           }
-        },
+        ],
         "additionalProperties": false
       },
       "createWriteOnlyChannelRequestDocument": {
@@ -5217,58 +5275,99 @@
         "additionalProperties": false
       },
       "relationshipsInReadOnlyChannelResponse": {
-        "type": "object",
-        "properties": {
-          "videoStream": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/toOneDataStreamInResponse"
-              }
-            ]
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/relationshipsInResponse"
           },
-          "ultraHighDefinitionVideoStream": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/nullableToOneDataStreamInResponse"
+          {
+            "type": "object",
+            "properties": {
+              "videoStream": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/toOneDataStreamInResponse"
+                  }
+                ]
+              },
+              "ultraHighDefinitionVideoStream": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/nullableToOneDataStreamInResponse"
+                  }
+                ]
+              },
+              "audioStreams": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/toManyDataStreamInResponse"
+                  }
+                ]
               }
-            ]
-          },
-          "audioStreams": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/toManyDataStreamInResponse"
-              }
-            ]
+            },
+            "additionalProperties": false
           }
-        },
+        ],
         "additionalProperties": false
       },
       "relationshipsInReadOnlyResourceChannelResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/relationshipsInResponse"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "videoStream": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/toOneDataStreamInResponse"
+                  }
+                ]
+              },
+              "ultraHighDefinitionVideoStream": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/nullableToOneDataStreamInResponse"
+                  }
+                ]
+              },
+              "audioStreams": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/toManyDataStreamInResponse"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        ],
+        "additionalProperties": false
+      },
+      "relationshipsInResponse": {
+        "required": [
+          "openapi:discriminator"
+        ],
         "type": "object",
         "properties": {
-          "videoStream": {
+          "openapi:discriminator": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/toOneDataStreamInResponse"
-              }
-            ]
-          },
-          "ultraHighDefinitionVideoStream": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/nullableToOneDataStreamInResponse"
-              }
-            ]
-          },
-          "audioStreams": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/toManyDataStreamInResponse"
+                "$ref": "#/components/schemas/resourceType"
               }
             ]
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "discriminator": {
+          "propertyName": "openapi:discriminator",
+          "mapping": {
+            "readOnlyChannels": "#/components/schemas/relationshipsInReadOnlyChannelResponse",
+            "readOnlyResourceChannels": "#/components/schemas/relationshipsInReadOnlyResourceChannelResponse",
+            "writeOnlyChannels": "#/components/schemas/relationshipsInWriteOnlyChannelResponse"
+          }
+        },
+        "x-abstract": true
       },
       "relationshipsInUpdateRequest": {
         "required": [
@@ -5329,30 +5428,38 @@
         "additionalProperties": false
       },
       "relationshipsInWriteOnlyChannelResponse": {
-        "type": "object",
-        "properties": {
-          "videoStream": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/toOneDataStreamInResponse"
-              }
-            ]
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/relationshipsInResponse"
           },
-          "ultraHighDefinitionVideoStream": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/nullableToOneDataStreamInResponse"
+          {
+            "type": "object",
+            "properties": {
+              "videoStream": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/toOneDataStreamInResponse"
+                  }
+                ]
+              },
+              "ultraHighDefinitionVideoStream": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/nullableToOneDataStreamInResponse"
+                  }
+                ]
+              },
+              "audioStreams": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/toManyDataStreamInResponse"
+                  }
+                ]
               }
-            ]
-          },
-          "audioStreams": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/toManyDataStreamInResponse"
-              }
-            ]
+            },
+            "additionalProperties": false
           }
-        },
+        ],
         "additionalProperties": false
       },
       "resourceCollectionTopLevelLinks": {

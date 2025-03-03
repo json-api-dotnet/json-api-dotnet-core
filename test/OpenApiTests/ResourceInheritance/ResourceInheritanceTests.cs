@@ -110,10 +110,13 @@ public abstract class ResourceInheritanceTests : IClassFixture<OpenApiTestContex
         }
     }
 
-    public virtual async Task Expected_names_appear_in_openapi_discriminator_mapping(string schemaName, string? discriminatorValues)
+    public virtual async Task Expected_names_appear_in_openapi_discriminator_mapping(string prefixedSchemaName, string? discriminatorValues)
     {
         // Act
         JsonElement document = await _testContext.GetSwaggerDocumentAsync();
+
+        string schemaName = prefixedSchemaName.StartsWith('!') ? prefixedSchemaName[1..] : prefixedSchemaName;
+        string discriminatorPath = prefixedSchemaName.StartsWith('!') ? "allOf[1].discriminator" : "discriminator";
 
         // Assert
         if (discriminatorValues == null)
@@ -124,7 +127,7 @@ public abstract class ResourceInheritanceTests : IClassFixture<OpenApiTestContex
         {
             document.Should().ContainPath($"components.schemas.{schemaName}").With(schemaElement =>
             {
-                schemaElement.Should().ContainPath("discriminator").With(discriminatorElement =>
+                schemaElement.Should().ContainPath(discriminatorPath).With(discriminatorElement =>
                 {
                     discriminatorElement.Should().HaveProperty("propertyName", "openapi:discriminator");
 

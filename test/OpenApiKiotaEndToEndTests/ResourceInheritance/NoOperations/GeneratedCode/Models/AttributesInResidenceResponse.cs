@@ -29,7 +29,13 @@ namespace OpenApiKiotaEndToEndTests.ResourceInheritance.NoOperations.GeneratedCo
         public static new global::OpenApiKiotaEndToEndTests.ResourceInheritance.NoOperations.GeneratedCode.Models.AttributesInResidenceResponse CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
-            return new global::OpenApiKiotaEndToEndTests.ResourceInheritance.NoOperations.GeneratedCode.Models.AttributesInResidenceResponse();
+            var mappingValue = parseNode.GetChildNode("openapi:discriminator")?.GetStringValue();
+            return mappingValue switch
+            {
+                "familyHomes" => new global::OpenApiKiotaEndToEndTests.ResourceInheritance.NoOperations.GeneratedCode.Models.AttributesInFamilyHomeResponse(),
+                "mansions" => new global::OpenApiKiotaEndToEndTests.ResourceInheritance.NoOperations.GeneratedCode.Models.AttributesInMansionResponse(),
+                _ => new global::OpenApiKiotaEndToEndTests.ResourceInheritance.NoOperations.GeneratedCode.Models.AttributesInResidenceResponse(),
+            };
         }
 
         /// <summary>

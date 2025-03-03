@@ -98,7 +98,7 @@ public sealed class PascalCaseTests : IClassFixture<OpenApiTestContext<PascalCas
                 propertiesElement.Should().ContainProperty("self");
             });
 
-            schemasElement.Should().ContainPath($"{resourceAttributesInResponseSchemaRefId}.properties").With(propertiesElement =>
+            schemasElement.Should().ContainPath($"{resourceAttributesInResponseSchemaRefId}.allOf[1].properties").With(propertiesElement =>
             {
                 propertiesElement.Should().ContainProperty("NameOfCity");
                 propertiesElement.Should().ContainProperty("Kind");
@@ -107,7 +107,7 @@ public sealed class PascalCaseTests : IClassFixture<OpenApiTestContext<PascalCas
 
             string? nullableToOneResourceResponseDataSchemaRefId = null;
 
-            schemasElement.Should().ContainPath($"{resourceRelationshipInResponseSchemaRefId}.properties").With(propertiesElement =>
+            schemasElement.Should().ContainPath($"{resourceRelationshipInResponseSchemaRefId}.allOf[1].properties").With(propertiesElement =>
             {
                 propertiesElement.Should().ContainProperty("StoreManager");
 

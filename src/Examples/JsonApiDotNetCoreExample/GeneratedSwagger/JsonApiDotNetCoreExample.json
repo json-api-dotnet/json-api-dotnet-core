@@ -5265,60 +5265,109 @@
         "additionalProperties": false
       },
       "attributesInPersonResponse": {
-        "type": "object",
-        "properties": {
-          "firstName": {
-            "type": "string",
-            "nullable": true
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/attributesInResponse"
           },
-          "lastName": {
-            "type": "string"
-          },
-          "displayName": {
-            "type": "string",
-            "readOnly": true
+          {
+            "type": "object",
+            "properties": {
+              "firstName": {
+                "type": "string",
+                "nullable": true
+              },
+              "lastName": {
+                "type": "string"
+              },
+              "displayName": {
+                "type": "string",
+                "readOnly": true
+              }
+            },
+            "additionalProperties": false
           }
-        },
+        ],
         "additionalProperties": false
       },
-      "attributesInTagResponse": {
+      "attributesInResponse": {
+        "required": [
+          "openapi:discriminator"
+        ],
         "type": "object",
         "properties": {
-          "name": {
-            "minLength": 1,
-            "type": "string"
+          "openapi:discriminator": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/resourceType"
+              }
+            ]
           }
         },
+        "additionalProperties": false,
+        "discriminator": {
+          "propertyName": "openapi:discriminator",
+          "mapping": {
+            "people": "#/components/schemas/attributesInPersonResponse",
+            "tags": "#/components/schemas/attributesInTagResponse",
+            "todoItems": "#/components/schemas/attributesInTodoItemResponse"
+          }
+        },
+        "x-abstract": true
+      },
+      "attributesInTagResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/attributesInResponse"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        ],
         "additionalProperties": false
       },
       "attributesInTodoItemResponse": {
-        "type": "object",
-        "properties": {
-          "description": {
-            "type": "string"
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/attributesInResponse"
           },
-          "priority": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/todoItemPriority"
+          {
+            "type": "object",
+            "properties": {
+              "description": {
+                "type": "string"
+              },
+              "priority": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/todoItemPriority"
+                  }
+                ]
+              },
+              "durationInHours": {
+                "type": "integer",
+                "format": "int64",
+                "nullable": true
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "modifiedAt": {
+                "type": "string",
+                "format": "date-time",
+                "nullable": true
               }
-            ]
-          },
-          "durationInHours": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "modifiedAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
+            },
+            "additionalProperties": false
           }
-        },
+        ],
         "additionalProperties": false
       },
       "attributesInUpdatePersonRequest": {
@@ -6793,63 +6842,112 @@
         "additionalProperties": false
       },
       "relationshipsInPersonResponse": {
-        "type": "object",
-        "properties": {
-          "ownedTodoItems": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/toManyTodoItemInResponse"
-              }
-            ]
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/relationshipsInResponse"
           },
-          "assignedTodoItems": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/toManyTodoItemInResponse"
+          {
+            "type": "object",
+            "properties": {
+              "ownedTodoItems": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/toManyTodoItemInResponse"
+                  }
+                ]
+              },
+              "assignedTodoItems": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/toManyTodoItemInResponse"
+                  }
+                ]
               }
-            ]
+            },
+            "additionalProperties": false
           }
-        },
+        ],
         "additionalProperties": false
       },
-      "relationshipsInTagResponse": {
+      "relationshipsInResponse": {
+        "required": [
+          "openapi:discriminator"
+        ],
         "type": "object",
         "properties": {
-          "todoItems": {
+          "openapi:discriminator": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/toManyTodoItemInResponse"
+                "$ref": "#/components/schemas/resourceType"
               }
             ]
           }
         },
+        "additionalProperties": false,
+        "discriminator": {
+          "propertyName": "openapi:discriminator",
+          "mapping": {
+            "people": "#/components/schemas/relationshipsInPersonResponse",
+            "tags": "#/components/schemas/relationshipsInTagResponse",
+            "todoItems": "#/components/schemas/relationshipsInTodoItemResponse"
+          }
+        },
+        "x-abstract": true
+      },
+      "relationshipsInTagResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/relationshipsInResponse"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "todoItems": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/toManyTodoItemInResponse"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        ],
         "additionalProperties": false
       },
       "relationshipsInTodoItemResponse": {
-        "type": "object",
-        "properties": {
-          "owner": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/toOnePersonInResponse"
-              }
-            ]
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/relationshipsInResponse"
           },
-          "assignee": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/nullableToOnePersonInResponse"
+          {
+            "type": "object",
+            "properties": {
+              "owner": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/toOnePersonInResponse"
+                  }
+                ]
+              },
+              "assignee": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/nullableToOnePersonInResponse"
+                  }
+                ]
+              },
+              "tags": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/toManyTagInResponse"
+                  }
+                ]
               }
-            ]
-          },
-          "tags": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/toManyTagInResponse"
-              }
-            ]
+            },
+            "additionalProperties": false
           }
-        },
+        ],
         "additionalProperties": false
       },
       "relationshipsInUpdatePersonRequest": {

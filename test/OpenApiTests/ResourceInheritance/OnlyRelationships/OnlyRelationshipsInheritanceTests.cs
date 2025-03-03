@@ -75,12 +75,12 @@ public sealed class OnlyRelationshipsInheritanceTests : ResourceInheritanceTests
     [InlineData("attributesInUpdateRequest", null)]
     [InlineData("relationshipsInCreateRequest", null)]
     [InlineData("relationshipsInUpdateRequest", null)]
-    [InlineData("attributesInBuildingResponse", null)]
-    [InlineData("relationshipsInBuildingResponse", null)]
-    [InlineData("attributesInRoomResponse", null)]
-    [InlineData("relationshipsInRoomResponse", null)]
-    [InlineData("attributesInRoadResponse", null)]
-    [InlineData("relationshipsInRoadResponse", null)]
+    [InlineData("!attributesInBuildingResponse", null)]
+    [InlineData("!relationshipsInBuildingResponse", null)]
+    [InlineData("!attributesInRoomResponse", null)]
+    [InlineData("!relationshipsInRoomResponse", null)]
+    [InlineData("!attributesInRoadResponse", null)]
+    [InlineData("!relationshipsInRoadResponse", null)]
     [InlineData("atomicOperation",
         // @formatter:keep_existing_linebreaks true
         "addToResidenceRooms|updateResidenceRooms|removeFromResidenceRooms|" +
